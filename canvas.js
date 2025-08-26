@@ -50,4 +50,10 @@ function render(time) {
   requestAnimationFrame(render);
 }
 
+const u_resolution = gl.getUniformLocation(program, "u_resolution");
+gl.uniform2f(u_resolution, window.innerWidth, window.innerHeight);
+window.addEventListener('resize', () => {
+  gl.uniform2f(u_resolution, window.innerWidth, window.innerHeight);
+})
+
 requestAnimationFrame(render);

@@ -1,11 +1,16 @@
+const getPanelHtml = (title) => `
+    <div class="window-panel">
+        <p class="title" title="${title}">${title}</p>
+        <div class="buttons">
+            <button class="fullscreen" title="Fullscreen"><i class="bi bi-arrows-fullscreen"></i></button>
+            <button class="close" title="Close"><i class="bi bi-x-lg"></i></button>
+        </div>
+    </div>
+`
+
 export const aboutMe = `
     <section id="about-me" class="window">
-        <div class="window-panel">
-            <p class="title" title="About me">About me</p>
-            <div class="buttons">
-                <button class="close" title="Close"><i class="bi bi-x-lg"></i></button>
-            </div>
-        </div>
+        ${getPanelHtml('About me')}
         <div class="header">
             <img class="profile-image" src="profileImage.png" alt="">
             <div>
@@ -27,14 +32,9 @@ export const aboutMe = `
 `
 export const skills = `
     <section id="skills" class="window">
-        <div class="window-panel">
-            <p class="title" title="Skills">Skills</p>
-            <div class="buttons">
-                <button class="close" title="Close"><i class="bi bi-x-lg"></i></button>
-            </div>
-        </div>
+        ${getPanelHtml('Skills')}
         <div class="content">
-            <h2>Tools I use:</h2>
+            <p>Tools I use:</p>
             <div id="tools-container" class="tools-container">
                 <span>Adobe Illustrator</span>
                 <span>Adobe Photoshop</span>
@@ -45,7 +45,7 @@ export const skills = `
                 <span>Postgre SQL</span>
                 <span>Git</span>
             </div>
-            <h2>Frameworks and languages I use/used</h2>
+            <p>Frameworks and languages I use/used:</p>
             <div id="pl-container" class="tools-container">
                 <span>С++</span>
                 <span>Java Script</span>
@@ -57,14 +57,12 @@ export const skills = `
                 <span>OpenGL Shading Language</span>
             </div>
             <h2>Web Development</h2>
-            <div id="skills-web-dev-container">
-                <img class="background" src="React-icon.svg" alt="react">
-                <p>Most of pages I made don't use any libraries. The page you see now also does not use any libraries at all.</p>
-                <p>I used libraries and frameworks only when I had a need in backend and data storage.</p>
-                <p>The only framework I tried to apply on practice is express.</p>
-            </div>
+            <p>Most of pages I made don't use any libraries. The page you see now also does not use any libraries at all.</p>
+            <p>I used libraries and frameworks only when I had a need in backend and data storage.</p>
+            <p>The only framework I tried to apply on practice is express.</p>
             <h2>Game Development</h2>
             <img id="godot-unity-content-img" src="godotVsUnity.png" alt="godotVsUnity">
+            <p>I began from SFML library. This is C++ library for developing games. The only reason why I chose it - I thought it's way better than Game Engines for no reason. Due to how complex C++ is to me I dropped it quite quickly.</p>
             <p>All games I've made were done with Godot game engine. The simplicity and speed of the engine make it a top priority for me.</p>
             <p>I had a try to use Unity game engine. It's very heavy and much more complex. I understand that Unity might be better for more complex projects but it doesn't seem to be necessary for me.</p>
             <p>And the most important thing - It's not necessary anymore to have a "Made with Unity" popup on load :D</p>
@@ -73,35 +71,56 @@ export const skills = `
 `
 export const creation = `
     <section id="creation" class="window">
-        <div class="window-panel">
-            <p class="title" title="Creation">Creation</p>
-            <div class="buttons">
-                <button class="close" title="Close"><i class="bi bi-x-lg"></i></button>
-            </div>
-        </div>
+        ${getPanelHtml('Creation')}
         <div class="content">
             <h1>I enjoy making digital things!</h1>
-            <p style="margin-bottom: 150px;">Below you can look at various digital things I made.</p>
+            <p>Below you can look at various digital things I made.</p>
             <h2>Few Decent Illustrations</h2>
             <div class="illustrations-container">
-                <img src="illustrations/Без названия281-1.png" alt="">
-                <img src="illustrations/Без названия325_20240522013505.jpg" alt="">
-                <img src="illustrations/Без названия459-3.jpg" alt="">
-                <img src="illustrations/Без названия467_20250416203247.png" alt="">
-                <img src="illustrations/Без названия468.png" alt="">
+                <img class="open-in-window-img open-in-window" src="illustrations/Без названия281-1.png" alt="">
+                <img class="open-in-window-img open-in-window" src="illustrations/Без названия325_20240522013505.jpg" alt="">
+                <img class="open-in-window-img open-in-window" src="illustrations/Без названия459-3.jpg" alt="">
+                <img class="open-in-window-img open-in-window" src="illustrations/Без названия467_20250416203247.png" alt="">
+                <img class="open-in-window-img open-in-window" src="illustrations/Без названия468.png" alt="">
             </div>
             <p>As I said, I don't have any special skills.</p>
             <h2>Games</h2>
-            <img class="right-image" src="snipe.png" alt="snipe">
-            <h3>Snipe</h3>
-            <p>Hit the target as long as you can! The idea is very simple but can captivate you for several minutes :D</p>
-            <img class="right-image" src="iwbtn.png" alt="iwbtn">
-            <h3>I wanna be the NDagger</h3>
-            <p>An extremely hard platformer with rather rigid controls. The experience may be a bit unusual if you are used to smoother controls.</p>
-            <p>The game is heavily inspired by I wanna be the guy and Geometry Dash.</p>
-            <img class="right-image" src="rocket.png" alt="rocket">
-            <h3>Rocket (In development)</h3>
-            <p>That's the speedrun game I'm currently making. Hopes on it to be fun :)</p>
+            <div class="game-info-container">
+                <div>
+                    <img class="open-in-window-img open-in-window" src="snipe.png" alt="snipe">
+                </div>
+                <div>
+                    <div class="title-download-container">
+                        <h3>Snipe</h3>
+                    </div>
+                    <p>Hit the target as long as you can! The idea is very simple but can captivate you for several minutes :D</p>
+                    <a class="download pc-only" href="https://ndagger1.itch.io/snipe" target="_blank">Get <i class="bi bi-pc-display-horizontal"></i> <i class="bi bi-phone"></i></a>
+                    <a class="download mobile-only" href="https://ndagger1.itch.io/snipe" target="_blank">Get <i class="bi bi-pc-display-horizontal"></i> <i class="bi bi-phone"></i></a>
+                </div>
+            </div>
+            <div class="game-info-container">
+                <div>
+                    <img class="open-in-window-img open-in-window" src="iwbtn.png" alt="iwbtn">
+                </div>
+                <div>
+                    <div class="title-download-container">
+                        <h3>I wanna be the NDagger</h3>
+                    </div>
+                    <p>An extremely hard platformer with rather rigid controls. The experience may be a bit unusual if you are used to smoother controls.</p>
+                    <p>The game is heavily inspired by I wanna be the guy and Geometry Dash.</p>
+                    <a class="download pc-only" href="https://ndagger1.itch.io/i-wanna-be-the-ndagger" target="_blank">Get <i class="bi bi-pc-display-horizontal"></i></a>
+                    <a class="download mobile-only" href="https://ndagger1.itch.io/i-wanna-be-the-ndagger" target="_blank">Get <i class="bi bi-pc-display-horizontal"></i></a>
+                </div>
+            </div>
+            <div class="game-info-container">
+                <div>
+                    <img class="open-in-window-img open-in-window" src="rocket.png" alt="rocket">
+                </div>
+                <div>
+                    <h3>Rocket (In development)</h3>
+                    <p>That's the speedrun game I'm currently making. Hopes on it to be fun :)</p>
+                </div>
+            </div>
             <h2>Web Pages</h2>
             <p>This page! I have more examples but most of them are static frontend pages with very basic functionality. </p>
         </div>
@@ -109,12 +128,7 @@ export const creation = `
 `
 export const faq = `
     <section id="faq" class="window">
-        <div class="window-panel">
-            <p class="title" title="NFAQ">NFAQ</p>
-            <div class="buttons">
-                <button class="close" title="Close"><i class="bi bi-x-lg"></i></button>
-            </div>
-        </div>
+        ${getPanelHtml('NFAQ')}
         <div class="content">
             <h1>Here you can see some not frequently asked questions answered.</h1>
             <div class="question-container">
@@ -170,4 +184,20 @@ export const faq = `
     </section>
 `
 
-export default {aboutMe, skills, creation, faq}
+export const rest = `
+    <section id="rest" class="window">
+        ${getPanelHtml('Rest')}
+        
+    </section>
+`
+
+export const image = src => `
+    <section id="${src}" class="window">
+        ${getPanelHtml(src)}
+        <div class="content image-window-content">
+            <img src=${src} alt=${src}>
+        </div>
+    </section>
+`
+
+export default {aboutMe, skills, creation, rest, faq, image}

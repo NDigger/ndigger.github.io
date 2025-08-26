@@ -16,11 +16,21 @@
 }
 
 :root {
-    --button-color: white;
+    --main-color: rgb(255, 255, 255);
+    --main-font-color: rgb(0, 0, 0);
+    --weak-inverse-main-color: rgba(0, 0, 0, 0.03);
+    --weak-font-color: rgba(0, 0, 0, 0.2);
     --window-border-radius: 10px;
+    --window-panel-color: rgb(67, 67, 67);
     --gray-color: rgb(67, 67, 67);
+    --bright-gray-color: rgb(80, 80, 80);
     --window-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     --weak-box-shadow: 0px 0px 3px gray;
+    --buttons-mobile-color: rgba(255, 255, 255, 0.5);
+}
+
+* {
+    color: var(--main-font-color)
 }
 
 #glcanvas {
@@ -49,7 +59,6 @@ body {
     max-height: 100vh;
     position: relative;
     overflow: hidden;
-    background: linear-gradient(to bottom, rgb(255, 255, 255), rgb(255, 255, 255));
 }
 
 #centered {
@@ -62,16 +71,66 @@ body {
 }
 
 #main-window {
+    position: relative;
+    max-width: 100vw;
     margin-top: 40px;
     border-radius: var(--window-border-radius);
     box-shadow: var(--window-box-shadow);
     user-select: none;
 }
 
+#music-illustration-btn {
+    position: absolute;
+    width: 150px;
+    right: 20px;
+    top: -110px;
+    filter: brightness(70%);
+    transition: filter 0.1s linear;
+}
+
+.main-window-music-particle {
+    position: absolute;
+    color: var(--weak-font-color);
+    z-index: -1;
+    animation: m-particle-disappear 3s linear;
+}
+
+@keyframes m-particle-disappear {
+    0% {
+        font-size: 2rem;
+        opacity: 1;
+    }
+    100% {
+        font-size: 1rem;
+        opacity: 0;
+    }
+}
+
+#music-illustration-btn.music-illustration-animation {
+    animation: music-illustration-anim 0.2s ease-out;
+}
+
+@keyframes music-illustration-anim {
+    0% {
+        transform: scaleY(1.1);
+    }
+    100% {
+        transform: scaleY(1);
+    }
+}
+
+#music-illustration-btn:hover {
+    filter: brightness(100%);
+}
+
+#music-illustration-btn {
+    cursor: pointer;
+}
+
 #main-window .content {
     border-bottom-left-radius: var(--window-border-radius);
     border-bottom-right-radius: var(--window-border-radius);
-    background-color: white;
+    background-color: var(--main-color);
     padding: 30px 70px;
 }
 
@@ -84,11 +143,13 @@ body {
 
 #title-author {
     font-size: 1.3em;
-    color: rgb(255, 200, 0)
+    color: rgb(255, 200, 0);
 }
 
 #buttons {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 20px;
 }
 
@@ -98,7 +159,7 @@ body {
 }
 
 #buttons > button {
-    background-color: var(--button-color);
+    background-color: transparent;
     border: var(--button-border);
     width: 100px;
     height: 100px;
@@ -135,7 +196,7 @@ body {
 
 #bottom-buttons button {
     position: relative;
-    background-color: var(--button-color);
+    background-color: var(--main-color);
     border: var(--button-border);
     width: 40px;
     height: 40px;
@@ -155,9 +216,8 @@ body {
     height: 40px;
     top: -50px;
     left: 50%;
-    transform: translate(-50%);
     border-radius: 10px;
-    background-color: white;
+    background-color: var(--main-color);
     opacity: 0;
     font-size: 1.3rem;
 }
@@ -167,26 +227,28 @@ body {
     content: '';
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
-    border-top: 10px solid white;
+    border-top: 10px solid var(--main-color);
     top: -10px;
     left: 50%;
-    transform: translate(-50%);
     opacity: 0;
 }
 
 #bottom-buttons button.copyable.show-copied-popup::after,
 #bottom-buttons button.copyable.show-copied-popup::before {
-    animation: s-popup 1.5s linear forwards;
+    animation: s-popup 2s ease-in-out forwards;
 }
 
 @keyframes s-popup {
     0% {
         opacity: 1;
+        transform: translateX(-48.5%);
     }
     40% {
+        transform: translateX(-51.5%);
         opacity: 1;
     }
     100% {
+        transform: translateX(-50%);
         opacity: 0;
     }
 }
@@ -205,22 +267,74 @@ body {
 }
 
 #music-btn {
+    display: none;
     position: absolute;
-    bottom: 20px;
+    top: 20px;
     right: 20px;
-    width: 100px;
-    height: 100px;
+    width: 60px;
+    height: 60px;
     border: none;
     background-color: transparent;
-    font-size: 3rem;
+    font-size: 1.7rem;
+    transition: font-size 0.2s linear;
+}
+
+#music-btn.music-btn-disabled::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    transform: translateY(15px) translateX(20px);
+    rotate: 45deg;
+    background: var(--gray-color); /* для примера */
+}
+
+#music-btn i {
+    color: var(--gray-color)
+}
+
+#night-mode-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 60px;
+    height: 60px;
+    border: none;
+    background-color: transparent;
+    font-size: 1.7rem;
+    transition: font-size 0.2s linear;
+}
+
+#night-mode-btn:hover, #music-btn:hover {
+    font-size: 2rem;
+}
+
+.btn-animation {
+    animation: btn-anim 0.3s ease-out;
+}
+
+@keyframes btn-anim {
+    0% {
+        rotate: 70deg;
+        scale: 0;
+    }
+    100% {
+        scale: 1;
+        rotate: 0deg;
+    }
+}
+
+#night-mode-btn i {
     color: var(--gray-color)
 }
 
 .window {
-    --width: min(700px, 100vw);
+    --width: 800px;
     --height: 500px;    
     border-radius: var(--window-border-radius);
-    background-color: white;
+    background-color: var(--main-color);
     position: fixed;
     width: var(--width);
     height: var(--height);
@@ -231,6 +345,10 @@ body {
     backdrop-filter: blur(10px); */
     box-shadow: var(--window-box-shadow);
     resize: both;
+    min-width: 500px;
+    min-height: 300px;
+    max-width: 100vw;
+    max-height: 100vh;
 }
 
 .window > .content * {
@@ -243,6 +361,14 @@ body {
 
 .window .content h2 {
     margin-top: 50px !important;
+    padding: 5px;
+    border-radius: var(--window-border-radius);
+    text-align: center;
+    background-color: var(--weak-inverse-main-color);
+}
+
+.window .content p {
+    text-align: justify;
 }
 
 .show-window {
@@ -254,13 +380,22 @@ body {
         opacity: 0;
         top: calc(50vh - var(--height) / 2);
         left: calc(50vw - var(--width) / 2);
-        scale: 0;
+        scale: 1.5;
     }
     100% {
         opacity: 1;
         top: var(--top);
         left: var(--left);
         scale: 1;
+    }
+}
+
+@keyframes s-window-mobile {
+    0% {
+        transform: translateY(100vh);
+    }
+    100% {
+        transform: translateY(0);
     }
 }
 
@@ -288,7 +423,7 @@ body {
     font-weight: 900;
     border-top-left-radius: var(--window-border-radius);
     border-top-right-radius: var(--window-border-radius);
-    background-color: var(--gray-color);
+    background-color: var(--window-panel-color);
     width: 100%;
     height: 50px;
     display: flex;
@@ -309,6 +444,11 @@ body {
 }
 
 .window-panel .title {
+    flex: 3;
+    max-width: 80%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;  
     pointer-events: visible;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -330,11 +470,19 @@ body {
     border: none;
     width: 50px;
     height: 100%;
+    transition: background-color 0.05s linear;
 }
 
 .window-panel .close {
     border-top-right-radius: var(--window-border-radius);
-    transition: background-color 0.05s linear;
+}
+
+.window-panel .fullscreen { /* CURRENTLY UNAVALIABLE */
+    display: none;
+}
+
+.window-panel .fullscreen:hover {
+    background-color: var(--bright-gray-color);
 }
 
 .window-panel .close:hover {
@@ -343,10 +491,45 @@ body {
 
 .window > .content {
     padding: 20px;
+    margin-right: 3px;
     overflow-y: scroll;
     flex: 1;
     border-bottom-left-radius: var(--window-border-radius);
     border-bottom-right-radius: var(--window-border-radius);
+    background-color: var(--main-color);
+}
+
+.window > .content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.window > .content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.window > .content::-webkit-scrollbar-thumb {
+  background: rgba(100, 100, 100, 0.5);
+  border-radius: 4px;
+}
+
+.image-window-content {
+    padding: 0px !important;
+    overflow-y: hidden !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-window-content img {
+    display: block;
+    margin: 0 auto !important;
+    max-width: 100%;
+    max-height: 100%;;
+}
+
+
+.open-in-window:hover {
+    cursor: pointer;
 }
 
 button:focus {
@@ -368,10 +551,7 @@ button:hover {
     gap: 30px;
     padding: 40px;
     padding-bottom: 20px;
-    background-color: white;
-}
-
-#about-me .header {
+    background-color: var(--main-color);
     pointer-events: none;
     user-select: none;
 }
@@ -381,13 +561,14 @@ button:hover {
 }
 
 #about-me .subtitle {
-    color: rgba(0, 0, 0, 0.2);
+    color: var(--weak-font-color);
     font-size: 1.4rem;
 }
 
 #skills .tools-container {
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-start;
     gap: 10px;
 }
 
@@ -399,7 +580,7 @@ button:hover {
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     padding: 8px;
-    color: var(--gray-color);
+    color: var(--bright-gray-color);
     transition: box-shadow 0.1s ease-out;
 }
 
@@ -421,28 +602,71 @@ button:hover {
 #creation .illustrations-container > img {
     max-width: 240px;
     max-height: 240px;
-    box-shadow: var(--weak-box-shadow);
+    border-radius: var(--window-border-radius);
+    margin: 0px;
+}
+
+#creation .game-info-container {
+    display: flex;
+    align-items: top;
+    justify-content: start;
+    min-height: 100px;
+    margin: 50px 0;
+    padding: 10px;
+}
+
+#creation .game-info-container img {
+    width: 300px;
+    margin-right: 20px;
+    border-radius: var(--window-border-radius);
+}
+
+#creation .game-info-container .title-download-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#creation .game-info-container h3 {
+    flex: 2
+}
+
+#creation .game-info-container .download {
+    flex: 1;
+    border: none;
+    text-align: center;
+    padding: 5px;
+    background-color: var(--gray-color);
+    color: white;
+    font-weight: 500;
+    display: block;
+    margin: 0 auto;
+    width: 150px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    text-decoration: none;
+    transition: background-color 0.05s ease-out;
+}
+
+#creation .game-info-container .download:hover {
+    background-color: black;
+}
+
+#creation .game-info-container .download > i {
+    color: white;
+    font-weight: 300;
+    margin-left: 5px;
+}
+
+#creation .game-info-container .download.mobile-only {
+    display: none;
+    padding: 10px;
+    font-size: 1.1rem;
+    margin-top: 30px;
 }
 
 #creation p {
     text-align:justify;
-}
-
-#skills-web-dev-container {
-    position: relative;
-}
-
-#skills-web-dev-container > .background {
-    position: absolute;
-    opacity: 0.1;
-    max-height: 100%;
-    right: 0;
-}
-
-.right-image {
-  float: left;
-  padding-right: 20px;
-  width: 225px;
 }
 
 #godot-unity-content-img {
@@ -452,7 +676,6 @@ button:hover {
 }
 
 #faq .question-container {
-    background-color: white;
     box-shadow: var(--weak-box-shadow);
     padding: 8px;
     border-radius: 10px;
@@ -521,5 +744,149 @@ button:hover {
     }
     100% {
         opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .window, .window * {
+        border-radius: unset;
+    }
+    .window {
+        position: absolute;
+        inset: 0 !important;
+        width: 100vw;
+        height: 100vw;
+        min-width: 100vw;
+        max-width: 100vw;
+        min-height: 100vh;
+        max-height: 100vh;
+    }
+
+    .window > .content {
+        margin-right: 0;
+        overflow: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .window > .content::-webkit-scrollbar {
+        display: none;
+    }
+
+    #title-author {
+        display: block;
+    }
+
+    #main-window {
+        box-shadow: none;
+        background-color: transparent;
+    }
+
+    #main-window > .window-panel {
+        display: none;
+    }
+
+    #main-window .content {
+        padding: 20px 0;
+        background-color: transparent;
+    }
+
+    #buttons {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        width: 215px;
+        margin: 0 auto;
+        gap: 15px;
+    }
+
+    #buttons > button {
+        background-color: var(--buttons-mobile-color);
+        box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    html {
+        font-size: 1.35rem;
+    }
+
+    .show-window {
+        animation: s-window-mobile 0.3s ease-out forwards;
+    }
+
+    .hide-window {
+        animation: s-window-mobile 0.3s ease-out reverse forwards;
+    }
+
+    #about-me .profile-image {
+        width: 80px;
+        height: 80px;
+    }
+
+    #about-me .header {
+        display: flex;
+        gap: 30px;
+        padding: 20px;
+    }
+
+    #about-me .profile-name {
+        font-size: 2rem;
+    }
+
+    #about-me .subtitle {
+        font-size: 1rem;
+    }
+
+    .left-image {
+        float: none;
+        width: 100%;
+        padding-right: 0px; 
+    }
+
+    #creation .illustrations-container {
+        justify-content: space-evenly;
+    }
+
+    #creation .illustrations-container > img { 
+        width: 45%;
+        max-width: none;
+        max-height: none;
+    }
+
+    #creation .game-info-container {
+        margin: 10px 0;
+        box-shadow: var(--weak-box-shadow);
+        background-color: rgba(0, 0, 0, 0.02);
+        padding: 10px;
+    }
+
+    #creation .game-info-container > img {
+        margin: 0;
+    }
+
+    #skills .tools-container > span:hover {
+        box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    #creation .game-info-container .download:hover {
+        background-color: var(--gray-color);
+    }
+
+    #creation .game-info-container .download.pc-only {
+        display: none;
+    }
+
+    #creation .game-info-container .download.mobile-only {
+        display: block;
+    }
+
+    #music-btn {
+        display: block;
+    }
+
+    #music-illustration-btn {
+        display: none;
+    }
+
+    .main-window-music-particle {
+        display: none;
     }
 }

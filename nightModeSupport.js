@@ -73,19 +73,23 @@ const sunIcon = '<i class="bi bi-sun-fill"></i>';
 const moonIcon = '<i class="bi bi-moon-fill"></i>';
 const nightModeBtn = document.getElementById('night-mode-btn')
 nightModeBtn.addEventListener('click', () => {
-    audioManager.resetPlay(audioManager.sounds.click)
     const nightModeEnabled = getNightModeEnabled()
-    restartCssAnimation(nightModeBtn, 'btn-animation');
     if (nightModeEnabled === false) {
         localStorage.setItem('night-mode-enabled', 'true');
         nightModeBtn.innerHTML = sunIcon
+        audioManager.resetPlay(audioManager.sounds.shine)
     } else {
         localStorage.setItem('night-mode-enabled', 'false');
         nightModeBtn.innerHTML = moonIcon
+        audioManager.resetPlay(audioManager.sounds.shine2)
     }
+    restartCssAnimation(nightModeBtn.querySelector('i'), 'btn-animation');
     colorChangers.map(colorChanger => colorChanger.run())
 })
 
+nightModeBtn.addEventListener('mouseover', () => {
+    audioManager.resetPlayHover(audioManager.sounds.hover);
+})
 const nightModeEnabled = getNightModeEnabled()
 nightModeBtn.innerHTML = nightModeEnabled ? sunIcon : moonIcon
 colorChangers.map(colorChanger => colorChanger.apply())

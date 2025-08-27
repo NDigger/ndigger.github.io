@@ -12,7 +12,7 @@ export const aboutMe = `
     <section id="about-me" class="window">
         ${getPanelHtml('About me')}
         <div class="header">
-            <img class="profile-image" src="profileImage.png" alt="">
+            <img class="profile-image" src="./images/profileImage.png" alt="Profile Image">
             <div>
                 <h1 class="profile-name">NDagger</h1>
                 <h2 class="subtitle">The low tier progarmer</h2>
@@ -61,7 +61,7 @@ export const skills = `
             <p>I used libraries and frameworks only when I had a need in backend and data storage.</p>
             <p>The only framework I tried to apply on practice is express.</p>
             <h2>Game Development</h2>
-            <img id="godot-unity-content-img" src="godotVsUnity.png" alt="godotVsUnity">
+            <img id="godot-unity-content-img" src="./images/godotVsUnity.png" alt="godotVsUnity">
             <p>I began from SFML library. This is C++ library for developing games. The only reason why I chose it - I thought it's way better than Game Engines for no reason. Due to how complex C++ is to me I dropped it quite quickly.</p>
             <p>All games I've made were done with Godot game engine. The simplicity and speed of the engine make it a top priority for me.</p>
             <p>I had a try to use Unity game engine. It's very heavy and much more complex. I understand that Unity might be better for more complex projects but it doesn't seem to be necessary for me.</p>
@@ -77,17 +77,17 @@ export const creation = `
             <p>Below you can look at various digital things I made.</p>
             <h2>Few Decent Illustrations</h2>
             <div class="illustrations-container">
-                <img class="open-in-window-img open-in-window" src="illustrations/Без названия281-1.png" alt="">
-                <img class="open-in-window-img open-in-window" src="illustrations/Без названия325_20240522013505.jpg" alt="">
-                <img class="open-in-window-img open-in-window" src="illustrations/Без названия459-3.jpg" alt="">
-                <img class="open-in-window-img open-in-window" src="illustrations/Без названия467_20250416203247.png" alt="">
-                <img class="open-in-window-img open-in-window" src="illustrations/Без названия468.png" alt="">
+                <img class="open-in-window-img open-in-window" src="images/illustrations/Без названия281-1.png" alt="illustration">
+                <img class="open-in-window-img open-in-window" src="images/illustrations/Без названия325_20240522013505.jpg" alt="illustration">
+                <img class="open-in-window-img open-in-window" src="images/illustrations/Без названия459-3.jpg" alt="illustration">
+                <img class="open-in-window-img open-in-window" src="images/illustrations/Без названия467_20250416203247.png" alt="illustration">
+                <img class="open-in-window-img open-in-window" src="images/illustrations/Без названия468.png" alt="illustration">
             </div>
             <p>As I said, I don't have any special skills.</p>
             <h2>Games</h2>
             <div class="game-info-container">
                 <div>
-                    <img class="open-in-window-img open-in-window" src="snipe.png" alt="snipe">
+                    <img class="open-in-window-img open-in-window" src="./images/games/snipe.png" alt="snipe">
                 </div>
                 <div>
                     <div class="title-download-container">
@@ -100,7 +100,7 @@ export const creation = `
             </div>
             <div class="game-info-container">
                 <div>
-                    <img class="open-in-window-img open-in-window" src="iwbtn.png" alt="iwbtn">
+                    <img class="open-in-window-img open-in-window" src="./images/games/iwbtn.png" alt="iwbtn">
                 </div>
                 <div>
                     <div class="title-download-container">
@@ -114,7 +114,7 @@ export const creation = `
             </div>
             <div class="game-info-container">
                 <div>
-                    <img class="open-in-window-img open-in-window" src="rocket.png" alt="rocket">
+                    <img class="open-in-window-img open-in-window" src="./images/games/rocket.png" alt="rocket">
                 </div>
                 <div>
                     <h3>Rocket (In development)</h3>
@@ -187,7 +187,66 @@ export const faq = `
 export const rest = `
     <section id="rest" class="window">
         ${getPanelHtml('Rest')}
-        
+        <div class="content">
+            <h1>What is a rest?</h1>
+            <p>What a nice question. Everyone likes to relax and everyone does it differently. From about 9 years old until about today, I relaxed inside an amazing world written with numbers and letters - a computer.</p>
+            <p>In the wonderful digital world, my main way of relaxing was playing games. Most of the time I played multiplayer games that were not based on competition, so I really just relaxed.</p>
+            <p>Even though I spent most of my time playing non-competitive games, let's not forget about the smaller part. Because of the smaller part, I broke my phone at about 12 years old :D</p>
+            <p>Besides games, I also occasionally enjoy watching anime.</p>
+            <p>Unfortunately, after I got a job, I forgot how to rest at all (even sleep). Too many negative thoughts that prevent me from opening Steam and just launching the game.</p>
+            <p>Now rarely I play quite specific games or watch specific anime. But my favorite way to relax now is YouTube.</p>
+            <h2>Recommendations list</h2>
+            <p>I like rating and sharing my small opinions about games and other. Here you can see my ratings on:
+            <h3>Games</h3>
+            <div class="ratings-container">
+                <span><span class="rating">5</span> Getting Over It</span>
+                <span><span class="rating">5</span> Saya No Uta</span>
+                <span><span class="rating">5</span> Miside</span>
+                <span><span class="rating">5</span> Portal</span>
+                <span><span class="rating">5</span> Undertale</span>
+                <span><span class="rating">4.5</span> LonaRPG</span>
+                <span><span class="rating">4.5</span> Flipwitch - Forbidden Sex Hex</span>
+                <span><span class="rating">4.5</span> Voices of the void</span>
+                <span><span class="rating">4.5</span> Entropy Zero 2</span>
+                <span><span class="rating">4.5</span> Boxman's Struggle</span>
+                <span><span class="rating">4.5</span> Infinitode 2</span>
+                <span><span class="rating">4.5</span> Black Mesa</span>
+                <span><span class="rating">4.5</span> Portal 2</span>
+                <span><span class="rating">4.5</span> Half-life 2</span>
+                <span><span class="rating">4</span> Outcore</span>
+                <span><span class="rating">4</span> Stanley Parable</span>
+                <span><span class="rating">4</span> Deltarune</span>
+                <span><span class="rating">4</span> TMNT 2007</span>
+                <span><span class="rating">3.5</span> DATA WING</span>
+                <span><span class="rating">3.5</span> One Shot</span>
+                <span><span class="rating">3.5</span> Helltaker</span>
+                <span><span class="rating">3.5</span> EDGE</span>
+                <span><span class="rating">3</span> Euphoria</span>
+                <span><span class="rating">3</span> Celeste</span>                
+                <span><span class="rating">3</span> THE CORRIDOR</span>
+                <span><span class="rating">3</span> Entropy Zero</span>
+                <span><span class="rating">3</span> Палитра Смерти</span>
+                <span><span class="rating">3</span> Paper lily - Chapter 1</span>
+                <span><span class="rating">3</span> Hello Charlotte - Episode 2</span>
+                <span><span class="rating">3</span> TWHL Tower: Source</span>
+                <span><span class="rating">3</span> Зной</span>
+                <span><span class="rating">2.5</span> Terraria</span>
+                <span><span class="rating">2.5</span> Studio System : Guardian Angel</span>
+                <span><span class="rating">2</span> Half-life C.A.G.E.D.</span>
+                <span><span class="rating">2</span> Emily Is Away</span>
+                <span><span class="rating">1.5</span> Don't Starve Together</span>
+                <span><span class="rating">1.5</span> Psychopomp</span>
+                <span><span class="rating">1.5</span> Half-life</span>
+                <span><span class="rating">0</span> Hentai Killer</span>
+            </div>
+            <h3>Anime</h3>
+            <div class="ratings-container">
+                <span><span class="rating">5</span> Made In Abyss</span>
+                <span><span class="rating">5</span> Interspecies Reviewers</span>
+                <span><span class="rating">4.5</span> Oniichan wa Oshimai!</span>
+                <span><span class="rating">2.5</span> School Days</span>
+            </div>
+        </div>
     </section>
 `
 

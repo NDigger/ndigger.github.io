@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-    <link rel="icon" href="icon.png" type="image/png">
+    <link rel="icon" id="page-icon" href="icon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="styles.css">
     <title>my dream place</title>
 </head>
@@ -65,18 +65,19 @@
         }
         
         vec2 nst = vec2(st.x + time, st.y);
+
         if (nst.y < sin(nst.x * 2.) * .1 + .2  
         || (nst.y < sin(nst.x * 2.) * .1 + .215 && nst.y > sin(nst.x * 2.) * .1 + .21 )
         ) {
             color = mix(waves_color, waves_color_2, nst.y * 2.3); // vec3(.9, .9, 1.) vec3(.9, 1., 1.)
         }
     
-    gl_FragColor = vec4(color,1.0);
+        gl_FragColor = vec4(color,1.0);
     }
   </script>
     <section id="centered">
         <div id="main-window">
-            <img id="music-illustration-btn" src="musicIllustrationActive.png" alt="illustration for window">
+            <img id="music-illustration-btn" src="./images/musicIllustrationActive.png" alt="illustration for window">
             <div class="window-panel">
                 <p class="title" title="lovely">my dream place</p>
             </div>
@@ -86,7 +87,7 @@
                     <button id="about-me-btn" title="About me"><i class="bi bi-text-center"></i><p>About me</p></button>
                     <button id="skills-btn" title="Skills"><i class="bi bi-tools"></i><p>Skills</p></button>
                     <button id="creation-btn" title="Creation"><i class="bi bi-tag"></i><p>Creation</p></button>
-                    <!-- <button id="rest-btn" title="Creation"><i class="bi bi-tag"></i><p>Rest</p></button> -->
+                    <button id="rest-btn" title="Creation"><i class="bi bi-joystick"></i><p>Rest</p></button>
                     <button id="faq-btn" title="Not Frequently Asked Questions"><i class="bi bi-question-lg"></i><p>NFAQ</p></button>
                 </div>
             </div>
@@ -97,7 +98,7 @@
         <button title="My youtube" id="youtube-btn"><i class="bi bi-youtube"></i><a href="https://www.youtube.com/@scout1495" target="_blank" title="My youtube"></a></button>
     </section>
     <button id="music-btn"><i class="bi bi-music-note-beamed"></i></button>
-    <button id="night-mode-btn" class="night-mode-btn-animation"><i class="bi bi-moon-fill"></i></button>
+    <button id="night-mode-btn" class="night-mode-btn-animation"><i class="bi bi-moon-fill night-mode-btn-animation"></i></button>
     <script src="script.js" type="module"></script>
     <script src="canvas.js"></script>
 </body>

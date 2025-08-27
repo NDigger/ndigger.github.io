@@ -80,6 +80,8 @@ body {
 }
 
 #music-illustration-btn {
+    user-select: none;
+    -webkit-user-drag: none;
     position: absolute;
     width: 150px;
     right: 20px;
@@ -211,8 +213,8 @@ body {
 
 #bottom-buttons button.copyable::after {
     position: absolute;
-    content: 'Copied!';
-    width: 120px;
+    content: 'Copied @pizda69!';
+    width: 300px;
     height: 40px;
     top: -50px;
     left: 50%;
@@ -241,14 +243,14 @@ body {
 @keyframes s-popup {
     0% {
         opacity: 1;
-        transform: translateX(-48.5%);
+        transform: translateX(-50%);
     }
     40% {
-        transform: translateX(-51.5%);
+        transform: translateX(-50%) skew(0deg);
         opacity: 1;
     }
     100% {
-        transform: translateX(-50%);
+        transform: translateX(-50%) skew(-10deg);
         opacity: 0;
     }
 }
@@ -312,6 +314,7 @@ body {
 }
 
 .btn-animation {
+    display: inline-block;
     animation: btn-anim 0.3s ease-out;
 }
 
@@ -512,6 +515,11 @@ body {
   border-radius: 4px;
 }
 
+.window > .content .centered-image {
+    display: block;
+    margin: 0 auto;
+}
+
 .image-window-content {
     padding: 0px !important;
     overflow-y: hidden !important;
@@ -581,7 +589,7 @@ button:hover {
     border-radius: 5px;
     padding: 8px;
     color: var(--bright-gray-color);
-    transition: box-shadow 0.1s ease-out;
+    transition: box-shadow 0.1s ease-out, transform 0.1s ease-out;
 }
 
 #skills .tools-container > span:hover {
@@ -636,8 +644,8 @@ button:hover {
     border: none;
     text-align: center;
     padding: 5px;
-    background-color: var(--gray-color);
-    color: white;
+    background-color: var(--weak-inverse-main-color);
+    color: var(--main-font-color);
     font-weight: 500;
     display: block;
     margin: 0 auto;
@@ -653,7 +661,7 @@ button:hover {
 }
 
 #creation .game-info-container .download > i {
-    color: white;
+    color: var(--main-font-color);
     font-weight: 300;
     margin-left: 5px;
 }
@@ -673,6 +681,31 @@ button:hover {
     display: block;
     margin: 0 auto;
     width: min(500px, 95%);
+}
+
+#rest .ratings-container {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+#rest .ratings-container > * {
+    margin: 0px;
+    flex: 1;
+    border-radius: 0px;
+    padding: 2px 10px;
+    font-size: .8rem;
+}
+
+#rest .ratings-container * {
+    color: black;
+    font-weight: 800;
+}
+
+#rest .ratings-container .rating::after {
+    content: '/5 ';
+    font-size: .8em;
+    font-weight: 900;
 }
 
 #faq .question-container {
@@ -794,12 +827,19 @@ button:hover {
     #buttons {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, 1fr);
         width: 215px;
         margin: 0 auto;
-        gap: 15px;
+        gap: 10px;
+    }
+
+    #buttons > :last-child {
+        grid-column: span 2;
+        width: 100%;
     }
 
     #buttons > button {
+        font-size: 2rem;
         background-color: var(--buttons-mobile-color);
         box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
     }

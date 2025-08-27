@@ -49,11 +49,9 @@ function render(time) {
   gl.drawArrays(gl.TRIANGLES, 0, 6);
   requestAnimationFrame(render);
 }
+requestAnimationFrame(render);
 
 const u_resolution = gl.getUniformLocation(program, "u_resolution");
-gl.uniform2f(u_resolution, window.innerWidth, window.innerHeight);
-window.addEventListener('resize', () => {
-  gl.uniform2f(u_resolution, window.innerWidth, window.innerHeight);
-})
-
-requestAnimationFrame(render);
+const setUniformRes = () => gl.uniform2f(u_resolution, window.innerWidth, window.innerHeight);
+setUniformRes()
+window.addEventListener('resize', setUniformRes)

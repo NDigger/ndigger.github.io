@@ -656,10 +656,6 @@ button:hover {
     transition: background-color 0.05s ease-out;
 }
 
-#creation .game-info-container .download:hover {
-    background-color: black;
-}
-
 #creation .game-info-container .download > i {
     color: var(--main-font-color);
     font-weight: 300;
@@ -842,6 +838,7 @@ button:hover {
     #buttons > button, #bottom-buttons > button {
         background-color: var(--buttons-mobile-color);
         box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
+        z-index: 1;
     }
 
     #bottom-buttons {
@@ -889,7 +886,7 @@ button:hover {
     }
 
     .left-image {
-        float: none;
+        float: right;
         width: 100%;
         padding-right: 0px; 
     }
@@ -909,18 +906,17 @@ button:hover {
         box-shadow: var(--weak-box-shadow);
         background-color: rgba(0, 0, 0, 0.02);
         padding: 10px;
+        flex-direction: column;
     }
 
-    #creation .game-info-container > img {
+
+    #creation .game-info-container img {
         margin: 0;
+        width: 100%;
     }
 
     #skills .tools-container > span:hover {
         box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.2);
-    }
-
-    #creation .game-info-container .download:hover {
-        background-color: var(--gray-color);
     }
 
     #creation .game-info-container .download.pc-only {

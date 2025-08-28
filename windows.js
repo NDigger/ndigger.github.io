@@ -53,7 +53,6 @@ export const skills = `
                 <span>GDScript</span>
                 <span>Bash</span>
                 <span>Express</span>
-                <span>PHP</span>
                 <span>OpenGL Shading Language</span>
             </div>
             <h2>Web Development</h2>
@@ -126,129 +125,6 @@ export const creation = `
         </div>
     </section>
 `
-export const faq = `
-    <section id="faq" class="window">
-        ${getPanelHtml('NFAQ')}
-        <div class="content">
-            <h1>Here you can see some not frequently asked questions answered.</h1>
-            <div class="question-container">
-                <div class="question-flex">
-                    <p class="question">What is your name?</p>
-                    <button class="show-answer-btn"><i class="bi bi-chevron-left"></i></button>
-                </div>
-                <p class="answer">NAZARII. That's also the reason why I'm NDagger, not ADagger or BDagger</p>
-            </div>
-            <div class="question-container">
-                <div class="question-flex">
-                    <p class="question">What is your age?</p>
-                    <button class="show-answer-btn"><i class="bi bi-chevron-left"></i></button>
-                </div>
-                <p class="answer">Better count yourself. I born 10.09.2006 if I am not wrong.</p>
-            </div>
-            <div class="question-container">
-                <div class="question-flex">
-                    <p class="question">Do you have other social media?</p>
-                    <button class="show-answer-btn"><i class="bi bi-chevron-left"></i></button>
-                </div>
-                <p class="answer">I do, but I prefer to keep it private. I am not active on social networks because I do not know how to talk to an audience that I do not have.</p>
-            </div>
-            <div class="question-container">
-                <div class="question-flex">
-                    <p class="question">Why you don't draw men?</p>
-                    <button class="show-answer-btn"><i class="bi bi-chevron-left"></i></button>
-                </div>
-                <p class="answer">Men is ugly and hard to draw, LL situation.</p>
-            </div>
-            <div class="question-container">
-                <div class="question-flex">
-                    <p class="question">Are comissions open?</p>
-                    <button class="show-answer-btn"><i class="bi bi-chevron-left"></i></button>
-                </div>
-                <p class="answer">They never were.</p>
-            </div>
-            <div class="question-container">
-                <div class="question-flex">
-                    <p class="question">Can I contact you?</p>
-                    <button class="show-answer-btn"><i class="bi bi-chevron-left"></i></button>
-                </div>
-                <p class="answer">Not sure why but there's no problem with it. You can contact me only on discord. You can get my discord tag below. And one more thing: type reasonable message so I know that you're human and you're real.</p>
-            </div>
-            <div class="question-container">
-                <div class="question-flex">
-                    <p class="question">Aren't questions sorta random?</p>
-                    <button class="show-answer-btn"><i class="bi bi-chevron-left"></i></button>
-                </div>
-                <p class="answer">sorta they are.</p>
-            </div>
-        </div>
-    </section>
-`
-
-export const rest = `
-    <section id="rest" class="window">
-        ${getPanelHtml('Rest')}
-        <div class="content">
-            <h1>What is a rest?</h1>
-            <p>What a nice question. Everyone likes to relax and everyone does it differently. From about 9 years old until about today, I relaxed inside an amazing world written with numbers and letters - a computer.</p>
-            <p>In the wonderful digital world, my main way of relaxing was playing games. Most of the time I played multiplayer games that were not based on competition, so I really just relaxed.</p>
-            <p>Even though I spent most of my time playing non-competitive games, let's not forget about the smaller part. Because of the smaller part, I broke my phone at about 12 years old :D</p>
-            <p>Besides games, I also occasionally enjoy watching anime.</p>
-            <p>Unfortunately, after I got a job, I forgot how to rest at all (even sleep). Too many negative thoughts that prevent me from opening Steam and just launching the game.</p>
-            <p>Now rarely I play quite specific games or watch specific anime. But my favorite way to relax now is YouTube.</p>
-            <h2>Recommendations list</h2>
-            <p>I like rating and sharing my small opinions about games and other. Here you can see my ratings on:
-            <h3>Games</h3>
-            <div class="ratings-container">
-                <span><span class="rating">5</span> Getting Over It</span>
-                <span><span class="rating">5</span> Saya No Uta</span>
-                <span><span class="rating">5</span> Miside</span>
-                <span><span class="rating">5</span> Portal</span>
-                <span><span class="rating">5</span> Undertale</span>
-                <span><span class="rating">4.5</span> LonaRPG</span>
-                <span><span class="rating">4.5</span> Flipwitch - Forbidden Sex Hex</span>
-                <span><span class="rating">4.5</span> Voices of the void</span>
-                <span><span class="rating">4.5</span> Entropy Zero 2</span>
-                <span><span class="rating">4.5</span> Boxman's Struggle</span>
-                <span><span class="rating">4.5</span> Infinitode 2</span>
-                <span><span class="rating">4.5</span> Black Mesa</span>
-                <span><span class="rating">4.5</span> Portal 2</span>
-                <span><span class="rating">4.5</span> Half-life 2</span>
-                <span><span class="rating">4</span> Outcore</span>
-                <span><span class="rating">4</span> Stanley Parable</span>
-                <span><span class="rating">4</span> Deltarune</span>
-                <span><span class="rating">4</span> TMNT 2007</span>
-                <span><span class="rating">3.5</span> DATA WING</span>
-                <span><span class="rating">3.5</span> One Shot</span>
-                <span><span class="rating">3.5</span> Helltaker</span>
-                <span><span class="rating">3.5</span> EDGE</span>
-                <span><span class="rating">3</span> Euphoria</span>
-                <span><span class="rating">3</span> Celeste</span>                
-                <span><span class="rating">3</span> THE CORRIDOR</span>
-                <span><span class="rating">3</span> Entropy Zero</span>
-                <span><span class="rating">3</span> Палитра Смерти</span>
-                <span><span class="rating">3</span> Paper lily - Chapter 1</span>
-                <span><span class="rating">3</span> Hello Charlotte - Episode 2</span>
-                <span><span class="rating">3</span> TWHL Tower: Source</span>
-                <span><span class="rating">3</span> Зной</span>
-                <span><span class="rating">2.5</span> Terraria</span>
-                <span><span class="rating">2.5</span> Studio System : Guardian Angel</span>
-                <span><span class="rating">2</span> Half-life C.A.G.E.D.</span>
-                <span><span class="rating">2</span> Emily Is Away</span>
-                <span><span class="rating">1.5</span> Don't Starve Together</span>
-                <span><span class="rating">1.5</span> Psychopomp</span>
-                <span><span class="rating">1.5</span> Half-life</span>
-                <span><span class="rating">0</span> Hentai Killer</span>
-            </div>
-            <h3>Anime</h3>
-            <div class="ratings-container">
-                <span><span class="rating">5</span> Made In Abyss</span>
-                <span><span class="rating">5</span> Interspecies Reviewers</span>
-                <span><span class="rating">4.5</span> Oniichan wa Oshimai!</span>
-                <span><span class="rating">2.5</span> School Days</span>
-            </div>
-        </div>
-    </section>
-`
 
 export const image = src => `
     <section id="${src}" class="window">
@@ -259,4 +135,4 @@ export const image = src => `
     </section>
 `
 
-export default {aboutMe, skills, creation, rest, faq, image}
+export default {aboutMe, skills, creation, image}

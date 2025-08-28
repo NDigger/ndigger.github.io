@@ -784,6 +784,7 @@ button:hover {
     .window, .window * {
         border-radius: unset;
     }
+
     .window {
         position: absolute;
         inset: 0 !important;
@@ -827,7 +828,7 @@ button:hover {
     #buttons {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 1fr);
         width: 215px;
         margin: 0 auto;
         gap: 10px;
@@ -838,10 +839,22 @@ button:hover {
         width: 100%;
     }
 
-    #buttons > button {
-        font-size: 2rem;
+    #buttons > button, #bottom-buttons > button {
         background-color: var(--buttons-mobile-color);
         box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    #bottom-buttons {
+        top: 20px;
+    }
+
+    #discord-btn::before {
+        display: none !important;
+    }
+    
+    #discord-btn::after {
+        font-size: 1rem !important;
+        transform: translateX(calc(-50% + 25px)) translateY(100px) !important;
     }
 
     html {

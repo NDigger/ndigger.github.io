@@ -12,13 +12,13 @@ const windowManager = new WindowManager();
 const aboutMe = windowManager.add(new AppWindow(windows.aboutMe));
 const creation = windowManager.add(new AppWindow(windows.creation));
 const skills = windowManager.add(new AppWindow(windows.skills));
-const faq = windowManager.add(new AppWindow(windows.faq));
-const rest = windowManager.add(new AppWindow(windows.rest));
+// const faq = windowManager.add(new AppWindow(windows.faq));
+// const rest = windowManager.add(new AppWindow(windows.rest));
 
 aboutMe.setSize(new Size(900, 500));
 creation.setSize(new Size(1200, 500));
-rest.setSize(new Size(1000, 550));
-[aboutMe, skills, creation, rest, faq].forEach(w => w.setCenteredPosition())
+// rest.setSize(new Size(1000, 550));
+[aboutMe, skills, creation].forEach(w => w.setCenteredPosition())
 
 const bindWindowListeners = (button, window) => {
     button.addEventListener('click', () => window.visible ? window.hide() : window.show())
@@ -30,8 +30,8 @@ const bindWindowListeners = (button, window) => {
 bindWindowListeners(document.getElementById('about-me-btn'), aboutMe);
 bindWindowListeners(document.getElementById('creation-btn'), creation);
 bindWindowListeners(document.getElementById('skills-btn'), skills);
-bindWindowListeners(document.getElementById('faq-btn'), faq)
-bindWindowListeners(document.getElementById('rest-btn'), rest)
+// bindWindowListeners(document.getElementById('sfaq-btn'), faq)
+// bindWindowListeners(document.getElementById('rest-btn'), rest)
 
 // Copy text when clicked
 const discordBtn = document.getElementById('discord-btn');
@@ -48,32 +48,32 @@ for (const child of document.getElementById('bottom-buttons').children) {
 }
 
 // Question containers display logic
-const questionContainers = Array.from(document.getElementById('faq').querySelectorAll('.question-container'))
-for (const key in questionContainers) {
-    const questionContainer = questionContainers[key];
-    const showButton = questionContainer.querySelector('.show-answer-btn');
-    const answer = questionContainer.querySelector('.answer');
-    showButton.addEventListener('click', () => {
-        const answerStyle = getComputedStyle(answer);
-        if (answerStyle.display === 'none') {
-            answer.style.display = 'block'
-            showButton.classList.add('rotate-show-answer-btn')
-            answer.classList.remove('hide-answer')
-            restartCssAnimation(answer, 'show-answer')
-            showButton.disabled = true
-            setTimeout(() => {showButton.disabled = false}, 150)
-        } else {
-            showButton.classList.remove('rotate-show-answer-btn')
-            answer.classList.remove('show-answer')
-            restartCssAnimation(answer, 'hide-answer')
-            showButton.disabled = true
-            setTimeout(() => {
-                answer.style.display = 'none'
-                showButton.disabled = false
-            }, 150)
-        }
-    })
-}
+// const questionContainers = Array.from(document.getElementById('faq').querySelectorAll('.question-container'))
+// for (const key in questionContainers) {
+//     const questionContainer = questionContainers[key];
+//     const showButton = questionContainer.querySelector('.show-answer-btn');
+//     const answer = questionContainer.querySelector('.answer');
+//     showButton.addEventListener('click', () => {
+//         const answerStyle = getComputedStyle(answer);
+//         if (answerStyle.display === 'none') {
+//             answer.style.display = 'block'
+//             showButton.classList.add('rotate-show-answer-btn')
+//             answer.classList.remove('hide-answer')
+//             restartCssAnimation(answer, 'show-answer')
+//             showButton.disabled = true
+//             setTimeout(() => {showButton.disabled = false}, 150)
+//         } else {
+//             showButton.classList.remove('rotate-show-answer-btn')
+//             answer.classList.remove('show-answer')
+//             restartCssAnimation(answer, 'hide-answer')
+//             showButton.disabled = true
+//             setTimeout(() => {
+//                 answer.style.display = 'none'
+//                 showButton.disabled = false
+//             }, 150)
+//         }
+//     })
+// }
 
 // Tool spans hover SFX 
 const toolSpans = [

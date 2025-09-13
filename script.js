@@ -8,6 +8,7 @@ import { ParticleEmitter } from './particles.js';
 
 const windowManager = new WindowManager();
 
+// c
 // Preload windows
 const aboutMe = windowManager.add(new AppWindow(windows.aboutMe));
 const creation = windowManager.add(new AppWindow(windows.creation));

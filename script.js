@@ -14,11 +14,12 @@ const creation = windowManager.add(new AppWindow(windows.creation));
 const skills = windowManager.add(new AppWindow(windows.skills));
 // const faq = windowManager.add(new AppWindow(windows.faq));
 // const rest = windowManager.add(new AppWindow(windows.rest));
+const status = windowManager.add(new AppWindow(windows.status));
 
 aboutMe.setSize(new Size(900, 500));
 creation.setSize(new Size(1200, 500));
 // rest.setSize(new Size(1000, 550));
-[aboutMe, skills, creation].forEach(w => w.setCenteredPosition())
+[aboutMe, skills, creation, status].forEach(w => w.setCenteredPosition())
 
 const bindWindowListeners = (button, window) => {
     button.addEventListener('click', () => window.visible ? window.hide() : window.show())
@@ -30,6 +31,7 @@ const bindWindowListeners = (button, window) => {
 bindWindowListeners(document.getElementById('about-me-btn'), aboutMe);
 bindWindowListeners(document.getElementById('creation-btn'), creation);
 bindWindowListeners(document.getElementById('skills-btn'), skills);
+bindWindowListeners(document.getElementById('status-btn'), status);
 // bindWindowListeners(document.getElementById('sfaq-btn'), faq)
 // bindWindowListeners(document.getElementById('rest-btn'), rest)
 
@@ -87,6 +89,49 @@ for (const span of toolSpans) {
     });
 }
 
+const getTimePassed = since => {
+    const ms = new Date().getTime() - since
+    const seconds = Math.floor(ms / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    const months = Math.floor(days / 30);
+    const years = Math.floor(days / 365.25);
+
+    if (years > 0) return years + (years === 1 ? " year" : " years");
+    if (months > 0) return months + (months === 1 ? " month" : " months");
+    if (days > 0) return days + (days === 1 ? " day" : " days");
+    if (hours > 0) return hours + (hours === 1 ? " hour" : " hours");
+    if (minutes > 0) return minutes + (minutes === 1 ? " minute" : " minutes");
+    return seconds + (seconds === 1 ? " second" : " seconds");
+}
+
+const statusContainer = document.getElementById('status-container');
+let statusData;
+let statusIterator = 0;
+let isStatusListUpdating = false
+const statusIteratorInc = 10;
+const pushStatuses = (statuses, iterator) => {
+    if (statusIterator > statuses.length && !isStatusListUpdating) return
+    isStatusListUpdating = true
+    let html = '';
+    statusIterator += statusIteratorInc
+    const cap = iterator + statusIteratorInc < statuses.length ? iterator + statusIteratorInc : statuses.length 
+    for (let i = iterator; i < cap; i++){
+        const status = statusData[i];
+        html += 
+            `<div class="status">
+                <div class="header">
+                    <p class="author">NDagger</p>
+                    <p class="time-passed">${getTimePassed(new Date(status.created_at).getTime())} ago</p>
+                </div>
+                <p>${status.content}</p>
+            </div>`
+    }
+    isStatusListUpdating = false
+    statusContainer.insertAdjacentHTML('beforeend', html)
+} 
+
 // Connect window listeners to images when they're loaded
 window.onload = () => {
     const openInWindowImages = Array.from(document.querySelectorAll('.open-in-window-img'));
@@ -114,6 +159,22 @@ window.onload = () => {
                 setTimeout(() => windowManager.delete(visibleWindow), 400);
             }
         })
+    })
+
+    fetch('https://backend-statuses.vercel.app/api/status')
+    .then(res => res.json())
+    .then(data => {
+        data.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+        statusData = data;
+        pushStatuses(statusData, statusIterator)
+    })
+
+    const statusScroll = document.querySelector('#statuses > .content')
+    statusScroll.addEventListener('scroll', () => {
+        const scrollTop = statusScroll.scrollTop;
+        const style = getComputedStyle(statusScroll);
+        const scrollMax = statusScroll.scrollHeight - style.height.match(/(\d+)/)[0];
+        if (scrollTop >= scrollMax - 100) pushStatuses(statusData, statusIterator);
     })
 };
 

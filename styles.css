@@ -360,14 +360,16 @@ body {
 
 .window h1 {
     font-size: 2.2rem;
+    border-left: 5px solid var(--main-font-color);
+    padding: 0px 25px;
+    text-align: left;
 }
 
 .window .content h2 {
     margin-top: 50px !important;
-    padding: 5px;
-    border-radius: var(--window-border-radius);
-    text-align: center;
-    background-color: var(--weak-inverse-main-color);
+    padding: 0px 15px;
+    font-weight: 500;
+    border-left: 3px solid var(--main-font-color);
 }
 
 .window .content p {
@@ -758,6 +760,32 @@ button:hover {
     animation: s-answer 0.15s linear forwards reverse
 }
 
+.status-container {
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.status {
+    border-left: 3px solid var(--main-font-color);
+    background: linear-gradient(45deg, transparent, var(--weak-inverse-main-color));
+    padding: 5px 20px;
+}
+
+.status > .header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.status > .header * {
+    font-size: 15px;
+    margin: 0px;
+}
+
+.status > .header > .time-passed {
+    text-align: right !important;
+    font-size: 15px;
+}
+
 @keyframes s-answer {
     0% {
         font-size: 0;
@@ -829,11 +857,12 @@ button:hover {
         margin: 0 auto;
         gap: 10px;
     }
-
+    
+    /* 
     #buttons > :last-child {
         grid-column: span 2;
         width: 100%;
-    }
+    } */
 
     #buttons > button, #bottom-buttons > button {
         background-color: var(--buttons-mobile-color);

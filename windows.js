@@ -135,4 +135,13 @@ export const image = src => `
     </section>
 `
 
-export default {aboutMe, skills, creation, image}
+export const status = `
+    <section id="statuses" class="window">
+        ${getPanelHtml('Statuses')}
+        <div class="content">
+            <div id="status-container"></div>
+        </div>
+    </section>
+`
+
+export default {aboutMe, skills, creation, image, status}

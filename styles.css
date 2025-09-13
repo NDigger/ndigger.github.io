@@ -358,7 +358,7 @@ body {
     margin: 10px 0;
 }
 
-.window h1 {
+.window:not(#about-me) h1 {
     font-size: 2.2rem;
     border-left: 5px solid var(--main-font-color);
     padding: 0px 25px;
@@ -536,7 +536,6 @@ body {
     max-width: 100%;
     max-height: 100%;;
 }
-
 
 .open-in-window:hover {
     cursor: pointer;
@@ -825,6 +824,7 @@ button:hover {
         overflow: auto;
         scrollbar-width: none;
         -ms-overflow-style: none;
+        padding-bottom: 65px;
     }
 
     .window > .content::-webkit-scrollbar {
@@ -937,7 +937,6 @@ button:hover {
         padding: 10px;
         flex-direction: column;
     }
-
 
     #creation .game-info-container img {
         margin: 0;

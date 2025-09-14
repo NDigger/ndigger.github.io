@@ -8,7 +8,6 @@ import { ParticleEmitter } from './particles.js';
 
 const windowManager = new WindowManager();
 
-// c
 // Preload windows
 const aboutMe = windowManager.add(new AppWindow(windows.aboutMe));
 const creation = windowManager.add(new AppWindow(windows.creation));
@@ -20,7 +19,7 @@ const status = windowManager.add(new AppWindow(windows.status));
 aboutMe.setSize(new Size(900, 500));
 creation.setSize(new Size(1200, 500));
 // rest.setSize(new Size(1000, 550));
-[aboutMe, skills, creation, status].forEach(w => w.setCenteredPosition())
+windowManager.windows.forEach(w => w.setCenteredPosition())
 
 const bindWindowListeners = (button, window) => {
     button.addEventListener('click', () => window.visible ? window.hide() : window.show())
@@ -109,6 +108,29 @@ const getTimePassed = since => {
 
 const statusContainer = document.getElementById('status-container');
 let statusData;
+let statusFetched = false;
+document.getElementById('status-btn').addEventListener('click', () => {
+    const statusLoadingMessage = document.getElementById('status-loading-message')
+    statusFetched = true
+    const intervalId = setInterval(() => {
+        const v = statusLoadingMessage.textContent
+        if (v === 'loading') statusLoadingMessage.textContent = 'loading.'
+        else if (v === 'loading.') statusLoadingMessage.textContent = 'loading..'
+        else if (v === 'loading..') statusLoadingMessage.textContent = 'loading...'
+        else if (v === 'loading...') statusLoadingMessage.textContent = 'loading'
+    }, 200)
+    setTimeout(() => {
+    fetch('https://backend-statuses.vercel.app/api/status')
+    .then(res => res.json())
+    .then(data => {
+        data.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+        statusData = data;
+        statusLoadingMessage.style.display = 'none';
+        clearInterval(intervalId);
+        pushStatuses(statusData, statusIterator);
+    })
+    }, 1000)
+})
 let statusIterator = 0;
 let isStatusListUpdating = false
 const statusIteratorInc = 10;
@@ -160,14 +182,6 @@ window.onload = () => {
                 setTimeout(() => windowManager.delete(visibleWindow), 400);
             }
         })
-    })
-
-    fetch('https://backend-statuses.vercel.app/api/status')
-    .then(res => res.json())
-    .then(data => {
-        data.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
-        statusData = data;
-        pushStatuses(statusData, statusIterator)
     })
 
     const statusScroll = document.querySelector('#statuses > .content')

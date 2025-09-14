@@ -139,6 +139,7 @@ export const status = `
     <section id="statuses" class="window">
         ${getPanelHtml('Statuses')}
         <div class="content">
+            <p id="status-loading-message">loading</p>
             <div id="status-container"></div>
         </div>
     </section>

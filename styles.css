@@ -803,7 +803,11 @@ button:hover {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 932px) {
+    #title {
+        font-size: min(calc(14vw + 1px), 2.5rem);
+    }
+
     .window, .window * {
         border-radius: unset;
     }
@@ -965,5 +969,30 @@ button:hover {
 
     .main-window-music-particle {
         display: none;
+    }
+}
+
+@media (max-height: 500px) {
+    #main-window > .content {
+        width: 100%;
+    }
+
+    #title {
+        font-size: min(15vh, 3rem);
+        margin-bottom: 20px;
+        /* display: none; */
+    }
+
+    #title-author {
+        display: inline;
+    }
+
+    #about-me > .header {
+        display: none;
+    }
+
+    #buttons {
+        grid-template-rows: 1fr !important;
+        grid-template-columns: repeat(4, 1fr) !important;
     }
 }

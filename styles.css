@@ -978,9 +978,7 @@ button:hover {
     }
 
     #title {
-        font-size: min(15vh, 3rem);
-        margin-bottom: 20px;
-        /* display: none; */
+        display: none;
     }
 
     #title-author {

@@ -5,7 +5,6 @@ import { Color, restartCssAnimation } from './utils.js';
 const getRootColor = key => {
     const str = getComputedStyle(document.documentElement).getPropertyValue(key);
     const getColorChannel = channel => parseFloat(str.match(/\d+(\.\d+)?/g)[channel]);
-    console.log(getColorChannel(0), getColorChannel(1), getColorChannel(2), getColorChannel(3))
     return {
         r: getColorChannel(0), 
         g: getColorChannel(1), 

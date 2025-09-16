@@ -347,7 +347,7 @@ body {
     --border-radius: var(--window-border-radius);
     border-radius: var(--border-radius);
     background-color: var(--window-background-color);
-    backdrop-filter: blur(150px) brightness(90%);
+    backdrop-filter: blur(120px) brightness(90%);
     position: fixed;
     width: var(--width);
     height: var(--height);

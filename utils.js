@@ -12,7 +12,9 @@ export class Vector2 extends Struct {
         this.y = y;
     }
 
-    duplicate = () => new Vector2(this.x, this.y);
+    static ZERO = new Vector2(0, 0);
+
+    duplicate() { return new Vector2(this.x, this.y) };
 }
 
 export class Size extends Struct {
@@ -25,7 +27,7 @@ export class Size extends Struct {
         this.height = height;
     }
 
-    duplicate = () => new Size(this.width, this.height)
+    duplicate() { return new Size(this.width, this.height) }
 }
 
 export class Color extends Struct {
@@ -44,13 +46,13 @@ export class Color extends Struct {
         if(a != undefined) this.a = a;
     }
 
-    getRGBStyle = () => `rgb(${this.r}, ${this.g}, ${this.b})`;
-    getRGBAStyle = () => `rgba(${this.r}, ${this.g}, ${this.b}, ${this.a})`;
+    getRGBStyle() { return `rgb(${this.r}, ${this.g}, ${this.b})` };
+    getRGBAStyle() { return `rgba(${this.r}, ${this.g}, ${this.b}, ${this.a})` };
 
-    duplicate = () => new Color(this.r, this.g, this.b, this.a);
+    duplicate() { return new Color(this.r, this.g, this.b, this.a) };
 }
 
-export const getDocumentSize = () =>  new Size(
+export const getDocumentSize = () => new Size(
     document.documentElement.clientWidth,
     document.documentElement.clientHeight
 );

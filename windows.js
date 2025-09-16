@@ -1,8 +1,8 @@
-const getPanelHtml = (title) => `
+const getPanelHtml = (title, {fullscreenBtn} = {}) => `
     <div class="window-panel">
         <p class="title" title="${title}">${title}</p>
         <div class="buttons">
-            <button class="fullscreen" title="Fullscreen"><i class="bi bi-arrows-fullscreen"></i></button>
+            ${fullscreenBtn ? '<button class="fullscreen" title="Fullscreen"><i class="bi bi-window-fullscreen"></i></button>' : ''}
             <button class="close" title="Close"><i class="bi bi-x-lg"></i></button>
         </div>
     </div>
@@ -72,10 +72,10 @@ export const creation = `
     <section id="creation" class="window">
         ${getPanelHtml('Creation')}
         <div class="content">
-            <h1>I enjoy making digital things!</h1>
+            <h1>I enjoy creating digital things!</h1>
             <p>Below you can look at various digital things I made.</p>
             <h2>Few Decent Illustrations</h2>
-            <div class="illustrations-container">
+            <div id="ggg" class="illustrations-container">
                 <img class="open-in-window-img open-in-window" src="images/illustrations/Без названия281-1.png" alt="illustration">
                 <img class="open-in-window-img open-in-window" src="images/illustrations/Без названия325_20240522013505.jpg" alt="illustration">
                 <img class="open-in-window-img open-in-window" src="images/illustrations/Без названия459-3.jpg" alt="illustration">
@@ -128,8 +128,10 @@ export const creation = `
 
 export const image = src => `
     <section id="${src}" class="window">
-        ${getPanelHtml(src)}
-        <div class="content image-window-content">
+        ${getPanelHtml(src, {
+            fullscreenBtn: true
+        })}
+        <div class="content image-content">
             <img src=${src} alt=${src}>
         </div>
     </section>
@@ -137,7 +139,9 @@ export const image = src => `
 
 export const status = `
     <section id="statuses" class="window">
-        ${getPanelHtml('Statuses')}
+        ${getPanelHtml('Statuses', {
+            fullscreenBtn: true
+        })}
         <div class="content">
             <p id="status-loading-message">loading</p>
             <div id="status-container"></div>

@@ -64,6 +64,8 @@ const colorChangers = [
     new RootColorChanger('--buttons-mobile-color', new Color(0, 0, 0, 0.5)),
     new RootColorChanger('--weak-font-color', new Color(255, 255, 255, 0.2)),
     new RootColorChanger('--weak-inverse-main-color', new Color(255, 255, 255, 0.03)),
+    new RootColorChanger('--window-background-color', new Color(255, 255, 255, 0)),
+    new RootColorChanger('--title-author-text-shadow-color', new Color(255, 162, 0, 0.5)),
     new CanvasColorChanger('background_color', new Color(1, 1, 1), new Color(0.1, 0.1, 0.12)),
     new CanvasColorChanger('waves_color', new Color(0.9, 0.9, 1), new Color (0, 0, 0)),
     new CanvasColorChanger('waves_color_2', new Color(1., 0.9, 0.9), new Color (.3, .3, .4))
@@ -93,9 +95,3 @@ nightModeBtn.addEventListener('mouseover', () => {
 const nightModeEnabled = getNightModeEnabled()
 nightModeBtn.innerHTML = nightModeEnabled ? sunIcon : moonIcon
 colorChangers.map(colorChanger => colorChanger.apply())
-
-// QUICK BUG FIX
-if (!getNightModeEnabled()) {
-   document.documentElement.style.setProperty('--weak-inverse-main-color', 'rgba(0, 0, 0, 0.03)')
-   document.documentElement.style.setProperty('--weak-font-color', 'rgba(0, 0, 0, 0.2)');
-}

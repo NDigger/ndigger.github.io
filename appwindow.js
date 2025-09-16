@@ -1,5 +1,5 @@
 import audioManager from './audioManager.js'
-import { Vector2, Size, getDocumentSize } from './utils.js'
+import { Vector2, Size, getDocumentSize, restartCssAnimation } from './utils.js'
 
 const windowViewAnimationSpeed = 400;
 class WindowView {
@@ -61,6 +61,24 @@ class WindowView {
             this.animationRunning = false
             }, windowViewAnimationSpeed)
     }
+
+    fullscreenTransition() {
+        audioManager.resetPlay(audioManager.sounds.clickFullscreen)
+        this.element.classList.remove('window-fullscreen-hide');
+        restartCssAnimation(this.element, 'window-fullscreen-show');
+        setTimeout(() => {
+            this.element.classList.remove('window-fullscreen-show');
+        }, 300)
+    }
+
+    windowedTransition() {
+        audioManager.resetPlay(audioManager.sounds.clickFullscreen)
+        this.element.classList.remove('window-fullscreen-show');
+        restartCssAnimation(this.element, 'window-fullscreen-hide');
+        setTimeout(() => {
+            this.element.classList.remove('window-fullscreen-hide');
+        }, 300)
+    }
 }
 
 class WindowDragger {
@@ -76,7 +94,7 @@ class WindowDragger {
 
         const windowPanel = this.element.querySelector('.window-panel');
         windowPanel.addEventListener('mousedown', e => {
-            if (e.target.closest('.buttons .close')) return;
+            if (e.target.closest('.buttons .close') || this.model.fullscreen) return;
             this.#isHolding = true
             this.#startPosition = this.model.getPosition();
             this.#mousePositionOnMouseDown = new Vector2(e.pageX, e.pageY)
@@ -117,7 +135,10 @@ export class AppWindow {
     id;
     element;
 
-    onClose;
+    onClose = () => {};
+    #savedPosition = new Vector2(0, 0);
+    #savedSize = new Vector2(0, 0);
+    fullscreen = false;
 
     #position = new Vector2(0, 0);
     #size = windowDefaultSize.duplicate();
@@ -135,11 +156,48 @@ export class AppWindow {
         const windowPanel = this.element.querySelector('.window-panel');
         windowPanel.querySelector('.buttons .close').addEventListener('click', () => {
             this.hide();
-            if (this.onClose) this.onClose();
+            this.onClose();
         })
+
+        const fullscreenPanelBtn = windowPanel.querySelector('.buttons .fullscreen');
+        if (fullscreenPanelBtn) {
+            fullscreenPanelBtn.addEventListener('click', () => this.toggleFullscreen(true))
+        }
 
         // Center window
         this.setCenteredPosition();
+    }
+
+    #fullscreenResizeListener = () => this.setSize(getDocumentSize())
+
+    setFullscreenEnabled(enabled) {
+        if (enabled && !this.fullscreen) {
+            this.fullscreen = true
+            this.element.classList.add('window-fullscreen')
+            this.#savedPosition = this.#position.duplicate();
+            this.#savedSize = this.#size.duplicate();
+            setTimeout(() => {
+                this.setPosition(Vector2.ZERO);
+                this.setSize(getDocumentSize());
+                window.addEventListener('resize', this.#fullscreenResizeListener)
+            }, 300)
+        } else if (!enabled && this.fullscreen) {
+            this.fullscreen = false
+            this.element.classList.remove('window-fullscreen')
+            this.setPosition(this.#savedPosition);
+            this.setSize(this.#savedSize);
+            window.removeEventListener('resize', this.#fullscreenResizeListener)
+        }
+    }
+
+    toggleFullscreen(animate = true) {
+        const enabled = !this.element.classList.contains('window-fullscreen');
+        this.setFullscreenEnabled(enabled);
+
+        if (!animate) return;
+
+        if (enabled) this.#view.fullscreenTransition();
+        else this.#view.windowedTransition();
     }
 
     setClampedPosition({x, y}) {
@@ -161,8 +219,15 @@ export class AppWindow {
     getPosition = () => this.#position.duplicate();
     getSize = () => this.#size.duplicate();
 
-    hide = () => this.#view.hide();
-    show = () => this.#view.show();
+    hide = () => {
+        this.#view.hide();
+        setTimeout(() => this.setFullscreenEnabled(false), 500);
+    }
+
+    show = () => {
+        this.setCenteredPosition();
+        this.#view.show();
+    }
 
     delete() {
         this.element.remove()
@@ -193,8 +258,8 @@ export class WindowManager {
     add(window) {
         this.windows.push(window);
         window.element.addEventListener('mousedown', () => this.bringToFront(window));
-        this.bringToFront(window)
-        return window
+        this.bringToFront(window);
+        return window;
     }
 
     delete(window) {

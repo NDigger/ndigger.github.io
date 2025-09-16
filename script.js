@@ -19,10 +19,13 @@ const status = windowManager.add(new AppWindow(windows.status));
 aboutMe.setSize(new Size(900, 500));
 creation.setSize(new Size(1200, 500));
 // rest.setSize(new Size(1000, 550));
-windowManager.windows.forEach(w => w.setCenteredPosition())
+// windowManager.windows.forEach(w => w.setCenteredPosition())
 
 const bindWindowListeners = (button, window) => {
-    button.addEventListener('click', () => window.visible ? window.hide() : window.show())
+    button.addEventListener('click', () => {
+        window.visible ? window.hide() : window.show();
+        windowManager.bringToFront(window);
+    })
     button.addEventListener('mouseover', () => {
         audioManager.resetPlayHover(audioManager.sounds.hover)
     })
@@ -169,13 +172,11 @@ window.onload = () => {
                 }
             }
             if (visibleWindow == null) {
-                const window = new AppWindow(windows.image(e.target.src));
-                window.setClampedSize(new Size(image.width * 2, image.height * 2));
-                window.onClose = () => {
-                    setTimeout(() => windowManager.delete(window), 400)
-                }
-                windowManager.add(window);
-                window.show();
+                const w = new AppWindow(windows.image(e.target.src));
+                w.setClampedSize(new Size(image.width * 2, image.height * 2));
+                w.onClose = () => setTimeout(() => windowManager.delete(w), 400);
+                windowManager.add(w);
+                w.show();
             } else {
                 if (visibleWindow.animationRunning) return
                 visibleWindow.hide()

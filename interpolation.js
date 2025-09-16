@@ -90,7 +90,7 @@ export class Lerp {
             this.value.r = this.#lerp(this.#from.r, to.r, t);
             this.value.g = this.#lerp(this.#from.g, to.g, t);
             this.value.b = this.#lerp(this.#from.b, to.b, t);
-            if (to.a) this.value.a = this.#lerp(this.#from.a, to.a, t);
+            if (to.a != null) this.value.a = this.#lerp(this.#from.a, to.a, t);
         } else if (isFromToInstanceOf(Number)) {
             this.value = this.#lerp(this.#from, to, t);
         }

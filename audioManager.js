@@ -5,11 +5,13 @@ const sounds = {
     clickClose: new Audio('./audio/clickClose.mp3'),
     hover: new Audio('./audio/hover.mp3'),
     shine: new Audio('./audio/shine.mp3'),
-    shine2: new Audio('./audio/shine2.mp3')
+    shine2: new Audio('./audio/shine2.mp3'),
+    clickFullscreen: new Audio('./audio/clickFullscreen.mp3')
 }
 
 sounds.click.volume = 0.2;
 sounds.clickClose.volume = 0.2;
+sounds.clickFullscreen.volume = 0.2;
 sounds.hover.volume = 0.45;
 sounds.shine.volume = 0.35;
 

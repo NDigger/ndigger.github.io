@@ -74,10 +74,11 @@ body {
 }
 
 #main-window {
+    --border-radius: var(--window-border-radius);
     position: relative;
     max-width: 100vw;
     margin-top: 40px;
-    border-radius: var(--window-border-radius);
+    border-radius: var(--border-radius);
     box-shadow: var(--window-box-shadow);
     user-select: none;
 }
@@ -342,8 +343,9 @@ body {
 
 .window {
     --width: 800px;
-    --height: 500px;    
-    border-radius: var(--window-border-radius);
+    --height: 500px;
+    --border-radius: var(--window-border-radius);
+    border-radius: var(--border-radius);
     background-color: var(--window-background-color);
     backdrop-filter: blur(150px) brightness(90%);
     position: fixed;
@@ -364,12 +366,14 @@ body {
 
 @keyframes window-fullscreen-anim {
   from {
+    --border-radius: var(--window-border-radius);
     width: var(--width);
     height: var(--height);
     top: var(--top);
     left: var(--left);
   }
   to {
+    --border-radius: 0px;
     width: 100vw;
     height: 100vh;
     top: 0;
@@ -378,10 +382,11 @@ body {
 }
 
 .window-fullscreen {
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  left: 0;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    --border-radius: 0px;
 }
 
 .window-fullscreen-show {
@@ -464,8 +469,8 @@ body {
 .window-panel {
     font-size: 1.5rem;
     font-weight: 900;
-    border-top-left-radius: var(--window-border-radius);
-    border-top-right-radius: var(--window-border-radius);
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
     background-color: var(--window-panel-color);
     width: 100%;
     height: 50px;
@@ -517,7 +522,7 @@ body {
 }
 
 .window-panel .close {
-    border-top-right-radius: var(--window-border-radius);
+    border-top-right-radius: var(--border-radius);
 }
 
 .window-panel .fullscreen:hover {
@@ -891,6 +896,7 @@ button:hover {
     }
 
     .window {
+        --border-radius: 0px;
         position: absolute;
         inset: 0 !important;
         width: 100vw;

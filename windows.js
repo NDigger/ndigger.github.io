@@ -2,8 +2,8 @@ const getPanelHtml = (title, {fullscreenBtn} = {}) => `
     <div class="window-panel">
         <p class="title" title="${title}">${title}</p>
         <div class="buttons">
-            ${fullscreenBtn ? '<button class="fullscreen" title="Fullscreen"><i class="bi bi-window-fullscreen"></i></button>' : ''}
-            <button class="close" title="Close"><i class="bi bi-x-lg"></i></button>
+            ${fullscreenBtn ? '<button class="fullscreen" title="Fullscreen" aria-label="screen mode"><i class="bi bi-window-fullscreen"></i></button>' : ''}
+            <button class="close" title="Close" aria-label="close"><i class="bi bi-x-lg"></i></button>
         </div>
     </div>
 `

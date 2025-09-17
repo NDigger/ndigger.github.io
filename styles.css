@@ -487,13 +487,9 @@ body {
     font-size: 1.2rem;
 }
 
-.window-panel > * {
-    flex: 1;
-}
-
 .window-panel .title {
-    flex: 3;
-    max-width: 80%;
+    flex: 1;
+    max-width: 100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;  

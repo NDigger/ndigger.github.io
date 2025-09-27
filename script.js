@@ -256,7 +256,7 @@ const changeSoundState = () => {
 }
 soundBtn.addEventListener('click', changeSoundState)
 soundBtn.addEventListener('mouseover', () => audioManager.resetPlayHover(audioManager.sounds.hover))
-if ((localStorage.getItem('sound-enabled') ?? 'false') === 'true') {
+if ((localStorage.getItem('sound-enabled') ?? 'true') === 'false') {
     soundBtn.classList.add('audio-btn-disabled');
 }
 

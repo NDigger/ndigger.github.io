@@ -1,4 +1,4 @@
-import audioManager, { setMasterVolume } from './audioManager.js';
+import audioManager from './audioManager.js';
 import { AppWindow, WindowManager } from './appwindow.js';
 import { restartCssAnimation, Vector2, getDocumentSize } from './utils.js';
 import windows from './windows.js';

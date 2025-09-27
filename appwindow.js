@@ -171,8 +171,10 @@ export class AppWindow {
     #fullscreenResizeListener = () => this.setSize(getDocumentSize())
 
     setFullscreenEnabled(enabled) {
+        const fullscreenBtn = this.element.querySelector('.window-panel > .buttons > .fullscreen')
         if (enabled && !this.fullscreen) {
             this.fullscreen = true
+            fullscreenBtn.title = "Windowed"
             this.element.classList.add('window-fullscreen')
             this.#savedPosition = this.#position.duplicate();
             this.#savedSize = this.#size.duplicate();
@@ -183,6 +185,7 @@ export class AppWindow {
             }, 300)
         } else if (!enabled && this.fullscreen) {
             this.fullscreen = false
+            fullscreenBtn.title = "Fullscreen"
             this.element.classList.remove('window-fullscreen')
             this.setPosition(this.#savedPosition);
             this.setSize(this.#savedSize);

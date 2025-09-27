@@ -276,7 +276,7 @@ body {
     inset: 0;
 }
 
-#music-btn {
+#music-btn, #sound-btn {
     display: none;
     position: absolute;
     top: 20px;
@@ -289,20 +289,34 @@ body {
     transition: font-size 0.2s linear;
 }
 
-#music-btn.music-btn-disabled::before {
+#music-btn.audio-btn-disabled::before, #sound-btn.audio-btn-disabled::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 80%;
     height: 3px;
-    transform: translateY(15px) translateX(20px);
+    transform: translateY(13px) translateX(25px);
+    border-radius: 10px;
     rotate: 45deg;
-    background: var(--gray-color); /* для примера */
+    background: var(--gray-color); /* для примера */;
+    transition: all .2s ease-in-out;
 }
 
-#music-btn i {
+#music-btn.audio-btn-disabled:hover::before, #sound-btn.audio-btn-disabled:hover::before {
+    width: 100%;
+    transform: translateY(15px) translateX(20px);
+}
+
+
+#music-btn i, #sound-btn i {
     color: var(--gray-color)
+}
+
+#sound-btn {
+    display: block;
+    right: 20px;
+    top: 20px;
 }
 
 #night-mode-btn {
@@ -317,7 +331,7 @@ body {
     transition: font-size 0.2s linear;
 }
 
-#night-mode-btn:hover, #music-btn:hover {
+#night-mode-btn:hover, #music-btn:hover, #sound-btn:hover {
     font-size: 2rem;
 }
 
@@ -1054,6 +1068,10 @@ button:hover {
 
     .window-panel .fullscreen {
         display: none;
+    }
+
+    #sound-btn {
+        top: 80px;
     }
 }
 

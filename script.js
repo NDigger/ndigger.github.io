@@ -1,4 +1,4 @@
-import audioManager from './audioManager.js';
+import audioManager, { setMasterVolume } from './audioManager.js';
 import { AppWindow, WindowManager } from './appwindow.js';
 import { restartCssAnimation, Vector2, getDocumentSize } from './utils.js';
 import windows from './windows.js';
@@ -132,6 +132,11 @@ document.getElementById('status-btn').addEventListener('click', () => {
         clearInterval(intervalId);
         pushStatuses(statusData, statusIterator);
     })
+    .catch(err => {
+        console.error(err)
+        clearInterval(intervalId)
+        statusLoadingMessage.textContent = String(err)
+    })
     }, 1000)
 })
 let statusIterator = 0;
@@ -218,22 +223,41 @@ const changeMusicState = () => {
         localStorage.setItem('music-enabled', 'true');
         audioManager.music.currentTime = 0;
         audioManager.music.play();
-        musicBtn.classList.remove('music-btn-disabled');
+        musicBtn.classList.remove('audio-btn-disabled');
         musicIllustrationBtn.src = './images/musicIllustrationActive.png'
         musicParticlesEmitter.emissionEnabled = true
     } else {
         localStorage.setItem('music-enabled', 'false');
         audioManager.music.pause();
-        musicBtn.classList.add('music-btn-disabled');
+        musicBtn.classList.add('audio-btn-disabled');
         musicIllustrationBtn.src = './images/musicIllustrationInactive.png'
         musicParticlesEmitter.emissionEnabled = false;
     }
 }
 
 if ((localStorage.getItem('music-enabled') ?? 'false') === 'false') {
-    musicBtn.classList.add('music-btn-disabled');
+    musicBtn.classList.add('audio-btn-disabled');
     musicIllustrationBtn.src = './images/musicIllustrationInactive.png'
     musicParticlesEmitter.emissionEnabled = false
+}
+
+const soundBtn = document.getElementById('sound-btn');
+const changeSoundState = () => {
+    restartCssAnimation(soundBtn, 'btn-animation');
+    if ((localStorage.getItem('sound-enabled') ?? 'true') === 'true') {
+        localStorage.setItem('sound-enabled', 'false');
+        soundBtn.classList.add('audio-btn-disabled');
+        audioManager.setMasterVolume(0)
+    } else {
+        localStorage.setItem('sound-enabled', 'true');
+        soundBtn.classList.remove('audio-btn-disabled');
+        audioManager.setMasterVolume(1)
+    }
+}
+soundBtn.addEventListener('click', changeSoundState)
+soundBtn.addEventListener('mouseover', () => audioManager.resetPlayHover(audioManager.sounds.hover))
+if ((localStorage.getItem('sound-enabled') ?? 'false') === 'false') {
+    soundBtn.classList.add('audio-btn-disabled');
 }
 
 musicBtn.addEventListener('click', changeMusicState);

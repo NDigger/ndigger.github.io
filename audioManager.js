@@ -9,11 +9,16 @@ const sounds = {
     clickFullscreen: new Audio('./audio/clickFullscreen.mp3')
 }
 
-sounds.click.volume = 0.2;
-sounds.clickClose.volume = 0.2;
-sounds.clickFullscreen.volume = 0.2;
-sounds.hover.volume = 0.45;
-sounds.shine.volume = 0.35;
+export const setMasterVolume = value => {
+    sounds.click.volume = 0.2 * value;
+    sounds.clickClose.volume = 0.2 * value;
+    sounds.clickFullscreen.volume = 0.2 * value;
+    sounds.hover.volume = 0.45 * value;
+    sounds.shine.volume = 0.35 * value;
+    sounds.shine2.volume = 1 * value;
+}
+
+setMasterVolume(localStorage.getItem('sound-enabled') === 'false' ? 0 : 1)
 
 export const music = new Audio('./audio/musicSmooth.mp3');
 music.loop = true;
@@ -37,4 +42,4 @@ export const resetPlay = audio => {
     audio.play();
 }
 
-export default { sounds, music, resetPlay, resetPlayHover }
+export default { sounds, music, resetPlay, resetPlayHover, setMasterVolume }

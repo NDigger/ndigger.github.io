@@ -58,7 +58,7 @@ export class ParticleEmitter {
         this.#emissionTimer -= 1/60;
         if (this.#emissionTimer < 0 && this.emissionEnabled) { 
             this.#emissionTimer = this.lifetime / this.emission;
-            this.emit()
+            this.emit(1)
         }
         this.particles.forEach(p => {
             p.move(new Vector2(Math.cos(p.angle) * p.speed, Math.sin(p.angle) * p.speed));
@@ -73,17 +73,19 @@ export class ParticleEmitter {
         });
     }
 
-    emit() {
-        const p = new Particle()
-        p.angle = this.angle + (Math.random()-.5) * this.angleVariation;
-        p.speed = this.speed;
-        p.position = this.offset.duplicate();
-        p.id = this.#currentParticleId++;
-        p.element = this.element.cloneNode(false);
-        p.container = this.container;
-        p.anchor = Anchor.TOP_RIGHT;
-        p.lifetime = this.lifetime;
-        p.insertIntoHTML();
-        this.particles.push(p);
+    emit(count) {
+        for (let i = 0; i < count; i++) {
+            const p = new Particle()
+            p.angle = this.angle + (Math.random()-.5) * this.angleVariation;
+            p.speed = this.speed;
+            p.position = this.offset.duplicate();
+            p.id = this.#currentParticleId++;
+            p.element = this.element.cloneNode(false);
+            p.container = this.container;
+            p.anchor = Anchor.TOP_RIGHT;
+            p.lifetime = this.lifetime;
+            p.insertIntoHTML();
+            this.particles.push(p);
+        }
     }
 }

@@ -150,8 +150,9 @@ body {
 
 #title-author {
     font-size: 1.3em;
+    text-shadow: 0px 0px 3px var(--title-author-text-shadow-color);
     color: rgb(255, 200, 0);
-    text-shadow: 0px 0px 5px var(--title-author-text-shadow-color);
+    font-weight: 400;
 }
 
 #buttons {
@@ -368,10 +369,8 @@ body {
     display: none;
     flex-direction: column;
     z-index: 1;
-    /* background-color: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px); */
+    /* background-color: rgba(255, 255, 255, 0.8); */
     box-shadow: var(--window-box-shadow);
-    resize: both;
     /* min-width: 500px;
     min-height: 300px; */
     max-width: 100vw;
@@ -544,8 +543,8 @@ body {
 }
 
 .window > .content {
+    margin: 4px;
     padding: 20px;
-    margin-right: 3px;
     overflow-y: scroll;
     flex: 1;
     border-bottom-left-radius: var(--window-border-radius);
@@ -678,16 +677,17 @@ button:hover {
     user-select: none;
     font-size: 0.9rem;
     margin: 0;
-    box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 0px transparent, 0px 3px 2px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     padding: 8px;
     color: var(--bright-gray-color);
-    transition: box-shadow 0.1s ease-out, transform 0.1s ease-out;
+    transition: all 0.1s ease-out;
 }
 
 #skills .tools-container > span:hover {
-    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.2);
+    background-color: var(--weak-inverse-main-color);
 }
 
 #skills h2:first-child {

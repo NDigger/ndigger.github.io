@@ -18,11 +18,15 @@ const getTimePassed = since => {
     return seconds + (seconds === 1 ? " second" : " seconds");
 }
 
-let statusData;
 let statusFetched = false;
-document.getElementById('status-btn').addEventListener('click', () => {
+let page = 0;
+const limit = 50;
+
+let loadingStatuses = false
+const pushNewStatusesList = () => {
+    if (loadingStatuses) return
+    loadingStatuses = true
     const statusLoadingMessage = document.getElementById('status-loading-message')
-    statusFetched = true
     const intervalId = setInterval(() => {
         const v = statusLoadingMessage.textContent
         if (v === 'loading') statusLoadingMessage.textContent = 'loading.'
@@ -30,37 +34,38 @@ document.getElementById('status-btn').addEventListener('click', () => {
         else if (v === 'loading..') statusLoadingMessage.textContent = 'loading...'
         else if (v === 'loading...') statusLoadingMessage.textContent = 'loading'
     }, 200)
-    setTimeout(() => {
-    fetch(`${backendHost}/api/status`)
+    const params = new URLSearchParams({ 
+        page: page,
+        limit: limit 
+    })
+    fetch(`${backendHost}/api/status?${params.toString()}`)
     .then(res => res.json())
     .then(data => {
         data.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
-        statusData = data;
         statusLoadingMessage.style.display = 'none';
         clearInterval(intervalId);
-        pushStatuses(statusData, statusIterator);
+        pushStatuses(data);
+        page++;
+        loadingStatuses = false;
     })
     .catch(err => {
         console.error(err)
         clearInterval(intervalId)
+        statusLoadingMessage.style.display = 'block'
         statusLoadingMessage.textContent = String(err)
     })
-    }, 1000)
+}
+
+document.getElementById('status-btn').addEventListener('click', () => {
+    if (statusFetched) return
+    statusFetched = true
+    pushNewStatusesList()
 })
 
-let statusIterator = 0;
-let isStatusListUpdating = false
-const statusIteratorInc = 10;
-const pushStatuses = (statuses, iterator) => {
+const pushStatuses = data => {
     const statusContainer = document.getElementById('status-container');
-
-    if (statusIterator > statuses.length && !isStatusListUpdating) return
-    isStatusListUpdating = true
     let html = '';
-    statusIterator += statusIteratorInc
-    const cap = iterator + statusIteratorInc < statuses.length ? iterator + statusIteratorInc : statuses.length 
-    for (let i = iterator; i < cap; i++){
-        const status = statusData[i];
+    data.map(status => {
         html += 
             `<div class="status">
                 <div class="header">
@@ -69,8 +74,7 @@ const pushStatuses = (statuses, iterator) => {
                 </div>
                 <p>${status.content}</p>
             </div>`
-    }
-    isStatusListUpdating = false
+    })
     statusContainer.insertAdjacentHTML('beforeend', html)
 } 
 
@@ -80,6 +84,6 @@ window.addEventListener('DOMContentLoaded', () => {
         const scrollTop = statusScroll.scrollTop;
         const style = getComputedStyle(statusScroll);
         const scrollMax = statusScroll.scrollHeight - style.height.match(/(\d+)/)[0];
-        if (scrollTop >= scrollMax - 100) pushStatuses(statusData, statusIterator);
+        if (scrollTop >= scrollMax - 100) pushNewStatusesList();
     })
 })

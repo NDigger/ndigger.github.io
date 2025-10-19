@@ -36,9 +36,6 @@ const pushNewStatusesList = () => {
         else if (v === 'loading..') statusLoadingMessage.textContent = 'loading...'
         else if (v === 'loading...') statusLoadingMessage.textContent = 'loading'
     }, 200)
-    setTimeout(() => {
-
-
     const params = new URLSearchParams({ 
         page: page,
         limit: limit 
@@ -59,8 +56,6 @@ const pushNewStatusesList = () => {
         statusLoadingMessage.style.display = 'block'
         statusLoadingMessage.textContent = String(err)
     })
-
-    }, 5000)
 }
 
 document.getElementById('status-btn').addEventListener('click', () => {

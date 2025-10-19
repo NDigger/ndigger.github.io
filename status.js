@@ -74,9 +74,9 @@ let unreadStatuses = 0
 const pushStatuses = data => {
     const statusContainer = document.getElementById('status-container');
     data.map(status => { 
-        if (status.id + 1 > lastStatusSeenId) unreadStatuses++
+        if (status.id > lastStatusSeenId) unreadStatuses++
         const htmlContent = 
-        `<div class="status ${status.id + 1 > lastStatusSeenId ? 'new' : ''}">
+        `<div class="status ${status.id > lastStatusSeenId ? 'new' : ''}">
                 <div class="header">
                     <p class="author">NDagger</p>
                     <p class="time-passed">${getTimePassed(new Date(status.created_at).getTime())} ago</p>

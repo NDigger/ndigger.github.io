@@ -45,7 +45,7 @@ const u_time = gl.getUniformLocation(program, "u_time");
 // const seed = Math.random() * 99999
 // let bonus = 0
 const nav = performance.getEntriesByType("navigation")[0];
-const bonus = nav.type === "reload" ? 3 : 0;
+const bonus = nav.type === "reload" ? 5 : 0;
 
 function render(time) {
   // if (bonus < 500) bonus += 1 / (Math.pow(time, 1.4)*0.001);

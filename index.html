@@ -60,7 +60,7 @@
         return 1.0 - pow((1.0 - v), 3.);
     }
 
-    const float startDistance = 2.;
+    const float startDistance = 1.2;
 
     void main() {
         vec2 st = getCenterSquareResolution(v_uv * u_resolution);
@@ -68,7 +68,7 @@
         float time = u_time * .2;
 
         st.y += startDistance;
-        st.y -= easeOut(pow(u_time, .5) / 3.) * startDistance;
+        st.y -= easeOut(pow(u_time, .5) / 5.) * startDistance;
         for (int i = 1; i < 6; i++) {
             color += vec3(drawStars(st, float(i)/2.));
         }

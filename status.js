@@ -1,4 +1,8 @@
-import { status } from "./windows.js";
+import { statuses } from "./windows.js";
+import { AppWindow } from "./appwindow.js";
+import { windowManager } from "./windows.js";
+import windows from "./windowscontent.js";
+import { Size } from './utils.js';
 
 const backendHost = 'https://backend-statuses.vercel.app'
 // const backendHost = 'http://localhost:3000'
@@ -68,10 +72,10 @@ const lastStatusSeenId = localStorage.getItem('portfolio-last-status-seen-id') |
 let unreadStatuses = 0
 const pushStatuses = data => {
     const statusContainer = document.getElementById('status-container');
-    data.map(status => { 
+    const statusCreatedElements = data.map(status => { 
         if (status.id > lastStatusSeenId) unreadStatuses++
         const htmlContent = 
-        `<div class="status ${status.id > lastStatusSeenId ? 'new' : ''}">
+        `<div id="container-status-${status.id}" class="status ${status.id > lastStatusSeenId ? 'new' : ''}">
                 <div class="header">
                     <p class="author">NDagger</p>
                     <p class="time-passed">${getTimePassed(new Date(status.created_at).getTime())} ago</p>
@@ -79,9 +83,37 @@ const pushStatuses = data => {
                 <p>${status.content}</p>
             </div>`
         statusContainer.insertAdjacentHTML('beforeend', htmlContent)
+        return statusContainer.lastElementChild
     })
-    status.setTitleContent(unreadStatuses !== 0 ? `Statuses ( ${unreadStatuses} )` : 'Statuses') 
+    statuses.setTitleContent(unreadStatuses !== 0 ? `Statuses ( ${unreadStatuses} )` : 'Statuses') 
     // statusContainer.insertAdjacentHTML('beforeend', html)
+
+    // statusCreatedElements.forEach(status => {
+    //     status.title = "Click to open"
+    //     status.addEventListener('click', e => {
+    //         const mainElement = e.currentTarget
+    //         const id = Number(mainElement.id.match(/(\d+)$/)[1])
+    //         let visibleWindow = null
+    //         for (const window of windowManager.windows) {
+    //             if (window.id === `status-${id}`) {
+    //                 visibleWindow = window;
+    //                 continue;
+    //             }
+    //         }
+    //         if (visibleWindow == null) {
+    //             const d = data.find(v => v.id === id)
+    //             const w = new AppWindow(windows.status(d));
+    //             w.setClampedSize(new Size(600, 500));
+    //             w.onClose = () => setTimeout(() => windowManager.delete(w), 400);
+    //             windowManager.add(w);
+    //             w.show();
+    //         } else {
+    //             if (visibleWindow.animationRunning) return
+    //             visibleWindow.hide()
+    //             setTimeout(() => windowManager.delete(visibleWindow), 400);
+    //         }
+    //     })
+    // })
 } 
 
 window.addEventListener('DOMContentLoaded', () => {

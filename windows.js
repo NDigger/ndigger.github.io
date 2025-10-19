@@ -3,7 +3,7 @@ import audioManager from './audioManager.js';
 import windows from './windowscontent.js';
 import { Size } from './utils.js';
 
-const windowManager = new WindowManager();
+export const windowManager = new WindowManager();
 
 // Preload windows
 export const aboutMe = windowManager.add(new AppWindow(windows.aboutMe));
@@ -11,11 +11,11 @@ export const creation = windowManager.add(new AppWindow(windows.creation));
 export const skills = windowManager.add(new AppWindow(windows.skills));
 // export const faq = windowManager.add(new AppWindow(windows.faq));
 // export const rest = windowManager.add(new AppWindow(windows.rest));
-export const status = windowManager.add(new AppWindow(windows.status));
+export const statuses = windowManager.add(new AppWindow(windows.statuses));
 
 aboutMe.setSize(new Size(900, 500));
 creation.setSize(new Size(1200, 500));
-status.setSize(new Size(1200, 550))
+statuses.setSize(new Size(1200, 550))
 // rest.setSize(new Size(1000, 550));
 // windowManager.windows.forEach(w => w.setCenteredPosition())
 
@@ -32,7 +32,7 @@ const bindWindowListeners = (button, window) => {
 bindWindowListeners(document.getElementById('about-me-btn'), aboutMe);
 bindWindowListeners(document.getElementById('creation-btn'), creation);
 bindWindowListeners(document.getElementById('skills-btn'), skills);
-bindWindowListeners(document.getElementById('status-btn'), status);
+bindWindowListeners(document.getElementById('status-btn'), statuses);
 
 window.addEventListener('DOMContentLoaded', () => {
     const openInWindowImages = Array.from(document.querySelectorAll('.open-in-window-img'));

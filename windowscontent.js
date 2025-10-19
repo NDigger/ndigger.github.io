@@ -139,7 +139,23 @@ export const image = src => `
     </section>
 `
 
-export const status = `
+export const status = data => {
+    const date = new Date(data.created_at);
+    return `
+    <section id="status-${data.id}" class="window">
+        ${getPanelHtml(`Status Info`, {
+            fullscreenBtn: true
+        })}
+        <div class="content status-content">
+            <h3>ID: ${data.id}</h3>
+            <p>Created at: ${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}</p>
+            <p class="content">${data.content}</p>
+        </div>
+    </section>
+    `
+}
+
+export const statuses = `
     <section id="statuses" class="window">
         ${getPanelHtml('Statuses', {
             fullscreenBtn: true
@@ -152,4 +168,4 @@ export const status = `
     </section>
 `
 
-export default {aboutMe, skills, creation, image, status}
+export default {aboutMe, skills, creation, image, status, statuses}

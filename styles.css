@@ -911,12 +911,19 @@ button:hover {
     animation: s-answer 0.15s linear forwards reverse
 }
 
+.status-content .content {
+    background-color: rgba(0, 0, 0, .1);
+    padding: 10px;
+    border-radius: var(--window-border-radius);
+}
+
 .status-container {
     overflow-y: hidden;
     overflow-x: hidden;
 }
 
 .status {
+    /* cursor: pointer; */
     color: var(--main-font-color);
     border-left: 3px dashed var(--main-font-color);
     background: linear-gradient(45deg, transparent, var(--weak-inverse-main-color));

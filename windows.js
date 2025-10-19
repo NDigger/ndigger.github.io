@@ -6,15 +6,16 @@ import { Size } from './utils.js';
 const windowManager = new WindowManager();
 
 // Preload windows
-const aboutMe = windowManager.add(new AppWindow(windows.aboutMe));
-const creation = windowManager.add(new AppWindow(windows.creation));
-const skills = windowManager.add(new AppWindow(windows.skills));
-// const faq = windowManager.add(new AppWindow(windows.faq));
-// const rest = windowManager.add(new AppWindow(windows.rest));
-const status = windowManager.add(new AppWindow(windows.status));
+export const aboutMe = windowManager.add(new AppWindow(windows.aboutMe));
+export const creation = windowManager.add(new AppWindow(windows.creation));
+export const skills = windowManager.add(new AppWindow(windows.skills));
+// export const faq = windowManager.add(new AppWindow(windows.faq));
+// export const rest = windowManager.add(new AppWindow(windows.rest));
+export const status = windowManager.add(new AppWindow(windows.status));
 
 aboutMe.setSize(new Size(900, 500));
 creation.setSize(new Size(1200, 500));
+status.setSize(new Size(1200, 550))
 // rest.setSize(new Size(1000, 550));
 // windowManager.windows.forEach(w => w.setCenteredPosition())
 

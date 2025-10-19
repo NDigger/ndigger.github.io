@@ -1,5 +1,7 @@
-// const backendHost = 'https://backend-statuses.vercel.app'
-const backendHost = 'http://localhost:3000'
+import { status } from "./windows.js";
+
+const backendHost = 'https://backend-statuses.vercel.app'
+// const backendHost = 'http://localhost:3000'
 
 const getTimePassed = since => {
     const ms = new Date().getTime() - since
@@ -34,6 +36,9 @@ const pushNewStatusesList = () => {
         else if (v === 'loading..') statusLoadingMessage.textContent = 'loading...'
         else if (v === 'loading...') statusLoadingMessage.textContent = 'loading'
     }, 200)
+    setTimeout(() => {
+
+
     const params = new URLSearchParams({ 
         page: page,
         limit: limit 
@@ -41,12 +46,12 @@ const pushNewStatusesList = () => {
     fetch(`${backendHost}/api/status?${params.toString()}`)
     .then(res => res.json())
     .then(data => {
-        data.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
-        statusLoadingMessage.style.display = 'none';
+        if (data[0]?.id) localStorage.setItem('portfolio-last-status-seen-id', data[0].id)
         clearInterval(intervalId);
         pushStatuses(data);
         page++;
         loadingStatuses = false;
+        statusLoadingMessage.style.display = 'none'
     })
     .catch(err => {
         console.error(err)
@@ -54,6 +59,8 @@ const pushNewStatusesList = () => {
         statusLoadingMessage.style.display = 'block'
         statusLoadingMessage.textContent = String(err)
     })
+
+    }, 5000)
 }
 
 document.getElementById('status-btn').addEventListener('click', () => {
@@ -62,20 +69,24 @@ document.getElementById('status-btn').addEventListener('click', () => {
     pushNewStatusesList()
 })
 
+const lastStatusSeenId = localStorage.getItem('portfolio-last-status-seen-id') || Number.MAX_VALUE
+let unreadStatuses = 0
 const pushStatuses = data => {
     const statusContainer = document.getElementById('status-container');
-    let html = '';
-    data.map(status => {
-        html += 
-            `<div class="status">
+    data.map(status => { 
+        if (status.id + 1 > lastStatusSeenId) unreadStatuses++
+        const htmlContent = 
+        `<div class="status ${status.id + 1 > lastStatusSeenId ? 'new' : ''}">
                 <div class="header">
                     <p class="author">NDagger</p>
                     <p class="time-passed">${getTimePassed(new Date(status.created_at).getTime())} ago</p>
                 </div>
                 <p>${status.content}</p>
             </div>`
+        statusContainer.insertAdjacentHTML('beforeend', htmlContent)
     })
-    statusContainer.insertAdjacentHTML('beforeend', html)
+    status.setTitleContent(unreadStatuses !== 0 ? `Statuses ( ${unreadStatuses} )` : 'Statuses') 
+    // statusContainer.insertAdjacentHTML('beforeend', html)
 } 
 
 window.addEventListener('DOMContentLoaded', () => {

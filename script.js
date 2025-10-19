@@ -1,8 +1,4 @@
 import audioManager from './audioManager.js';
-import { AppWindow } from './appwindow.js';
-import windows from './windowscontent.js';
-import { Size } from './utils.js';
-import './colorChangers.js';
 
 import './status.js';
 import './buttons.js';

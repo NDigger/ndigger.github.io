@@ -1,6 +1,6 @@
 const getPanelHtml = (title, {fullscreenBtn} = {}) => `
     <div class="window-panel">
-        <p class="title"><span title="${title}">${title}</span></p>
+        <p class="title"><span class="content" title="${title}">${title}</span></p>
         <div class="buttons">
             ${fullscreenBtn ? '<button class="fullscreen" title="Fullscreen" aria-label="screen mode"><i class="bi bi-window-fullscreen"></i></button>' : ''}
             <button class="close" title="Close" aria-label="close"><i class="bi bi-x-lg"></i></button>
@@ -10,7 +10,9 @@ const getPanelHtml = (title, {fullscreenBtn} = {}) => `
 
 export const aboutMe = `
     <section id="about-me" class="window">
-        ${getPanelHtml('About me')}
+        ${getPanelHtml('About me', {
+            fullscreenBtn: true
+        })}
         <div class="header">
             <img class="profile-image" src="./images/profileImage.png" alt="Profile Image">
             <div>
@@ -144,7 +146,8 @@ export const status = `
         })}
         <div class="content">
             <p id="status-loading-message">loading</p>
-            <div id="status-container"></div>
+            <div id="status-container">
+            </div>
         </div>
     </section>
 `

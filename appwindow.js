@@ -246,6 +246,12 @@ export class AppWindow {
         this.#view.updateSize();
     }
 
+    setTitleContent(content) {
+        const title = this.element.querySelector(".title > .content");
+        title.title = content
+        title.textContent = content
+    }
+
     setCenteredPosition() {
         const documentSize = getDocumentSize();
         const size = this.getSize();

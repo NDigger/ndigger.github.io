@@ -27,9 +27,9 @@
     uniform float u_time;
 
     uniform vec2 u_resolution;
-    uniform vec3 background_color;
-    uniform vec3 waves_color;
-    uniform vec3 waves_color_2;
+    uniform vec3 u_backgroundColor;
+    uniform vec3 u_wavesColor;
+    uniform vec3 u_secondaryWavesColor;
 
     const float t = 0.25;
 
@@ -46,56 +46,92 @@
         return (1.-step(.5,distance(fst, vec2(.5) + random(ist) * .5) * 30. * (random(ist) + .5)))/float(speed) / 8. * (st.y * 2. - .1);
     }
 
+    vec2 getCenterSquareResolution(in vec2 uv) {
+        vec2 st = uv / u_resolution;
+        st = (st - 0.5) * 2.0;
+        float aspect = u_resolution.x / u_resolution.y;
+        if (aspect > 1.0) { st.x *= aspect; } 
+        else { st.y /= aspect; }
+        return st * 0.5 + 0.5;
+    }
+
+    float easeOut(float t) {
+        float v = clamp(t, 0., 1.);
+        return 1.0 - pow((1.0 - v), 3.);
+    }
+
+    const float startDistance = 2.;
+
     void main() {
-        vec2 st = v_uv;
-        vec3 color = vec3(background_color);
+        vec2 st = getCenterSquareResolution(v_uv * u_resolution);
+        vec3 color = vec3(u_backgroundColor);
         float time = u_time * .2;
 
-        st = v_uv * 2.0 - 1.0;
-        float aspect = u_resolution.x / u_resolution.y;
-        if (aspect > 1.0) {
-            st.x *= aspect;
-            st = (st + 1.) / 2.;
-        } else {
-            st.y /= aspect;
-        }
-
+        st.y += startDistance;
+        st.y -= easeOut(pow(u_time, .5) / 3.) * startDistance;
         for (int i = 1; i < 6; i++) {
             color += vec3(drawStars(st, float(i)/2.));
         }
         
         vec2 nst = vec2(st.x + time, st.y);
 
+
         if (nst.y < sin(nst.x * 2.) * .1 + .2  
         || (nst.y < sin(nst.x * 2.) * .1 + .215 && nst.y > sin(nst.x * 2.) * .1 + .21 )
         ) {
-            color = mix(waves_color, waves_color_2, nst.y * 2.3); // vec3(.9, .9, 1.) vec3(.9, 1., 1.)
+            color = mix(u_wavesColor, u_secondaryWavesColor, nst.y * 2.3); // vec3(.9, .9, 1.) vec3(.9, 1., 1.)
         }
         
         //float ist = floor(nst.x);
         //float fst = fract(nst.x);
         //float ground = mix(random(vec2(ist)) * 3., random(vec2(ist + 1.)) * 3., smoothstep(0., 1., fst)) * .08;
         //if (nst.y < ground + .1 || (nst.y < ground + .115 && nst.y > ground + .11 )) {
-        //    color = mix(waves_color, waves_color_2, nst.y * 2.3);
+        //    color = mix(u_wavesColor, u_secondaryWavesColor, nst.y * 2.3);
         //}    
-        gl_FragColor = vec4(color,1.0);
+
+        vec2 mst = vec2(st.x + time / 25., st.y);
+        float moon = clamp(step(.98, 1.-length(mst - vec2(1.25, 0.9))) - step(.98, 1.-length(mst - vec2(1.255, 0.904))), 0., 1.);
+        color = mix(color, vec3(moon), moon);
+        float distanceNightCircle = clamp(clamp(1.2-length(st - .5), 0., 1.) + u_backgroundColor.r, 0., 1.);
+        
+        gl_FragColor = vec4(color*distanceNightCircle,1.0);
     }
   </script>
     <section id="centered">
         <div id="main-window">
-            <img id="music-illustration-btn" src="./images/musicIllustrationActive.png" alt="illustration for window">
+            <img id="music-illustration-btn" src="./images/musicIllustrationInactiveSleep.png" alt="illustration for window">
             <div class="window-panel">
                 <p class="title"><span title="lovely">my dream place</span></p>
             </div>
             <div class="content">
                 <h1 id="title">hi, i'm <span id="title-author">NDagger</span></h1>
                 <div id="buttons">
-                    <button id="about-me-btn" title="About me"><i class="bi bi-text-center"></i><p>About me</p></button>
-                    <button id="skills-btn" title="Skills"><i class="bi bi-tools"></i><p>Skills</p></button>
-                    <button id="creation-btn" title="Creation"><i class="bi bi-tag"></i><p>Creation</p></button>
-                    <!-- <button id="rest-btn" title="Creation"><i class="bi bi-joystick"></i><p>Rest</p></button>
-                    <button id="faq-btn" title="Not Frequently Asked Questions"><i class="bi bi-question-lg"></i><p>NFAQ</p></button> -->
-                    <button id="status-btn" title="Mumbling"><i class="bi bi-question-lg"></i><p>Mumbling</p></button>
+                    <button id="about-me-btn" title="About me">
+                        <!-- <i class="bi bi-text-center"></i> -->
+                        <i class="bi bi-info-square"></i>
+                        <p>About me</p>
+                    </button>
+                    <button id="skills-btn" title="Skills">
+                        <i class="bi bi-tools"></i>
+                        <p>Skills</p>
+                    </button>
+                    <button id="creation-btn" title="Creation">
+                        <i class="bi bi-tag"></i>
+                        <p>Creation</p>
+                    </button>
+                    <!-- <button id="rest-btn" title="Creation">
+                        <i class="bi bi-joystick"></i>
+                        <p>Rest</p>
+                    </button>
+                    <button id="faq-btn" title="Not Frequently Asked Questions">
+                        <i class="bi bi-question-lg"></i>
+                        <p>NFAQ</p>
+                    </button> -->
+                    <button id="status-btn" title="Statuses">
+                        <!-- <i class="bi bi-list"></i> -->
+                        <i class="bi bi-clock-fill"></i>
+                        <p>Statuses</p>
+                    </button>
                 </div>
             </div>
         </div>

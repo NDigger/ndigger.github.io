@@ -42,9 +42,14 @@ gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
 gl.drawArrays(gl.TRIANGLES, 0, 6);
 
 const u_time = gl.getUniformLocation(program, "u_time");
+// const seed = Math.random() * 99999
+// let bonus = 0
+const nav = performance.getEntriesByType("navigation")[0];
+const bonus = nav.type === "reload" ? 3 : 0;
 
 function render(time) {
-  gl.uniform1f(u_time, time * 0.001);
+  // if (bonus < 500) bonus += 1 / (Math.pow(time, 1.4)*0.001);
+  gl.uniform1f(u_time, time * 0.001 + bonus);
 
   gl.drawArrays(gl.TRIANGLES, 0, 6);
   requestAnimationFrame(render);

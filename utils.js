@@ -74,4 +74,4 @@ export const Anchor = Object.freeze({
     LEFT: 7,
 });
 
-export const getNightModeEnabled = () => localStorage.getItem('night-mode-enabled') === 'true';
+export const getNightModeEnabled = () => (localStorage.getItem('portfolio-night-mode-enabled') ?? 'true') === 'true';

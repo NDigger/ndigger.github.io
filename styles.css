@@ -143,13 +143,6 @@ body {
     }
 }
 
-.main-window-sleep-particle {
-    position: absolute;
-    color: var(--weak-font-color);
-    z-index: -1;
-    animation: sleep-particle-disappear 3s linear;
-}
-
 #music-illustration-btn.music-illustration-animation {
     animation: music-illustration-anim 0.2s ease-out;
 }
@@ -191,21 +184,6 @@ body {
     text-shadow: 0px 0px 9px var(--title-author-text-shadow-color);
     color: rgb(255, 200, 0);
     font-weight: 400;
-    animation: title-author-shadow-animation 5s linear infinite
-}
-
-@keyframes title-author-shadow-animation {
-    0% {
-        text-shadow: 0px 0px 20px var(--title-author-text-shadow-color);
-        color: rgb(255, 200, 0);
-    }
-    50% {
-        text-shadow: 0px 0px 10px color-mix(in oklab, var(--title-author-text-shadow-color), rgba(255, 125, 0));
-        color: color-mix(in oklab, rgb(255, 200, 0), rgba(255, 125, 0));
-    }
-    100% {
-        text-shadow: 0px 0px 20px var(--title-author-text-shadow-color);
-    }
 }
 
 #buttons {

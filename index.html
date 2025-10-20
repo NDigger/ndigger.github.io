@@ -41,8 +41,8 @@
 
     float drawStars(in vec2 st, in float speed) {
         float time = u_time * t * .5;
-        vec2 fst = fract(st * 5. * speed + vec2(time, 0));
-        vec2 ist = floor(st * 5. * speed + vec2(time, 0));
+        vec2 fst = fract(st * 5. * speed + vec2(time, random(vec2(speed)) * 10.));
+        vec2 ist = floor(st * 5. * speed + vec2(time, random(vec2(speed)) * 10.));
         return (1.-step(.5,distance(fst, vec2(.5) + random(ist) * .5) * 30. * (random(ist) + .5)))/float(speed) / 8. * (st.y * 2. - .1);
     }
 

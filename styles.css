@@ -1037,6 +1037,7 @@ button:hover {
     #main-window {
         box-shadow: none;
         background-color: transparent;
+        animation: none;
     }
 
     #main-window > .window-panel {

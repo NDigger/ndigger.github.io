@@ -85,7 +85,7 @@ class WindowDragger {
     #mousePositionOnMouseDown
     #startPosition
     #isHolding;
-    #windowSkew = 0;
+    #windowSkew = new Vector2(0, 0);
 
     #lastTime = performance.now();
 
@@ -126,9 +126,10 @@ class WindowDragger {
             const prevPos = this.model.getPosition();
             move(new Vector2(e.pageX, e.pageY));
             const newPos = this.model.getPosition();
-            const newSkew = (prevPos.x - newPos.x)/15;
+            const newSkew = new Vector2((prevPos.x - newPos.x)/15, (prevPos.y - newPos.y)/15);
             const maxSkew = 18
-            if (Math.abs(this.#windowSkew) < Math.abs(newSkew)) this.#windowSkew = Math.max(Math.min(newSkew, maxSkew), -maxSkew);
+            if (Math.abs(this.#windowSkew.x) < Math.abs(newSkew.x)) this.#windowSkew.x = Math.max(Math.min(newSkew.x, maxSkew), -maxSkew);
+            if (Math.abs(this.#windowSkew.y) < Math.abs(newSkew.y)) this.#windowSkew.y = Math.max(Math.min(newSkew.y, maxSkew), -maxSkew);
         })
         
         window.addEventListener('resize', () => {
@@ -141,8 +142,9 @@ class WindowDragger {
     #update(time) {
         const ft = time - this.#lastTime;
         this.#lastTime = time  
-        this.#windowSkew *= .75;
-        this.element.style.transform = `skewX(${this.#windowSkew}deg) skewY(${this.#windowSkew/6}deg)`
+        this.#windowSkew.x *= .75;
+        this.#windowSkew.y *= .75;
+        this.element.style.transform = `skewX(${this.#windowSkew.x}deg) skewY(${(Math.abs(this.#windowSkew.y) * this.#windowSkew.x)/13}deg)`
 
         requestAnimationFrame(t => this.#update(t))
     }

@@ -579,18 +579,22 @@ body {
     border: none;
     width: 50px;
     height: 100%;
-    transition: background-color 0.05s linear;
+    transition: background-color 0.05s linear, font-size 0.05s linear;
+}
+
+.window-panel > .buttons *:active {
+    font-size: 0.94em;
 }
 
 .window-panel .close {
     border-top-right-radius: var(--border-radius);
 }
 
-.window-panel .fullscreen:hover {
+.window-panel .fullscreen:hover, .window-panel .fullscreen:active {
     background-color: rgba(255, 255, 255, 0.13);
 }
 
-.window-panel .close:hover {
+.window-panel .close:hover, .window-panel .close:active {
     background-color: rgb(223, 10, 10);
 }
 

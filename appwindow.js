@@ -98,7 +98,7 @@ class WindowDragger {
 
         const windowPanel = this.element.querySelector('.window-panel');
         windowPanel.addEventListener('mousedown', e => {
-            if (e.target.closest('.buttons .close') || this.model.fullscreen) return;
+            if (e.target.closest('.buttons') || this.model.fullscreen) return;
             this.#isHolding = true
             this.#startPosition = this.model.getPosition();
             this.#mousePositionOnMouseDown = new Vector2(e.pageX, e.pageY)

@@ -85,6 +85,10 @@ class WindowDragger {
     #mousePositionOnMouseDown
     #startPosition
     #isHolding;
+    #windowSkew = 0;
+
+    #lastTime = performance.now();
+
     model;
     element;
 
@@ -111,19 +115,36 @@ class WindowDragger {
             this.#isHolding = false;
             saveNewPosition();
         });
+        const move = pos => {
+            this.model.setClampedPosition(new Vector2(
+                this.#startPosition.x + (pos.x - this.#mousePositionOnMouseDown.x),
+                this.#startPosition.y + (pos.y - this.#mousePositionOnMouseDown.y)
+            ))
+        }
         document.addEventListener('mousemove', e => {
-            const move = () => {
-                this.model.setClampedPosition(new Vector2(
-                    this.#startPosition.x + (e.pageX - this.#mousePositionOnMouseDown.x),
-                    this.#startPosition.y + (e.pageY - this.#mousePositionOnMouseDown.y)
-                ))
-            }
             if (!this.#isHolding) return; // || this.isResizing
-            move();
+            const prevPos = this.model.getPosition();
+            move(new Vector2(e.pageX, e.pageY));
+            const newPos = this.model.getPosition();
+            const newSkew = (prevPos.x - newPos.x)/15;
+            const maxSkew = 18
+            if (Math.abs(this.#windowSkew) < Math.abs(newSkew)) this.#windowSkew = Math.max(Math.min(newSkew, maxSkew), -maxSkew);
         })
+        
         window.addEventListener('resize', () => {
             this.model.setClampedPosition(this.model.getPosition())
         })
+
+        requestAnimationFrame(t => this.#update(t))
+    }
+
+    #update(time) {
+        const ft = time - this.#lastTime;
+        this.#lastTime = time  
+        this.#windowSkew *= .75;
+        this.element.style.transform = `skewX(${this.#windowSkew}deg) skewY(${this.#windowSkew/6}deg)`
+
+        requestAnimationFrame(t => this.#update(t))
     }
 }
 

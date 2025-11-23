@@ -75,7 +75,6 @@
         
         vec2 nst = vec2(st.x + time, st.y);
 
-
         if (nst.y < sin(nst.x * 2.) * .1 + .2  
         || (nst.y < sin(nst.x * 2.) * .1 + .215 && nst.y > sin(nst.x * 2.) * .1 + .21 )
         ) {
@@ -92,7 +91,7 @@
         //vec2 mst = vec2(st.x + time / 25., st.y);
         //float moon = clamp(step(.98, 1.-length(mst - vec2(1.25, 0.9))) - step(.98, 1.-length(mst - vec2(1.255, 0.904))), 0., 1.);
         //color = mix(color, vec3(moon), moon);
-        float distanceNightCircle = clamp(clamp(1.2-length(st - .5), 0., 1.) + u_backgroundColor.r, 0., 1.);
+        float distanceNightCircle = clamp(clamp(1.2-length(st - .5) * 0.8, 0., 1.) + u_backgroundColor.r, 0., 1.);
         
         gl_FragColor = vec4(color*distanceNightCircle,1.0);
     }

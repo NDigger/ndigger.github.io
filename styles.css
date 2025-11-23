@@ -215,7 +215,8 @@ body {
 #buttons > button:hover {
     color: var(--main-window-button-hover-color);
     opacity: 1;
-    text-shadow: 0px 0px 5px var(--main-window-button-hover-text-shadow-color);
+    text-shadow: 0px 0px 5px var(--main-window-button-hover-text-shadow-color),
+                 0px 0px 50px var(--main-window-button-hover-text-shadow-color);
     /* font-size: 2.8rem; */
     scale: 1.06;
     transform: matrix3d();

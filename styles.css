@@ -574,16 +574,20 @@ body {
     height: 100%;
 }
 
-.window-panel > .buttons * {
+.window-panel > .buttons > button {
     background-color: transparent;
     border: none;
     width: 50px;
     height: 100%;
-    transition: background-color 0.05s linear, font-size 0.05s linear;
+    transition: background-color 0.05s linear, font-size 0.1s linear;
 }
 
-.window-panel > .buttons *:active {
-    font-size: 0.94em;
+.window-panel > .buttons > button > i {
+    font-size: inherit
+}
+
+.window-panel > .buttons button:active {
+    font-size: 0.85em;
 }
 
 .window-panel .close {

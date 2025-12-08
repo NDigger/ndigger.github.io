@@ -91,7 +91,7 @@
         //vec2 mst = vec2(st.x + time / 25., st.y);
         //float moon = clamp(step(.98, 1.-length(mst - vec2(1.25, 0.9))) - step(.98, 1.-length(mst - vec2(1.255, 0.904))), 0., 1.);
         //color = mix(color, vec3(moon), moon);
-        float distanceNightCircle = clamp(clamp(1.2-length(st - .5) * 0.8, 0., 1.) + u_backgroundColor.r, 0., 1.);
+        float distanceNightCircle = clamp(clamp(1.2-length(st - .5) * 0.9, 0., 1.) + u_backgroundColor.r, 0., 1.);
         
         gl_FragColor = vec4(color*distanceNightCircle,1.0);
     }
@@ -136,8 +136,9 @@
         </div>
     </section>
     <section id="bottom-buttons">
-        <button title="My discord" aria-label="discord" id="discord-btn" class="copyable"><i class="bi bi-discord"></i></button>
-        <button title="My youtube" aria-label="youtube" id="youtube-btn"><i class="bi bi-youtube"></i><a href="https://www.youtube.com/@scout1495" target="_blank" title="My youtube"></a></button>
+        <button title="My Discord" aria-label="discord" id="discord-btn" class="copyable"><i class="bi bi-discord"></i></button>
+        <button title="My YouTube" aria-label="youtube" id="youtube-btn"><i class="bi bi-youtube"></i><a href="https://www.youtube.com/@scout1495" target="_blank" title="My youtube"></a></button>
+        <button title="My GitHub" aria-label="github" id="github-btn"><i class="bi bi-github"></i><a href="https://github.com/NDigger" target="_blank" title="My youtube"></a></button>
     </section>
     <button id="music-btn"><i class="bi bi-music-note-beamed"></i></button>
     <button id="night-mode-btn" class="night-mode-btn-animation"><i class="bi bi-moon-fill night-mode-btn-animation"></i></button>

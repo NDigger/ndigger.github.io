@@ -1,0 +1,415 @@
+/* MAIN WINDOW */
+
+#main-window {
+    --border-radius: var(--window-border-radius);
+    position: relative;
+    max-width: 100vw;
+    margin-top: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--window-box-shadow);
+    user-select: none;
+    animation: main-window-appearance 3s ease-out forwards;
+}
+
+#main-window .content {
+    border-bottom-left-radius: var(--window-border-radius);
+    border-bottom-right-radius: var(--window-border-radius);
+    backdrop-filter: blur(100px) brightness(100%) opacity(93%);
+    padding: 30px 70px;
+}
+
+@keyframes main-window-appearance {
+    from {
+        transform: translateY(30px);
+        scale: 1.1;
+    }
+    to {
+        scale: 1;
+        transform: none;
+    }
+}
+
+#title {
+    font-size: 2.5em;
+    text-align: center;
+    margin-bottom: 50px;
+    font-weight: 300;
+}
+
+#title-author {
+    font-size: 1.3em;
+    text-shadow: 0px 0px 9px var(--title-author-text-shadow-color);
+    color: rgb(255, 200, 0);
+    font-weight: 400;
+}
+
+#buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px;
+}
+
+#buttons *:not(button) {
+    pointer-events: none;
+    user-select: none;
+    color: inherit !important;
+    text-shadow: inherit !important;
+}
+
+#buttons > button {
+    color: var(--main-font-color);
+    background-color: transparent;
+    border: var(--button-border);
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    font-size: 2.5rem;
+    transition: all 0.1s linear;
+    opacity: .5;
+}
+
+#buttons > button:hover {
+    color: var(--main-window-button-hover-color);
+    opacity: 1;
+    text-shadow: 0px 0px 5px var(--main-window-button-hover-text-shadow-color),
+                 0px 0px 50px var(--main-window-button-hover-text-shadow-color);
+    scale: 1.06;
+    transform: matrix3d();
+}
+
+#buttons i {
+    font-size: 1em;
+    text-shadow: 0px 2px 0px rgba(0, 0, 0, 0.1);
+    transition: font-size 0.1s linear;
+}
+
+#buttons p {
+    font-size: 0.8rem;
+}
+
+
+/* ABOUT ME */
+#about-me .profile-image {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+}
+
+#about-me .header {
+    display: flex;
+    gap: 30px;
+    padding: 40px;
+    padding-bottom: 20px;
+    pointer-events: none;
+    user-select: none;
+}
+
+#about-me .profile-name {
+    font-size: 3rem;
+}
+
+#about-me .subtitle {
+    color: var(--weak-font-color);
+    font-size: 1.4rem;
+}
+
+/* SKILLS */
+
+#skills .tools-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+#skills .tools-container > span {
+    user-select: none;
+    font-size: 0.9rem;
+    margin: 0;
+    box-shadow: 0px 0px 0px transparent, 0px 3px 2px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    padding: 8px;
+    color: var(--bright-gray-color);
+    transition: all 0.1s ease-out;
+}
+
+#skills .tools-container > span:hover {
+    box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.2);
+    background-color: var(--weak-inverse-main-color);
+}
+
+#skills h2:first-child {
+    margin-top: 0px !important;
+}
+
+/* CREATION */
+
+#creation .illustrations-container {
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#creation .illustrations-container img {
+    max-width: 240px;
+    max-height: 240px;
+    border-radius: var(--window-border-radius);
+    margin: 0px;
+}
+
+#creation .game-info-container {
+    display: flex;
+    align-items: top;
+    justify-content: start;
+    min-height: 100px;
+    margin: 50px 0;
+    padding: 10px;
+}
+
+#creation .game-info-container img {
+    width: 300px;
+    margin-right: 20px;
+    border-radius: var(--window-border-radius);
+}
+
+#creation .game-info-container .title-download-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#creation .game-info-container h3 {
+    flex: 2
+}
+
+#creation .game-info-container .download {
+    flex: 1;
+    border: none;
+    text-align: center;
+    padding: 5px;
+    background-color: var(--weak-inverse-main-color);
+    color: var(--main-font-color);
+    font-weight: 500;
+    display: block;
+    margin: 0 auto;
+    width: 150px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    text-decoration: none;
+    transition: background-color 0.05s ease-out;
+}
+
+#creation .game-info-container .download > i {
+    color: var(--main-font-color);
+    font-weight: 300;
+    margin-left: 5px;
+}
+
+#creation .game-info-container .download.mobile-only {
+    display: none;
+    padding: 10px;
+    font-size: 1.1rem;
+    margin-top: 30px;
+}
+
+#creation p {
+    text-align:justify;
+}
+
+#godot-unity-content-img {
+    display: block;
+    margin: 0 auto;
+    width: min(500px, 95%);
+}
+
+/* STATUSES */
+
+.status-content .content {
+    background-color: rgba(0, 0, 0, .1);
+    padding: 10px;
+    border-radius: var(--window-border-radius);
+}
+
+.status-container {
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.status {
+    color: var(--main-font-color);
+    border-left: 3px dashed var(--main-font-color);
+    background: linear-gradient(45deg, transparent, var(--weak-inverse-main-color));
+    padding: 5px 20px;
+    opacity: .7;
+}
+
+.status.new {
+    opacity: 1;
+    filter: brightness(1.5);
+    position: relative;
+    border-left: 3px solid var(--main-font-color);
+}
+
+.status * {
+    color: inherit;
+}
+
+.status > .header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.status > .header * {
+    font-size: 15px;
+    margin: 0px;
+}
+
+.status > .header > .author {
+    user-select: none;
+    pointer-events: none;
+}
+
+.status > .header > .time-passed {
+    text-align: right !important;
+    font-size: 15px;
+}
+
+@media (max-width: 932px) {
+    #title {
+        font-size: min(calc(14vw + 1px), 2.5rem);
+    }
+
+    #title-author {
+        display: block;
+    }
+
+    #main-window {
+        box-shadow: none;
+        background-color: transparent;
+        animation: none;
+    }
+
+    #main-window > .window-panel {
+        display: none;
+    }
+
+    #main-window .content {
+        padding: 0;
+        backdrop-filter: initial;
+        background-color: transparent;
+    }
+
+    #buttons {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        width: 0px;
+        margin: 0 auto;
+        gap: 10px;
+    }
+
+    #buttons > button {
+        width: 90px;
+        height: 90px;
+    }
+    
+    /* 
+    #buttons > :last-child {
+        grid-column: span 2;
+        width: 100%;
+    } */
+
+    #buttons > button, #bottom-buttons > button {
+        background-color: var(--buttons-mobile-color);
+        box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+
+    #about-me .profile-image {
+        width: 80px;
+        height: 80px;
+    }
+
+    #about-me .header {
+        display: flex;
+        gap: 30px;
+        padding: 20px;
+        padding-top: 30px;
+    }
+
+    #about-me .profile-name {
+        font-size: 2rem;
+    }
+
+    #about-me .subtitle {
+        font-size: 1rem;
+    }
+
+    .left-image {
+        float: right;
+        width: 100%;
+        padding-right: 0px; 
+    }
+
+    #creation .illustrations-container {
+        justify-content: space-evenly;
+    }
+
+    #creation .illustrations-container > img { 
+        width: 45%;
+        max-width: none;
+        max-height: none;
+    }
+
+    #creation .game-info-container {
+        margin: 10px 0;
+        box-shadow: var(--weak-box-shadow);
+        background-color: rgba(0, 0, 0, 0.02);
+        padding: 10px;
+        flex-direction: column;
+    }
+
+    #creation .game-info-container img {
+        margin: 0;
+        width: 100%;
+    }
+
+    #skills .tools-container > span:hover {
+        box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    #creation .game-info-container .download.pc-only {
+        display: none;
+    }
+
+    #creation .game-info-container .download.mobile-only {
+        display: block;
+    }
+}
+
+@media (max-height: 500px) {
+    #title {
+        display: none;
+    }
+
+    #title-author {
+        display: inline;
+    }
+
+    #buttons {
+        grid-template-rows: 1fr !important;
+        grid-template-columns: repeat(4, 1fr) !important;
+    }
+
+    #main-window > .content {
+        width: 100%;
+    }
+
+    #about-me > .header {
+        display: none;
+    }
+}

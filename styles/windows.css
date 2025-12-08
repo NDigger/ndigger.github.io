@@ -1,187 +1,264 @@
-/* ABOUT ME */
-#about-me .profile-image {
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-}
-
-#about-me .header {
-    display: flex;
-    gap: 30px;
-    padding: 40px;
-    padding-bottom: 20px;
-    pointer-events: none;
-    user-select: none;
-}
-
-#about-me .profile-name {
-    font-size: 3rem;
-}
-
-#about-me .subtitle {
-    color: var(--weak-font-color);
-    font-size: 1.4rem;
-}
-
-/* SKILLS */
-
-#skills .tools-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    gap: 10px;
-}
-
-#skills .tools-container > span {
-    user-select: none;
-    font-size: 0.9rem;
-    margin: 0;
-    box-shadow: 0px 0px 0px transparent, 0px 3px 2px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    padding: 8px;
-    color: var(--bright-gray-color);
-    transition: all 0.1s ease-out;
-}
-
-#skills .tools-container > span:hover {
-    box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.2);
-    background-color: var(--weak-inverse-main-color);
-}
-
-#skills h2:first-child {
-    margin-top: 0px !important;
-}
-
-/* CREATION */
-
-#creation .illustrations-container {
-    display: flex;
-    justify-content: start;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-#creation .illustrations-container img {
-    max-width: 240px;
-    max-height: 240px;
-    border-radius: var(--window-border-radius);
-    margin: 0px;
-}
-
-#creation .game-info-container {
-    display: flex;
-    align-items: top;
-    justify-content: start;
-    min-height: 100px;
-    margin: 50px 0;
-    padding: 10px;
-}
-
-#creation .game-info-container img {
-    width: 300px;
-    margin-right: 20px;
-    border-radius: var(--window-border-radius);
-}
-
-#creation .game-info-container .title-download-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#creation .game-info-container h3 {
-    flex: 2
-}
-
-#creation .game-info-container .download {
-    flex: 1;
-    border: none;
-    text-align: center;
-    padding: 5px;
-    background-color: var(--weak-inverse-main-color);
-    color: var(--main-font-color);
-    font-weight: 500;
-    display: block;
-    margin: 0 auto;
-    width: 150px;
-    border-radius: 10px;
-    font-size: 0.8rem;
-    text-decoration: none;
-    transition: background-color 0.05s ease-out;
-}
-
-#creation .game-info-container .download > i {
-    color: var(--main-font-color);
-    font-weight: 300;
-    margin-left: 5px;
-}
-
-#creation .game-info-container .download.mobile-only {
+.window {
+    --width: 800px;
+    --height: 500px;
+    --border-radius: var(--window-border-radius);
+    border-radius: var(--border-radius);
+    background-color: var(--window-background-color);
+    backdrop-filter: blur(120px) brightness(90%);
+    position: fixed;
+    width: var(--width);
+    height: var(--height);
     display: none;
-    padding: 10px;
-    font-size: 1.1rem;
-    margin-top: 30px;
+    flex-direction: column;
+    z-index: 1;
+    /* background-color: rgba(255, 255, 255, 0.8); */
+    box-shadow: var(--window-box-shadow);
+    /* min-width: 500px;
+    min-height: 300px; */
+    max-width: 100vw;
+    max-height: 100vh;
 }
 
-#creation p {
-    text-align:justify;
+@keyframes window-fullscreen-anim {
+  from {
+    --border-radius: var(--window-border-radius);
+    width: var(--width);
+    height: var(--height);
+    top: var(--top);
+    left: var(--left);
+  }
+  to {
+    --border-radius: 0px;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+  }
 }
 
-#godot-unity-content-img {
-    display: block;
-    margin: 0 auto;
-    width: min(500px, 95%);
+.window-fullscreen {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    --border-radius: 0px;
 }
 
-/* STATUSES */
-
-.status-content .content {
-    background-color: rgba(0, 0, 0, .1);
-    padding: 10px;
-    border-radius: var(--window-border-radius);
+.window-fullscreen-show {
+    animation: window-fullscreen-anim 0.3s ease-in-out forwards;
 }
 
-.status-container {
-    overflow-y: hidden;
-    overflow-x: hidden;
+.window-fullscreen-hide {
+    animation: window-fullscreen-anim 0.3s ease-in-out forwards reverse;
 }
 
-.status {
-    color: var(--main-font-color);
-    border-left: 3px dashed var(--main-font-color);
-    background: linear-gradient(45deg, transparent, var(--weak-inverse-main-color));
-    padding: 5px 20px;
-    opacity: .7;
+.window > .content * {
+    margin: 10px 0;
 }
 
-.status.new {
-    opacity: 1;
-    filter: brightness(1.5);
-    position: relative;
+.window:not(#about-me) h1 {
+    font-size: 2.2rem;
+    border-left: 5px solid var(--main-font-color);
+    padding: 0px 25px;
+    text-align: left;
+}
+
+.window .content h2 {
+    margin-top: 50px !important;
+    padding: 0px 15px;
+    font-weight: 500;
     border-left: 3px solid var(--main-font-color);
 }
 
-.status * {
-    color: inherit;
+.window .content p {
+    text-align: justify;
 }
 
-.status > .header {
+.show-window {
+    animation: s-window 0.4s ease-out forwards;
+}
+
+@keyframes s-window {
+    0% {
+        opacity: 0;
+        top: calc(50vh - var(--height) / 2);
+        left: calc(50vw - var(--width) / 2);
+        scale: 1.5;
+    }
+    100% {
+        opacity: 1;
+        top: var(--top);
+        left: var(--left);
+        scale: 1;
+    }
+}
+
+@keyframes s-window-mobile {
+    0% {
+        transform: translateY(100vh);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.hide-window {
+    animation: h-window 0.3s ease-in forwards;
+}
+
+@keyframes h-window {
+    0% {
+        opacity: 1;
+        top: var(--top);
+        left: var(--left);
+        scale: 1;
+    }
+    100% {
+        opacity: 0;
+        top: calc(50vh - var(--height) / 2);
+        left: calc(50vw - var(--width) / 2);
+        scale: 0;
+    }
+}
+
+.window-panel {
+    font-size: 1.5rem;
+    font-weight: 900;
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+    background-color: var(--window-panel-color);
+    width: 100%;
+    height: 50px;
     display: flex;
+    align-items: center;
     justify-content: space-between;
-}
-
-.status > .header * {
-    font-size: 15px;
-    margin: 0px;
-}
-
-.status > .header > .author {
+    padding-left: 20px;
     user-select: none;
-    pointer-events: none;
+    -webkit-user-drag: none;
 }
 
-.status > .header > .time-passed {
-    text-align: right !important;
-    font-size: 15px;
+.window-panel * {
+    color: white;
+    font-size: 1.2rem;
+}
+
+.window-panel .title {
+    flex: 1;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;  
+    pointer-events: visible;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.window-panel > .buttons {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    height: 100%;
+}
+
+.window-panel > .buttons > button {
+    background-color: transparent;
+    border: none;
+    width: 50px;
+    height: 100%;
+    transition: background-color 0.05s linear, font-size 0.1s linear;
+}
+
+.window-panel > .buttons > button > i {
+    font-size: inherit
+}
+
+.window-panel > .buttons button:active {
+    font-size: 0.85em;
+}
+
+.window-panel .close {
+    border-top-right-radius: var(--border-radius);
+}
+
+.window-panel .fullscreen:hover, .window-panel .fullscreen:active {
+    background-color: rgba(255, 255, 255, 0.13);
+}
+
+.window-panel .close:hover, .window-panel .close:active {
+    background-color: rgb(223, 10, 10);
+}
+
+.window > .content {
+    margin: 4px;
+    margin-top: 0px;
+    padding: 20px;
+    overflow-y: scroll;
+    flex: 1;
+    border-bottom-left-radius: var(--window-border-radius);
+    border-bottom-right-radius: var(--window-border-radius);
+    /* background-color: var(--main-color); */
+}
+
+.window > .content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.window > .content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.window > .content::-webkit-scrollbar-thumb {
+  background: rgba(100, 100, 100, 0.5);
+  border-radius: 4px;
+}
+
+.window > .content .centered-image {
+    display: block;
+    margin: 0 auto;
+}
+
+@media (max-width: 932px) {
+    .window, .window * {
+        border-radius: unset;
+    }
+
+    .window {
+        --border-radius: 0px;
+        position: absolute;
+        inset: 0 !important;
+        width: 100vw;
+        height: 100vw;
+        min-width: 100vw;
+        max-width: 100vw;
+        min-height: 100vh;
+        max-height: 100vh;
+    }
+
+    .window > .content {
+        margin-right: 0;
+        overflow: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        padding-bottom: 65px;
+    }
+
+    .window > .content::-webkit-scrollbar {
+        display: none;
+    }
+
+    .window-panel .fullscreen {
+        display: none;
+    }
+
+    .show-window {
+        animation: s-window-mobile 0.3s ease-out forwards;
+    }
+
+    .hide-window {
+        animation: s-window-mobile 0.3s ease-out reverse forwards;
+    }
 }

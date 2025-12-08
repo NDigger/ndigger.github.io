@@ -1,4 +1,5 @@
 @import url('./styles/windows.css');
+@import url('./styles/specificWindows.css');
 
 *,
 *::before,
@@ -32,6 +33,9 @@
     --main-window-button-hover-text-shadow-color: rgba(255, 98, 0, 0);
 }
 
+button:focus, a:focus { outline: none; }
+button:hover, a:hover { cursor: pointer; }
+
 * {
     color: var(--main-font-color)
 }
@@ -49,25 +53,20 @@ img {
     opacity: 1;
 }
 
-html {
+html, body {
     width: 100vw;
     height: 100vh;
     max-width: 100vw;
     max-height: 100vh;
     position: relative;
     overflow: hidden;
+}
+
+html {
     font-size: 1.4rem;
 }
 
-body {
-    width: 100vw;
-    height: 100vh;
-    max-width: 100vw;
-    max-height: 100vh;
-    position: relative;
-    overflow: hidden;
-}
-
+/* Override black screen on page opened */
 #override {
     position: fixed;
     inset: 0;
@@ -92,28 +91,6 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-}
-
-#main-window {
-    --border-radius: var(--window-border-radius);
-    position: relative;
-    max-width: 100vw;
-    margin-top: 40px;
-    border-radius: var(--border-radius);
-    box-shadow: var(--window-box-shadow);
-    user-select: none;
-    animation: main-window-appearance 3s ease-out forwards;
-}
-
-@keyframes main-window-appearance {
-    from {
-        transform: translateY(30px);
-        scale: 1.1;
-    }
-    to {
-        scale: 1;
-        transform: none;
-    }
 }
 
 #music-illustration-btn {
@@ -164,73 +141,6 @@ body {
 
 #music-illustration-btn {
     cursor: pointer;
-}
-
-#main-window .content {
-    border-bottom-left-radius: var(--window-border-radius);
-    border-bottom-right-radius: var(--window-border-radius);
-    backdrop-filter: blur(100px) brightness(100%) opacity(93%);
-    padding: 30px 70px;
-}
-
-#title {
-    font-size: 2.5em;
-    text-align: center;
-    margin-bottom: 50px;
-    font-weight: 300;
-}
-
-#title-author {
-    font-size: 1.3em;
-    text-shadow: 0px 0px 9px var(--title-author-text-shadow-color);
-    color: rgb(255, 200, 0);
-    font-weight: 400;
-}
-
-#buttons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    padding: 10px;
-}
-
-#buttons *:not(button) {
-    pointer-events: none;
-    user-select: none;
-    color: inherit !important;
-    text-shadow: inherit !important;
-}
-
-#buttons > button {
-    color: var(--main-font-color);
-    background-color: transparent;
-    border: var(--button-border);
-    width: 100px;
-    height: 100px;
-    border-radius: 10px;
-    font-size: 2.5rem;
-    transition: all 0.1s linear;
-    opacity: .5;
-}
-
-#buttons > button:hover {
-    color: var(--main-window-button-hover-color);
-    opacity: 1;
-    text-shadow: 0px 0px 5px var(--main-window-button-hover-text-shadow-color),
-                 0px 0px 50px var(--main-window-button-hover-text-shadow-color);
-    scale: 1.06;
-    transform: matrix3d();
-}
-
-#buttons i {
-    font-size: 1em;
-    text-shadow: 0px 2px 0px rgba(0, 0, 0, 0.1);
-    transition: font-size 0.1s linear;
-}
-
-#buttons p {
-    font-size: 0.8rem;
 }
 
 #bottom-buttons {
@@ -351,7 +261,6 @@ body {
     transform: translateY(15px) translateX(20px);
 }
 
-
 #music-btn i, #sound-btn i {
     color: var(--gray-color)
 }
@@ -399,229 +308,6 @@ body {
     color: var(--gray-color)
 }
 
-.window {
-    --width: 800px;
-    --height: 500px;
-    --border-radius: var(--window-border-radius);
-    border-radius: var(--border-radius);
-    background-color: var(--window-background-color);
-    backdrop-filter: blur(120px) brightness(90%);
-    position: fixed;
-    width: var(--width);
-    height: var(--height);
-    display: none;
-    flex-direction: column;
-    z-index: 1;
-    /* background-color: rgba(255, 255, 255, 0.8); */
-    box-shadow: var(--window-box-shadow);
-    /* min-width: 500px;
-    min-height: 300px; */
-    max-width: 100vw;
-    max-height: 100vh;
-}
-
-@keyframes window-fullscreen-anim {
-  from {
-    --border-radius: var(--window-border-radius);
-    width: var(--width);
-    height: var(--height);
-    top: var(--top);
-    left: var(--left);
-  }
-  to {
-    --border-radius: 0px;
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
-  }
-}
-
-.window-fullscreen {
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    --border-radius: 0px;
-}
-
-.window-fullscreen-show {
-    animation: window-fullscreen-anim 0.3s ease-in-out forwards;
-}
-
-.window-fullscreen-hide {
-    animation: window-fullscreen-anim 0.3s ease-in-out forwards reverse;
-}
-
-.window > .content * {
-    margin: 10px 0;
-}
-
-.window:not(#about-me) h1 {
-    font-size: 2.2rem;
-    border-left: 5px solid var(--main-font-color);
-    padding: 0px 25px;
-    text-align: left;
-}
-
-.window .content h2 {
-    margin-top: 50px !important;
-    padding: 0px 15px;
-    font-weight: 500;
-    border-left: 3px solid var(--main-font-color);
-}
-
-.window .content p {
-    text-align: justify;
-}
-
-.show-window {
-    animation: s-window 0.4s ease-out forwards;
-}
-
-@keyframes s-window {
-    0% {
-        opacity: 0;
-        top: calc(50vh - var(--height) / 2);
-        left: calc(50vw - var(--width) / 2);
-        scale: 1.5;
-    }
-    100% {
-        opacity: 1;
-        top: var(--top);
-        left: var(--left);
-        scale: 1;
-    }
-}
-
-@keyframes s-window-mobile {
-    0% {
-        transform: translateY(100vh);
-    }
-    100% {
-        transform: translateY(0);
-    }
-}
-
-.hide-window {
-    animation: h-window 0.3s ease-in forwards;
-}
-
-@keyframes h-window {
-    0% {
-        opacity: 1;
-        top: var(--top);
-        left: var(--left);
-        scale: 1;
-    }
-    100% {
-        opacity: 0;
-        top: calc(50vh - var(--height) / 2);
-        left: calc(50vw - var(--width) / 2);
-        scale: 0;
-    }
-}
-
-.window-panel {
-    font-size: 1.5rem;
-    font-weight: 900;
-    border-top-left-radius: var(--border-radius);
-    border-top-right-radius: var(--border-radius);
-    background-color: var(--window-panel-color);
-    width: 100%;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-left: 20px;
-    user-select: none;
-    -webkit-user-drag: none;
-}
-
-.window-panel * {
-    color: white;
-    font-size: 1.2rem;
-}
-
-.window-panel .title {
-    flex: 1;
-    max-width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;  
-    pointer-events: visible;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -o-user-select: none;
-    user-select: none;
-}
-
-.window-panel > .buttons {
-    display: flex;
-    justify-content: right;
-    align-items: center;
-    height: 100%;
-}
-
-.window-panel > .buttons > button {
-    background-color: transparent;
-    border: none;
-    width: 50px;
-    height: 100%;
-    transition: background-color 0.05s linear, font-size 0.1s linear;
-}
-
-.window-panel > .buttons > button > i {
-    font-size: inherit
-}
-
-.window-panel > .buttons button:active {
-    font-size: 0.85em;
-}
-
-.window-panel .close {
-    border-top-right-radius: var(--border-radius);
-}
-
-.window-panel .fullscreen:hover, .window-panel .fullscreen:active {
-    background-color: rgba(255, 255, 255, 0.13);
-}
-
-.window-panel .close:hover, .window-panel .close:active {
-    background-color: rgb(223, 10, 10);
-}
-
-.window > .content {
-    margin: 4px;
-    margin-top: 0px;
-    padding: 20px;
-    overflow-y: scroll;
-    flex: 1;
-    border-bottom-left-radius: var(--window-border-radius);
-    border-bottom-right-radius: var(--window-border-radius);
-    /* background-color: var(--main-color); */
-}
-
-.window > .content::-webkit-scrollbar {
-  width: 8px;
-}
-
-.window > .content::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.window > .content::-webkit-scrollbar-thumb {
-  background: rgba(100, 100, 100, 0.5);
-  border-radius: 4px;
-}
-
-.window > .content .centered-image {
-    display: block;
-    margin: 0 auto;
-}
-
 .image-content {
     margin: 0px !important;
     padding: 0px !important;
@@ -642,109 +328,9 @@ body {
     cursor: pointer;
 }
 
-button:focus {
-    outline: none;
-}
-
-button:hover {
-    cursor: pointer;
-}
-
-@keyframes s-answer {
-    0% {
-        font-size: 0;
-        opacity: 0;
-        margin: 0;
-    }
-    50% {
-        font-size: initial;
-        opacity: 0;
-    }
-    80% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
 @media (max-width: 932px) {
-    #title {
-        font-size: min(calc(14vw + 1px), 2.5rem);
-    }
-
-    .window, .window * {
-        border-radius: unset;
-    }
-
-    .window {
-        --border-radius: 0px;
-        position: absolute;
-        inset: 0 !important;
-        width: 100vw;
-        height: 100vw;
-        min-width: 100vw;
-        max-width: 100vw;
-        min-height: 100vh;
-        max-height: 100vh;
-    }
-
-    .window > .content {
-        margin-right: 0;
-        overflow: auto;
-        scrollbar-width: none;
-        -ms-overflow-style: none;
-        padding-bottom: 65px;
-    }
-
-    .window > .content::-webkit-scrollbar {
-        display: none;
-    }
-
-    #title-author {
-        display: block;
-    }
-
-    #main-window {
-        box-shadow: none;
-        background-color: transparent;
-        animation: none;
-    }
-
-    #main-window > .window-panel {
-        display: none;
-    }
-
-    #main-window .content {
-        padding: 0;
-        backdrop-filter: initial;
-        background-color: transparent;
-    }
-
-    #buttons {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(2, 1fr);
-        width: 0px;
-        margin: 0 auto;
-        gap: 10px;
-    }
-
-    #buttons > button {
-        width: 90px;
-        height: 90px;
-    }
-    
-    /* 
-    #buttons > :last-child {
-        grid-column: span 2;
-        width: 100%;
-    } */
-
-    #buttons > button, #bottom-buttons > button {
-        background-color: var(--buttons-mobile-color);
-        box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
-        z-index: 1;
+    html {
+        font-size: 1.15rem;
     }
 
     #bottom-buttons {
@@ -761,79 +347,6 @@ button:hover {
         transform: translateX(calc(-50% + 25px)) translateY(100px) !important;
     }
 
-    html {
-        font-size: 1.15rem;
-    }
-
-    .show-window {
-        animation: s-window-mobile 0.3s ease-out forwards;
-    }
-
-    .hide-window {
-        animation: s-window-mobile 0.3s ease-out reverse forwards;
-    }
-
-    #about-me .profile-image {
-        width: 80px;
-        height: 80px;
-    }
-
-    #about-me .header {
-        display: flex;
-        gap: 30px;
-        padding: 20px;
-        padding-top: 30px;
-    }
-
-    #about-me .profile-name {
-        font-size: 2rem;
-    }
-
-    #about-me .subtitle {
-        font-size: 1rem;
-    }
-
-    .left-image {
-        float: right;
-        width: 100%;
-        padding-right: 0px; 
-    }
-
-    #creation .illustrations-container {
-        justify-content: space-evenly;
-    }
-
-    #creation .illustrations-container > img { 
-        width: 45%;
-        max-width: none;
-        max-height: none;
-    }
-
-    #creation .game-info-container {
-        margin: 10px 0;
-        box-shadow: var(--weak-box-shadow);
-        background-color: rgba(0, 0, 0, 0.02);
-        padding: 10px;
-        flex-direction: column;
-    }
-
-    #creation .game-info-container img {
-        margin: 0;
-        width: 100%;
-    }
-
-    #skills .tools-container > span:hover {
-        box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.2);
-    }
-
-    #creation .game-info-container .download.pc-only {
-        display: none;
-    }
-
-    #creation .game-info-container .download.mobile-only {
-        display: block;
-    }
-
     #music-btn {
         display: block;
     }
@@ -846,34 +359,7 @@ button:hover {
         display: none;
     }
 
-    .window-panel .fullscreen {
-        display: none;
-    }
-
     #sound-btn {
         top: 80px;
-    }
-}
-
-@media (max-height: 500px) {
-    #main-window > .content {
-        width: 100%;
-    }
-
-    #title {
-        display: none;
-    }
-
-    #title-author {
-        display: inline;
-    }
-
-    #about-me > .header {
-        display: none;
-    }
-
-    #buttons {
-        grid-template-rows: 1fr !important;
-        grid-template-columns: repeat(4, 1fr) !important;
     }
 }

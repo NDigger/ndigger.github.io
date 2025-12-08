@@ -1,0 +1,84 @@
+/* REST */
+/* UNAVALIABLE */
+
+#rest .ratings-container {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+#rest .ratings-container > * {
+    margin: 0px;
+    flex: 1;
+    border-radius: 0px;
+    padding: 2px 10px;
+    font-size: .8rem;
+}
+
+#rest .ratings-container * {
+    color: black;
+    font-weight: 800;
+}
+
+#rest .ratings-container .rating::after {
+    content: '/5 ';
+    font-size: .8em;
+    font-weight: 900;
+}
+
+/* FAQ */
+/* UNAVALIABLE */
+
+#faq .question-container {
+    box-shadow: var(--weak-box-shadow);
+    padding: 8px;
+    border-radius: 10px;
+    margin: 20px 0px;
+}
+
+#faq .question-flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+#faq .question-flex * {
+    margin: 0;
+}
+
+#faq .question {
+    flex: 1;
+}
+
+#faq .question::before {
+    content: "Q: ";    
+}
+
+#faq .answer {
+    display: none;
+}
+
+#faq .answer::before {
+    content: "A: ";
+}
+
+#faq .show-answer-btn {
+    background-color: transparent;
+    color: var(--gray-color);
+    font-size: 1.2rem;
+    border: none;
+    width: 30px;
+    height: 30px;
+    transition: rotate 0.15s ease-out;
+}
+
+#faq .show-answer-btn.rotate-show-answer-btn {
+    rotate: -90deg;
+}
+
+.show-answer {
+    animation: s-answer 0.15s linear forwards
+}
+
+.hide-answer {
+    animation: s-answer 0.15s linear forwards reverse
+}

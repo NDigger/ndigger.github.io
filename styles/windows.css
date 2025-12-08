@@ -1,0 +1,187 @@
+/* ABOUT ME */
+#about-me .profile-image {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+}
+
+#about-me .header {
+    display: flex;
+    gap: 30px;
+    padding: 40px;
+    padding-bottom: 20px;
+    pointer-events: none;
+    user-select: none;
+}
+
+#about-me .profile-name {
+    font-size: 3rem;
+}
+
+#about-me .subtitle {
+    color: var(--weak-font-color);
+    font-size: 1.4rem;
+}
+
+/* SKILLS */
+
+#skills .tools-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+#skills .tools-container > span {
+    user-select: none;
+    font-size: 0.9rem;
+    margin: 0;
+    box-shadow: 0px 0px 0px transparent, 0px 3px 2px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    padding: 8px;
+    color: var(--bright-gray-color);
+    transition: all 0.1s ease-out;
+}
+
+#skills .tools-container > span:hover {
+    box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.2);
+    background-color: var(--weak-inverse-main-color);
+}
+
+#skills h2:first-child {
+    margin-top: 0px !important;
+}
+
+/* CREATION */
+
+#creation .illustrations-container {
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#creation .illustrations-container img {
+    max-width: 240px;
+    max-height: 240px;
+    border-radius: var(--window-border-radius);
+    margin: 0px;
+}
+
+#creation .game-info-container {
+    display: flex;
+    align-items: top;
+    justify-content: start;
+    min-height: 100px;
+    margin: 50px 0;
+    padding: 10px;
+}
+
+#creation .game-info-container img {
+    width: 300px;
+    margin-right: 20px;
+    border-radius: var(--window-border-radius);
+}
+
+#creation .game-info-container .title-download-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#creation .game-info-container h3 {
+    flex: 2
+}
+
+#creation .game-info-container .download {
+    flex: 1;
+    border: none;
+    text-align: center;
+    padding: 5px;
+    background-color: var(--weak-inverse-main-color);
+    color: var(--main-font-color);
+    font-weight: 500;
+    display: block;
+    margin: 0 auto;
+    width: 150px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    text-decoration: none;
+    transition: background-color 0.05s ease-out;
+}
+
+#creation .game-info-container .download > i {
+    color: var(--main-font-color);
+    font-weight: 300;
+    margin-left: 5px;
+}
+
+#creation .game-info-container .download.mobile-only {
+    display: none;
+    padding: 10px;
+    font-size: 1.1rem;
+    margin-top: 30px;
+}
+
+#creation p {
+    text-align:justify;
+}
+
+#godot-unity-content-img {
+    display: block;
+    margin: 0 auto;
+    width: min(500px, 95%);
+}
+
+/* STATUSES */
+
+.status-content .content {
+    background-color: rgba(0, 0, 0, .1);
+    padding: 10px;
+    border-radius: var(--window-border-radius);
+}
+
+.status-container {
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.status {
+    color: var(--main-font-color);
+    border-left: 3px dashed var(--main-font-color);
+    background: linear-gradient(45deg, transparent, var(--weak-inverse-main-color));
+    padding: 5px 20px;
+    opacity: .7;
+}
+
+.status.new {
+    opacity: 1;
+    filter: brightness(1.5);
+    position: relative;
+    border-left: 3px solid var(--main-font-color);
+}
+
+.status * {
+    color: inherit;
+}
+
+.status > .header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.status > .header * {
+    font-size: 15px;
+    margin: 0px;
+}
+
+.status > .header > .author {
+    user-select: none;
+    pointer-events: none;
+}
+
+.status > .header > .time-passed {
+    text-align: right !important;
+    font-size: 15px;
+}

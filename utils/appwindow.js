@@ -1,5 +1,5 @@
-import audioManager from './audioManager.js'
-import { Vector2, Size, getDocumentSize, restartCssAnimation } from './utils.js'
+import audioManager from '../audioManager.js'
+import { Vector2, Size, getDocumentSize, restartCssAnimation } from './structures.js'
 
 const windowViewAnimationSpeed = 400;
 class WindowView {

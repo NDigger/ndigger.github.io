@@ -1,7 +1,7 @@
-import { AppWindow, WindowManager } from './appwindow.js';
+import { AppWindow, WindowManager } from './utils/appwindow.js';
 import audioManager from './audioManager.js';
 import windows from './windowscontent.js';
-import { Size } from './utils.js';
+import { Size } from './utils/structures.js';
 
 export const windowManager = new WindowManager();
 

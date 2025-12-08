@@ -1,4 +1,4 @@
-import { getDocumentSize } from "./utils.js";
+import { getDocumentSize } from "./utils/structures.js";
 
 const sounds = {
     click: new Audio('./audio/click.wav'),

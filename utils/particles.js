@@ -1,4 +1,4 @@
-import { Vector2, Anchor } from "./utils.js";
+import { Vector2, Anchor } from "./structures.js";
 
 class Particle {
     anchor = Anchor.TOP_LEFT;

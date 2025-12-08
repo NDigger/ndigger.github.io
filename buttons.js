@@ -1,7 +1,7 @@
-import { ParticleEmitter } from './particles.js';
-import { Vector2, restartCssAnimation, getNightModeEnabled, Color } from './utils.js';
+import { ParticleEmitter } from './utils/particles.js';
+import { Vector2, restartCssAnimation, getNightModeEnabled, Color } from './utils/structures.js';
 import audioManager from './audioManager.js';
-import { RootColorChanger, CanvasColorChanger } from './colorChangers.js';
+import { RootColorChanger, CanvasColorChanger } from './utils/colorChangers.js';
 
 // Music buttons adjustments
 const musicParticlesEmitter = new ParticleEmitter();

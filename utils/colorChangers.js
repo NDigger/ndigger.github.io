@@ -1,5 +1,5 @@
 import LerpApp from './interpolation.js';
-import { Color, getNightModeEnabled } from './utils.js';
+import { Color, getNightModeEnabled } from './structures.js';
 
 const getRootColor = key => {
     const str = getComputedStyle(document.documentElement).getPropertyValue(key);

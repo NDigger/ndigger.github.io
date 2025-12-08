@@ -43,7 +43,7 @@
     font-weight: 400;
 }
 
-#buttons {
+#main-window .buttons {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -51,14 +51,14 @@
     padding: 10px;
 }
 
-#buttons *:not(button) {
+#main-window .buttons *:not(button) {
     pointer-events: none;
     user-select: none;
     color: inherit !important;
     text-shadow: inherit !important;
 }
 
-#buttons > button {
+#main-window .buttons > button {
     color: var(--main-font-color);
     background-color: transparent;
     border: var(--button-border);
@@ -70,7 +70,7 @@
     opacity: .5;
 }
 
-#buttons > button:hover {
+#main-window .buttons > button:hover {
     color: var(--main-window-button-hover-color);
     opacity: 1;
     text-shadow: 0px 0px 5px var(--main-window-button-hover-text-shadow-color),
@@ -79,13 +79,13 @@
     transform: matrix3d();
 }
 
-#buttons i {
+#main-window .buttons i {
     font-size: 1em;
     text-shadow: 0px 2px 0px rgba(0, 0, 0, 0.1);
     transition: font-size 0.1s linear;
 }
 
-#buttons p {
+#main-window .buttons p {
     font-size: 0.8rem;
 }
 
@@ -303,7 +303,7 @@
         background-color: transparent;
     }
 
-    #buttons {
+    #main-window .buttons {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(2, 1fr);
@@ -312,18 +312,18 @@
         gap: 10px;
     }
 
-    #buttons > button {
+    #main-window .buttons > button {
         width: 90px;
         height: 90px;
     }
     
     /* 
-    #buttons > :last-child {
+    #main-window .buttons > :last-child {
         grid-column: span 2;
         width: 100%;
     } */
 
-    #buttons > button, #bottom-buttons > button {
+    #main-window .buttons > button, #bottom-buttons > button {
         background-color: var(--buttons-mobile-color);
         box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
         z-index: 1;
@@ -400,7 +400,7 @@
         display: inline;
     }
 
-    #buttons {
+    #main-window .buttons {
         grid-template-rows: 1fr !important;
         grid-template-columns: repeat(4, 1fr) !important;
     }

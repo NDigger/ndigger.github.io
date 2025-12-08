@@ -41,6 +41,25 @@ gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
 
 gl.drawArrays(gl.TRIANGLES, 0, 6);
 
+
+const u_resolution = gl.getUniformLocation(program, "u_resolution");
+const setUniformRes = () => gl.uniform2f(u_resolution, window.innerWidth, window.innerHeight);
+setUniformRes()
+window.addEventListener('resize', setUniformRes)
+
+const u_offset = gl.getUniformLocation(program, "u_offset");
+gl.uniform2f(u_offset, 0, 0);
+
+const offsetMult = .5;
+let offsetYTarget = -.5*offsetMult;
+let offsetY = -.5*offsetMult;
+
+document.addEventListener('mousemove', e => {
+  const w = window.innerWidth;
+  const h = window.innerHeight;
+  offsetYTarget = (1.-(e.pageY/h)-.5)*offsetMult;
+})
+
 const u_time = gl.getUniformLocation(program, "u_time");
 // const seed = Math.random() * 99999
 // let bonus = 0
@@ -51,12 +70,11 @@ function render(time) {
   // if (bonus < 500) bonus += 1 / (Math.pow(time, 1.4)*0.001);
   gl.uniform1f(u_time, time * 0.001 + bonus);
 
+  offsetY += (offsetYTarget - offsetY)/300
+  gl.uniform2f(u_offset, 0, offsetY);
+
   gl.drawArrays(gl.TRIANGLES, 0, 6);
   requestAnimationFrame(render);
 }
 requestAnimationFrame(render);
 
-const u_resolution = gl.getUniformLocation(program, "u_resolution");
-const setUniformRes = () => gl.uniform2f(u_resolution, window.innerWidth, window.innerHeight);
-setUniformRes()
-window.addEventListener('resize', setUniformRes)

@@ -1,3 +1,5 @@
+@import url('./styles/windows.css');
+
 *,
 *::before,
 *::after {
@@ -652,49 +654,6 @@ body {
     cursor: pointer;
 }
 
-/* .open-in-window-img-hover {
-    position: relative;
-    margin: 0px;
-    transition: background-color 0.2s linear;
-}
-
-.open-in-window-img-hover::after {
-    content: '';
-    position: absolute;
-    pointer-events: none;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: calc(100% - 6px);
-    background-color: rgba(0, 0, 0, 0);
-    transition: background-color 0.1s linear;
-    z-index: 999998;
-}
-
-.open-in-window-img-hover::before {
-    content: 'Open in window';
-    pointer-events: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    text-align: center;
-    font-weight: 300;
-    color: transparent;
-    transform: translate(-50%) translateY(-50%);
-    transition: color 0.1s linear;
-    z-index: 999999;
-}
-
-.open-in-window-img-hover:hover::before {
-    color: white;
-}
-
-.open-in-window-img-hover:hover::after {
-    cursor: pointer;
-    background-color: rgba(0, 0, 0, 0.5);
-} */
-
 button:focus {
     outline: none;
 }
@@ -702,8 +661,6 @@ button:focus {
 button:hover {
     cursor: pointer;
 }
-
-@import url('./styles/windows.css');
 
 @keyframes s-answer {
     0% {

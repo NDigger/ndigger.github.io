@@ -169,7 +169,6 @@ body {
 #main-window .content {
     border-bottom-left-radius: var(--window-border-radius);
     border-bottom-right-radius: var(--window-border-radius);
-    /* background-color: var(--main-color); */
     backdrop-filter: blur(100px) brightness(100%) opacity(93%);
     padding: 30px 70px;
 }
@@ -220,7 +219,6 @@ body {
     opacity: 1;
     text-shadow: 0px 0px 5px var(--main-window-button-hover-text-shadow-color),
                  0px 0px 50px var(--main-window-button-hover-text-shadow-color);
-    /* font-size: 2.8rem; */
     scale: 1.06;
     transform: matrix3d();
 }
@@ -248,7 +246,6 @@ body {
 
 #bottom-buttons button {
     position: relative;
-    /* background-color: var(--main-color); */
     backdrop-filter: blur(100px) brightness(100%) opacity(90%);
     background-color: transparent;
     border: var(--button-border);
@@ -345,7 +342,7 @@ body {
     transform: translateY(13px) translateX(25px);
     border-radius: 10px;
     rotate: 45deg;
-    background: var(--gray-color); /* для примера */;
+    background: var(--gray-color);;
     transition: all .2s ease-in-out;
 }
 
@@ -377,15 +374,6 @@ body {
     transition: font-size 0.2s linear;
     transition: all .3s ease;
 }
-
-/* #night-mode-btn * {
-    color: inherit !important
-}
-
-#night-mode-btn:hover {
-    color: var(--main-window-button-hover-color);
-    text-shadow: 0px 0px 6px var(--main-window-button-hover-text-shadow-color)
-} */
 
 #night-mode-btn:hover, #music-btn:hover, #sound-btn:hover {
     font-size: 2rem;
@@ -737,7 +725,6 @@ button:hover {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(2, 1fr);
-        /* width: 215px; */
         width: 0px;
         margin: 0 auto;
         gap: 10px;

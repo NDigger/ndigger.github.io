@@ -1,8 +1,8 @@
 import { statuses } from "./windows.js";
-import { AppWindow } from "./utils/appwindow.js";
-import { windowManager } from "./windows.js";
-import windows from "./windowscontent.js";
-import { Size } from './utils/structures.js';
+// import { AppWindow } from "./utils/appwindow.js";
+// import { windowManager } from "./windows.js";
+// import windows from "./windowscontent.js";
+// import { Size } from './utils/structures.js';
 
 const backendHost = 'https://backend-statuses.vercel.app'
 // const backendHost = 'http://localhost:3000'

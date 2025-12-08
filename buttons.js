@@ -107,7 +107,7 @@ discordBtn.addEventListener('click', () => {
 })
 
 // Add SFX to bottom buttons
-for (const child of document.getElementById('bottom-buttons').children) {
+for (const child of document.getElementById('quick-links').children) {
     child.addEventListener('mouseover', () => {
         audioManager.resetPlayHover(audioManager.sounds.hover)
     })

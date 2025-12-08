@@ -143,7 +143,7 @@ html {
     cursor: pointer;
 }
 
-#bottom-buttons {
+#quick-links {
     position: absolute;
     bottom: 10px;
     left: 50%;
@@ -154,7 +154,7 @@ html {
     user-select: none;
 }
 
-#bottom-buttons button {
+#quick-links button {
     position: relative;
     backdrop-filter: blur(100px) brightness(100%) opacity(90%);
     background-color: transparent;
@@ -166,11 +166,11 @@ html {
     transition: font-size 0.1s linear;
 }
 
-#bottom-buttons *:not(button):not(a) {
+#quick-links *:not(button):not(a) {
     pointer-events: none;
 }
 
-#bottom-buttons button.copyable::after {
+#quick-links button.copyable::after {
     position: absolute;
     content: 'Copied @pizda69!';
     width: 300px;
@@ -184,7 +184,7 @@ html {
     pointer-events: none;
 }
 
-#bottom-buttons button.copyable::before {
+#quick-links button.copyable::before {
     pointer-events: none;
     position: absolute;
     content: '';
@@ -196,8 +196,8 @@ html {
     opacity: 0;
 }
 
-#bottom-buttons button.copyable.show-copied-popup::after,
-#bottom-buttons button.copyable.show-copied-popup::before {
+#quick-links button.copyable.show-copied-popup::after,
+#quick-links button.copyable.show-copied-popup::before {
     animation: s-popup 2s ease-in-out forwards;
 }
 
@@ -216,15 +216,15 @@ html {
     }
 }
 
-#bottom-buttons i {
+#quick-links i {
     color: var(--gray-color);
 }
 
-#bottom-buttons button:hover {
+#quick-links button:hover {
     font-size: 1.25rem;
 }
 
-#bottom-buttons a {
+#quick-links a {
     position: absolute;
     inset: 0;
 }
@@ -333,7 +333,7 @@ html {
         font-size: 1.15rem;
     }
 
-    #bottom-buttons {
+    #quick-links {
         top: 20px;
         height: min-content;
     }

@@ -4,37 +4,6 @@ import './status.js';
 import './buttons.js';
 import './windows.js';
 
-// bindWindowListeners(document.getElementById('sfaq-btn'), faq)
-// bindWindowListeners(document.getElementById('rest-btn'), rest)
-
-// Question containers display logic
-// const questionContainers = Array.from(document.getElementById('faq').querySelectorAll('.question-container'))
-// for (const key in questionContainers) {
-//     const questionContainer = questionContainers[key];
-//     const showButton = questionContainer.querySelector('.show-answer-btn');
-//     const answer = questionContainer.querySelector('.answer');
-//     showButton.addEventListener('click', () => {
-//         const answerStyle = getComputedStyle(answer);
-//         if (answerStyle.display === 'none') {
-//             answer.style.display = 'block'
-//             showButton.classList.add('rotate-show-answer-btn')
-//             answer.classList.remove('hide-answer')
-//             restartCssAnimation(answer, 'show-answer')
-//             showButton.disabled = true
-//             setTimeout(() => {showButton.disabled = false}, 150)
-//         } else {
-//             showButton.classList.remove('rotate-show-answer-btn')
-//             answer.classList.remove('show-answer')
-//             restartCssAnimation(answer, 'hide-answer')
-//             showButton.disabled = true
-//             setTimeout(() => {
-//                 answer.style.display = 'none'
-//                 showButton.disabled = false
-//             }, 150)
-//         }
-//     })
-// }
-
 // Tool spans hover SFX 
 const toolSpans = [
   ...Array.from(document.getElementById('tools-container').children),

@@ -211,6 +211,7 @@
 }
 
 .status {
+    margin: 10px 0;
     color: var(--main-font-color);
     border-left: 3px dashed var(--main-font-color);
     background: linear-gradient(45deg, transparent, var(--weak-inverse-main-color));

@@ -12,13 +12,10 @@ const toolSpans = [
 
 window.addEventListener('load', () => {
   Array.from(document.querySelectorAll('.hover-sound'))
-  .addEventListener('mouseover', () => {
-    audioManager.resetPlayHover(audioManager.sounds.hover);
+  .forEach(el => {
+    el.addEventListener('mouseover', () => {
+      console.log(1)
+      audioManager.resetPlayHover(audioManager.sounds.hover);
+    })
   })
-})
-
-toolSpans.forEach(span => {
-    span.addEventListener('mouseover', () => {
-        audioManager.resetPlayHover(audioManager.sounds.hover);
-    });
 })

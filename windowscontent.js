@@ -38,23 +38,23 @@ export const skills = `
         <div class="content">
             <p>Tools I use:</p>
             <div id="tools-container" class="tools-container">
-                <span>Adobe Illustrator</span>
-                <span>Adobe Photoshop</span>
-                <span>Clip Studio Paint X</span>
-                <span>FL Studio</span>
-                <span>Visual Studio Code</span>
-                <span>Visual Studio</span>
-                <span>Postgre SQL</span>
-                <span>Git</span>
+                <span class="hover-sound">Adobe Illustrator</span>
+                <span class="hover-sound">Adobe Photoshop</span>
+                <span class="hover-sound">Clip Studio Paint X</span>
+                <span class="hover-sound">FL Studio</span>
+                <span class="hover-sound">Visual Studio Code</span>
+                <span class="hover-sound">Visual Studio</span>
+                <span class="hover-sound">Postgre SQL</span>
+                <span class="hover-sound">Git</span>
             </div>
             <p>Programming languages I worked with:</p>
             <div id="pl-container" class="tools-container">
-                <span>Python</span>
-                <span>Java Script</span>
-                <span>C++</span>
-                <span>GDScript</span>
-                <span>Bash</span>
-                <span>OpenGL Shading Language</span>
+                <span class="hover-sound">Python</span>
+                <span class="hover-sound">Java Script</span>
+                <span class="hover-sound">C++</span>
+                <span class="hover-sound">GDScript</span>
+                <span class="hover-sound">Bash</span>
+                <span class="hover-sound">OpenGL Shading Language</span>
             </div>
             <h2>Web Development</h2>
             <p>Most of pages I made don't use any libraries because I don't see much of need in them for personal projects.</p>
@@ -84,9 +84,9 @@ export const creation = `
             <div class="centered-links">
                 <h1>Avaliable pages</h1>
                 <div class="links">
-                    <a href="./old" target="_blank" title="Click to visit"><img src="./images/pages/old.png"></a>
-                    <a href="./typing-speed-test" target="_blank" title="Click to visit"><img src="./images/pages/tts.png"></a>
-                    <a href="./webagon" target="_blank" title="Click to visit"><img src="./images/pages/webagon.png"></a>
+                    <a class="hover-sound" href="./old" target="_blank" title="Click to visit"><img src="./images/pages/old.png"></a>
+                    <a class="hover-sound" href="./typing-speed-test" target="_blank" title="Click to visit"><img src="./images/pages/tts.png"></a>
+                    <a class="hover-sound" href="./webagon" target="_blank" title="Click to visit"><img src="./images/pages/webagon.png"></a>
                 </div>
             </div>
         </div>

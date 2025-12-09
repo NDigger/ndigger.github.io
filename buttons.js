@@ -94,7 +94,6 @@ const changeSoundState = () => {
     }
 }
 soundBtn.addEventListener('click', changeSoundState)
-soundBtn.addEventListener('mouseover', () => audioManager.resetPlayHover(audioManager.sounds.hover))
 if ((localStorage.getItem('portfolio-sound-enabled') ?? 'true') === 'false') {
     soundBtn.classList.add('audio-btn-disabled');
 }
@@ -105,13 +104,6 @@ discordBtn.addEventListener('click', () => {
     navigator.clipboard.writeText('@pizda69');
     restartCssAnimation(discordBtn, 'show-copied-popup');
 })
-
-// Add SFX to bottom buttons
-for (const child of document.getElementById('quick-links').children) {
-    child.addEventListener('mouseover', () => {
-        audioManager.resetPlayHover(audioManager.sounds.hover)
-    })
-}
 
 const colorChangers = [
     new RootColorChanger('--main-color', new Color(40, 40, 45)),
@@ -149,9 +141,6 @@ nightModeBtn.addEventListener('click', () => {
     colorChangers.map(colorChanger => colorChanger.run())
 })
 
-nightModeBtn.addEventListener('mouseover', () => {
-    audioManager.resetPlayHover(audioManager.sounds.hover);
-})
 const nightModeEnabled = getNightModeEnabled()
 nightModeBtn.innerHTML = nightModeEnabled ? sunIcon : moonIcon
 colorChangers.map(colorChanger => colorChanger.apply())

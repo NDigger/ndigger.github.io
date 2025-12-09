@@ -25,9 +25,6 @@ const bindWindowListeners = (button, window) => {
         window.visible ? window.hide() : window.show();
         windowManager.bringToFront(window);
     })
-    button.addEventListener('mouseover', () => {
-        audioManager.resetPlayHover(audioManager.sounds.hover)
-    })
 }
 
 bindWindowListeners(document.getElementById('about-me-btn'), aboutMe);

@@ -24,11 +24,9 @@ export const aboutMe = `
             <p>Hi, I'm NDagger or NDigger or someone else.</p>
             <p>I'm the child who is working on a factory and trying to create pages with some functionality.</p>
             <p>Things that I work with for a long time are programming and drawing, you can see more details below.</p>
-            <h2>Programming</h2>
             <p>I have been programming since I was 18 and continue to do so to this day. I started programming out of sheer boredom and an important piece of advice. It turned out to be much more interesting than I thought. Unfortunately, learning libraries for programming languages ​​is tens of times more difficult for me, but I try.</p>
             <p>I have used programming to create games, create pages, and create different content for games.</p>
-            <h2>Drawing</h2>
-            <p>I have been drawing since I was 14. I can't say that I have learned anything in 4 years. For me, drawing is a simple way to relax and maybe enjoy the end result.</p>
+            <p>I also like or liked drawing, cool right?</p>
         </div>
     </section>
 `
@@ -65,8 +63,7 @@ export const skills = `
             <p>Several hosted pages you can see in the creation tab.</p>
             <p>The page you see now also does not use any libraries at all.</p>
             <h2>Drawing</h2>
-            <p>I began enjoying this process a lot when I was 15. I keep returning back from times to times to make several pictures, but I'm not focused on it.</p>
-            <p>I didn't progress much since then.</p>
+            <p>I have been drawing since I was 14. I can't say that I have learned anything in 4 years. For me, drawing is a simple way to relax and maybe enjoy the end result.</p>
             <div class="illustrations-container">
                 <img class="open-in-window-img open-in-window" src="images/illustrations/Без названия281-1.png" alt="illustration">
                 <img class="open-in-window-img open-in-window" src="images/illustrations/Без названия325_20240522013505.jpg" alt="illustration">

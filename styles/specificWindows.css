@@ -145,86 +145,56 @@
     margin-top: 0px !important;
 }
 
-/* CREATION */
-
-#creation .illustrations-container {
+#skills .illustrations-container {
     display: flex;
     justify-content: start;
     flex-wrap: wrap;
     gap: 10px;
 }
 
-#creation .illustrations-container img {
+#skills .illustrations-container img {
     max-width: 240px;
     max-height: 240px;
     border-radius: var(--window-border-radius);
     margin: 0px;
 }
 
-#creation .game-info-container {
-    display: flex;
-    align-items: top;
-    justify-content: start;
-    min-height: 100px;
-    margin: 50px 0;
-    padding: 10px;
-}
+/* CREATION */
 
-#creation .game-info-container img {
-    width: 300px;
-    margin-right: 20px;
-    border-radius: var(--window-border-radius);
-}
-
-#creation .game-info-container .title-download-container {
+#creations .centered-links {
+    width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    flex-direction: column;
+    position: relative;
 }
 
-#creation .game-info-container h3 {
-    flex: 2
+#creations .links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
 }
 
-#creation .game-info-container .download {
-    flex: 1;
-    border: none;
-    text-align: center;
-    padding: 5px;
-    background-color: var(--weak-inverse-main-color);
-    color: var(--main-font-color);
-    font-weight: 500;
-    display: block;
-    margin: 0 auto;
-    width: 150px;
+#creations .links img {
+    width: calc(1280px / 4);
+    height: calc(720px / 4);
     border-radius: 10px;
-    font-size: 0.8rem;
-    text-decoration: none;
-    transition: background-color 0.05s ease-out;
+    padding: 3px;
+    transition: all .1s linear;
 }
 
-#creation .game-info-container .download > i {
-    color: var(--main-font-color);
-    font-weight: 300;
-    margin-left: 5px;
+#creations .links img:hover {
+    border-radius: 10px;
+    padding: 0px;
 }
 
-#creation .game-info-container .download.mobile-only {
-    display: none;
-    padding: 10px;
-    font-size: 1.1rem;
-    margin-top: 30px;
-}
-
-#creation p {
-    text-align:justify;
-}
-
-#godot-unity-content-img {
+/* #godot-unity-content-img {
     display: block;
     margin: 0 auto;
     width: min(500px, 95%);
-}
+} */
 
 /* STATUSES */
 
@@ -355,17 +325,17 @@
         padding-right: 0px; 
     }
 
-    #creation .illustrations-container {
+    #skills .illustrations-container {
         justify-content: space-evenly;
     }
 
-    #creation .illustrations-container > img { 
+    #skills .illustrations-container > img { 
         width: 45%;
         max-width: none;
         max-height: none;
     }
 
-    #creation .game-info-container {
+    #creations .game-info-container {
         margin: 10px 0;
         box-shadow: var(--weak-box-shadow);
         background-color: rgba(0, 0, 0, 0.02);
@@ -373,7 +343,7 @@
         flex-direction: column;
     }
 
-    #creation .game-info-container img {
+    #creations .game-info-container img {
         margin: 0;
         width: 100%;
     }
@@ -382,11 +352,11 @@
         box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.2);
     }
 
-    #creation .game-info-container .download.pc-only {
+    #creations .game-info-container .download.pc-only {
         display: none;
     }
 
-    #creation .game-info-container .download.mobile-only {
+    #creations .game-info-container .download.mobile-only {
         display: block;
     }
 }

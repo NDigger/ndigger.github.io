@@ -54,17 +54,18 @@
 }
 
 .window:not(#about-me) h1 {
-    font-size: 2.2rem;
-    border-left: 5px solid var(--main-font-color);
-    padding: 0px 25px;
+    font-size: 2.5rem;
+    /* border-left: 5px solid var(--main-font-color); */
+    /* padding: 0px 25px; */
     text-align: left;
 }
 
 .window .content h2 {
     margin-top: 50px !important;
-    padding: 0px 15px;
+    /* padding: 0px 15px; */
+    font-size: 2rem;
     font-weight: 500;
-    border-left: 3px solid var(--main-font-color);
+    /* border-left: 3px solid var(--main-font-color); */
 }
 
 .window .content p {

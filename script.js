@@ -10,6 +10,13 @@ const toolSpans = [
   ...Array.from(document.getElementById('pl-container').children)
 ];
 
+window.addEventListener('load', () => {
+  Array.from(document.querySelectorAll('.hover-sound'))
+  .addEventListener('mouseover', () => {
+    audioManager.resetPlayHover(audioManager.sounds.hover);
+  })
+})
+
 toolSpans.forEach(span => {
     span.addEventListener('mouseover', () => {
         audioManager.resetPlayHover(audioManager.sounds.hover);

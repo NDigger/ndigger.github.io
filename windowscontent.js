@@ -47,83 +47,48 @@ export const skills = `
                 <span>Postgre SQL</span>
                 <span>Git</span>
             </div>
-            <p>Frameworks and languages I use/used:</p>
+            <p>Programming languages I worked with:</p>
             <div id="pl-container" class="tools-container">
-                <span>С++</span>
-                <span>Java Script</span>
                 <span>Python</span>
+                <span>Java Script</span>
+                <span>C++</span>
                 <span>GDScript</span>
                 <span>Bash</span>
-                <span>Express</span>
                 <span>OpenGL Shading Language</span>
             </div>
             <h2>Web Development</h2>
-            <p>Most of pages I made don't use any libraries. The page you see now also does not use any libraries at all.</p>
-            <p>I used libraries and frameworks only when I had a need in backend and data storage.</p>
-            <p>The only framework I tried to apply on practice is express.</p>
-            <h2>Game Development</h2>
-            <img id="godot-unity-content-img" src="./images/godotVsUnity.png" alt="godotVsUnity">
-            <p>I began from SFML library. This is C++ library for developing games. The only reason why I chose it - I thought it's way better than Game Engines for no reason. Due to how complex C++ is to me I dropped it quite quickly.</p>
-            <p>All games I've made were done with Godot game engine. The simplicity and speed of the engine make it a top priority for me.</p>
-            <p>I had a try to use Unity game engine. It's very heavy and much more complex. I understand that Unity might be better for more complex projects but it doesn't seem to be necessary for me.</p>
-            <p>And the most important thing - It's not necessary anymore to have a "Made with Unity" popup on load :D</p>
-        </div>
-    </section>
-`
-export const creation = `
-    <section id="creation" class="window">
-        ${getPanelHtml('Creation')}
-        <div class="content">
-            <h1>I enjoy creating digital things!</h1>
-            <p>Below you can look at various digital things I made.</p>
-            <h2>Few Decent Illustrations</h2>
-            <div id="ggg" class="illustrations-container">
+            <p>Most of pages I made don't use any libraries because I don't see much of need in them for personal projects.</p>
+            <p>But there are exceptions! Drawing meshes with pure JavaScript is a complex task so I used pixi.js meshes for that.</p>
+            <p>I had practiced both frontend and backend sides. This page is an exception of the good adaptive frontend design I made.</p>
+            <p>When I tried to create my custom app I used various libraries and frameworks which do some complex work or simplify the development process of complex stuff to me.</p>
+            <p>I had worked with basics of React, express.js, various node libraries, Vite, pixi.js.</p>
+            <p>Several hosted pages you can see in the creation tab.</p>
+            <p>The page you see now also does not use any libraries at all.</p>
+            <h2>Drawing</h2>
+            <p>I began enjoying this process a lot when I was 15. I keep returning back from times to times to make several pictures, but I'm not focused on it.</p>
+            <p>I didn't progress much since then.</p>
+            <div class="illustrations-container">
                 <img class="open-in-window-img open-in-window" src="images/illustrations/Без названия281-1.png" alt="illustration">
                 <img class="open-in-window-img open-in-window" src="images/illustrations/Без названия325_20240522013505.jpg" alt="illustration">
                 <img class="open-in-window-img open-in-window" src="images/illustrations/Без названия459-3.jpg" alt="illustration">
                 <img class="open-in-window-img open-in-window" src="images/illustrations/Без названия467_20250416203247.png" alt="illustration">
                 <img class="open-in-window-img open-in-window" src="images/illustrations/Без названия468.png" alt="illustration">
             </div>
-            <p>As I said, I don't have any special skills.</p>
-            <h2>Games</h2>
-            <div class="game-info-container">
-                <div>
-                    <img class="open-in-window-img open-in-window" src="./images/games/snipe.png" alt="snipe">
-                </div>
-                <div>
-                    <div class="title-download-container">
-                        <h3>Snipe</h3>
-                    </div>
-                    <p>Hit the target as long as you can! The idea is very simple but can captivate you for several minutes :D</p>
-                    <a class="download pc-only" href="https://ndagger1.itch.io/snipe" target="_blank">Get <i class="bi bi-pc-display-horizontal"></i> <i class="bi bi-phone"></i></a>
-                    <a class="download mobile-only" href="https://ndagger1.itch.io/snipe" target="_blank">Get <i class="bi bi-pc-display-horizontal"></i> <i class="bi bi-phone"></i></a>
-                </div>
-            </div>
-            <div class="game-info-container">
-                <div>
-                    <img class="open-in-window-img open-in-window" src="./images/games/iwbtn.png" alt="iwbtn">
-                </div>
-                <div>
-                    <div class="title-download-container">
-                        <h3>I wanna be the NDagger</h3>
-                    </div>
-                    <p>An extremely hard platformer with rather rigid controls. The experience may be a bit unusual if you are used to smoother controls.</p>
-                    <p>The game is heavily inspired by I wanna be the guy and Geometry Dash.</p>
-                    <a class="download pc-only" href="https://ndagger1.itch.io/i-wanna-be-the-ndagger" target="_blank">Get <i class="bi bi-pc-display-horizontal"></i></a>
-                    <a class="download mobile-only" href="https://ndagger1.itch.io/i-wanna-be-the-ndagger" target="_blank">Get <i class="bi bi-pc-display-horizontal"></i></a>
+        </div>
+    </section>
+`
+export const creation = `
+    <section id="creations" class="window">
+        ${getPanelHtml('Creations')}
+        <div class="content">
+            <div class="centered-links">
+                <h1>Avaliable pages</h1>
+                <div class="links">
+                    <a href="./old" target="_blank" title="Click to visit"><img src="./images/pages/old.png"></a>
+                    <a href="./typing-speed-test" target="_blank" title="Click to visit"><img src="./images/pages/tts.png"></a>
+                    <a href="./webagon" target="_blank" title="Click to visit"><img src="./images/pages/webagon.png"></a>
                 </div>
             </div>
-            <div class="game-info-container">
-                <div>
-                    <img class="open-in-window-img open-in-window" src="./images/games/rocket.png" alt="rocket">
-                </div>
-                <div>
-                    <h3>Rocket (In development)</h3>
-                    <p>That's the speedrun game I'm currently making. Hopes on it to be fun :)</p>
-                </div>
-            </div>
-            <h2>Web Pages</h2>
-            <p>This page! I have more examples but most of them are static frontend pages with very basic functionality. </p>
         </div>
     </section>
 `

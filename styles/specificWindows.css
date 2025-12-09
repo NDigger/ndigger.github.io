@@ -178,6 +178,7 @@
 }
 
 #creations .links img {
+    margin: 0;
     width: calc(1280px / 4);
     height: calc(720px / 4);
     border-radius: 10px;
@@ -335,17 +336,14 @@
         max-height: none;
     }
 
-    #creations .game-info-container {
-        margin: 10px 0;
-        box-shadow: var(--weak-box-shadow);
-        background-color: rgba(0, 0, 0, 0.02);
-        padding: 10px;
-        flex-direction: column;
+    #creations .links a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
-
-    #creations .game-info-container img {
-        margin: 0;
-        width: 100%;
+    #creations .links img {
+        height: unset;
+        width: min(600px, 100%);
     }
 
     #skills .tools-container > span:hover {

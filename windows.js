@@ -15,7 +15,7 @@ export const statuses = windowManager.add(new AppWindow(windows.statuses));
 
 aboutMe.setSize(new Size(900, 500));
 skills.setSize(new Size(1200, 500));
-creation.setSize(new Size(1200, 460));
+creation.setSize(new Size(1080, 380));
 statuses.setSize(new Size(1200, 550))
 // rest.setSize(new Size(1000, 550));
 // windowManager.windows.forEach(w => w.setCenteredPosition())

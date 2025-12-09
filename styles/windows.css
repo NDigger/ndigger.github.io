@@ -49,7 +49,13 @@
     animation: window-fullscreen-anim 0.3s ease-in-out forwards reverse;
 }
 
-.window > .content * {
+.window > .content h1,
+.window > .content h2,
+.window > .content h3,
+.window > .content h4,
+.window > .content h5,
+.window > .content h6,
+.window > .content p {
     margin: 10px 0;
 }
 

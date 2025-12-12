@@ -16,7 +16,7 @@ export const aboutMe = `
         <div class="header">
             <img class="profile-image" src="./images/profileImage.png" alt="Profile Image">
             <div>
-                <h1 class="profile-name">NDagger</h1>
+                <h1 class="profile-name" translate="no">NDagger</h1>
                 <h2 class="subtitle">The low tier progarmer</h2>
             </div>
         </div>
@@ -35,7 +35,7 @@ export const skills = `
         ${getPanelHtml('Skills')}
         <div class="content">
             <p>Tools I use:</p>
-            <div id="tools-container" class="tools-container">
+            <div id="tools-container" translate="no" class="tools-container">
                 <span class="hover-sound">Adobe Illustrator</span>
                 <span class="hover-sound">Adobe Photoshop</span>
                 <span class="hover-sound">Clip Studio Paint X</span>
@@ -46,7 +46,7 @@ export const skills = `
                 <span class="hover-sound">Git</span>
             </div>
             <p>Programming languages I worked with:</p>
-            <div id="pl-container" class="tools-container">
+            <div id="pl-container" translate="no" class="tools-container">
                 <span class="hover-sound">Python</span>
                 <span class="hover-sound">Java Script</span>
                 <span class="hover-sound">C++</span>

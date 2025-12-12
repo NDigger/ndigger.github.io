@@ -77,7 +77,7 @@ const pushStatuses = data => {
         const htmlContent = 
         `<div id="container-status-${status.id}" class="status ${status.id > lastStatusSeenId ? 'new' : ''}">
                 <div class="header">
-                    <p class="author">NDagger</p>
+                    <p class="author" translate="no">NDagger</p>
                     <p class="time-passed">${getTimePassed(new Date(status.created_at).getTime())} ago</p>
                 </div>
                 <p>${status.content}</p>

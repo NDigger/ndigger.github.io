@@ -144,6 +144,7 @@ html {
 }
 
 #quick-links {
+    display: none !important;
     position: absolute;
     bottom: 10px;
     left: 50%;

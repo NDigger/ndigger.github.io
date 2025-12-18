@@ -49,7 +49,7 @@ if ((localStorage.getItem('portfolio-music-enabled') ?? 'false') === 'false') {
     }
         
 
-const onFirstDocumentIteraction = () => {
+document.addEventListener('click', () => {
     if ((localStorage.getItem('portfolio-music-enabled') ?? 'false') === 'true') {
         musicParticlesEmitter.emissionEnabled = true
     }
@@ -75,10 +75,7 @@ const onFirstDocumentIteraction = () => {
 
     musicBtn.addEventListener('click', changeMusicState);
     musicIllustrationBtn.addEventListener('click', changeMusicState);
-
-    document.removeEventListener('click', onFirstDocumentIteraction)
-}
-document.addEventListener('click', onFirstDocumentIteraction)
+}, {once: true});
 
 const soundBtn = document.getElementById('sound-btn');
 const changeSoundState = () => {
@@ -99,10 +96,17 @@ if ((localStorage.getItem('portfolio-sound-enabled') ?? 'true') === 'false') {
 }
 
 // Copy text when clicked
-const discordBtn = document.getElementById('discord-btn');
+const discordBtn = document.getElementById('copy-discord');
+const discordCopiedElement = document.getElementById('discord-copied');
 discordBtn.addEventListener('click', () => {
     navigator.clipboard.writeText('@pizda69');
-    restartCssAnimation(discordBtn, 'show-copied-popup');
+    discordBtn.style.display = 'none';
+    discordCopiedElement.style.display = 'flex';
+    audioManager.resetPlay(audioManager.sounds.clickClose)
+    setTimeout(() => {
+        discordBtn.style.display = 'block'
+        discordCopiedElement.style.display = 'none';
+    }, 600)
 })
 
 const colorChangers = [

@@ -6,14 +6,15 @@ import { Size } from './utils/structures.js';
 export const windowManager = new WindowManager();
 
 // Preload windows
-export const aboutMe = windowManager.add(new AppWindow(WindowHTMLContent.ABOUT_ME));
-export const creation = windowManager.add(new AppWindow(WindowHTMLContent.LINKS));
-export const skills = windowManager.add(new AppWindow(WindowHTMLContent.SKILLS));
-export const statuses = windowManager.add(new AppWindow(WindowHTMLContent.STATUSES));
+export const aboutMe = new AppWindow(WindowHTMLContent.ABOUT_ME);
+export const links = new AppWindow(WindowHTMLContent.LINKS);
+export const skills = new AppWindow(WindowHTMLContent.SKILLS);
+export const statuses = new AppWindow(WindowHTMLContent.STATUSES);
+[aboutMe, links, skills, statuses].forEach(el => windowManager.add(el));
 
 aboutMe.setSize(new Size(900, 500));
 skills.setSize(new Size(1200, 500));
-creation.setSize(new Size(1080, 380));
+links.setSize(new Size(500, 340));
 statuses.setSize(new Size(1200, 550))
 // windowManager.windows.forEach(w => w.setCenteredPosition())
 
@@ -25,8 +26,8 @@ const bindWindowListeners = (button, window) => {
 }
 
 bindWindowListeners(document.getElementById('about-me-btn'), aboutMe);
-bindWindowListeners(document.getElementById('creations-btn'), creation);
 bindWindowListeners(document.getElementById('skills-btn'), skills);
+bindWindowListeners(document.getElementById('links-btn'), links);
 bindWindowListeners(document.getElementById('status-btn'), statuses);
 
 window.addEventListener('DOMContentLoaded', () => {

@@ -96,22 +96,22 @@ export default class WindowHTMLContent {
             <div class="content">
                 <div class="centered">
                     <div class="flex-links">
-                        <a aria-label="youtube" class="gold-btn hover-sound" href="https://www.youtube.com/@scout1495" target="_blank">
+                        <a title="Redirect" aria-label="youtube" class="gold-btn hover-sound" href="https://www.youtube.com/@scout1495" target="_blank">
                             <i class="bi bi-youtube"></i>
-                            <p>Youtube</p>
+                            <p translate="no">Youtube</p>
                         </a>
-                        <a aria-label="github" class="gold-btn hover-sound" href="https://github.com/NDigger" target="_blank">
+                        <a title="Redirect" aria-label="github" class="gold-btn hover-sound" href="https://github.com/NDigger" target="_blank">
                             <i class="bi bi-github"></i>
-                            <p>Github</p>
+                            <p translate="no">Github</p>
                         </a>
-                        <a aria-label="itch.io" class="gold-btn hover-sound" href="https://ndagger1.itch.io/" target="_blank">
+                        <a title="Redirect" aria-label="itch.io" class="gold-btn hover-sound" href="https://ndagger1.itch.io/" target="_blank">
                             <i class="bi bi-shop-window"></i>
-                            <p>Itch.io</p>
+                            <p translate="no">Itch.io</p>
                         </a>
                     </div>
                     <div class="discord">
                         <i class="bi bi-discord" title="Discord"></i>
-                        <p>@pizda69</p>
+                        <p translate="no">@pizda69</p>
                         <button id="copy-discord" title="Copy" aria-label="discord" id="discord-btn" class="copyable hover-sound copy-btn">
                             <i class="bi bi-copy"></i>
                         </button>

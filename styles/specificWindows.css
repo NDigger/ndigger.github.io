@@ -379,6 +379,10 @@
     opacity: .7;
 }
 
+.window > .content .status p {
+    margin: 10px 0;
+}
+
 .status.new {
     opacity: 1;
     filter: brightness(1.5);
@@ -407,7 +411,16 @@
 
 .status > .header > .time-passed {
     text-align: right !important;
+    user-select: none;
     font-size: 15px;
+}
+
+.status > .header > .time-passed:hover {
+    cursor: help;
+}
+
+.status > .header > .time-passed::selection {
+    cursor: copy !important;
 }
 
 @media (max-width: 500px) {

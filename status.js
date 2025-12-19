@@ -74,6 +74,11 @@ const pushNewStatusesList = () => {
     //         id: 124, 
     //         created_at: new Date().getTime() - 10000,
     //         content: 'Another Random Content' 
+    //     },
+    //     {
+    //         id: 125, 
+    //         created_at: new Date().getTime() - 20000,
+    //         content: 'Another Random Content' 
     //     }
     // ]);
 }
@@ -90,11 +95,19 @@ const pushStatuses = data => {
     const statusContainer = document.getElementById('status-container');
     const statusCreatedElements = data.map(status => { 
         if (status.id > lastStatusSeenId) unreadStatuses++
+        const date = new Date(status.created_at);
+        const timePassed = getTimePassed(date.getTime());
+        const convertedDate = (() => {
+            const day = date.getDate();
+            const month = date.getMonth() + 1;
+            const year = date.getFullYear();
+            return `${day}.${month}.${year}`
+        })()
         const htmlContent = 
         `<div id="container-status-${status.id}" class="status ${status.id > lastStatusSeenId ? 'new' : ''}">
                 <div class="header">
                     <p class="author" translate="no">NDagger</p>
-                    <p class="time-passed">${getTimePassed(new Date(status.created_at).getTime())} ago</p>
+                    <p class="time-passed" title="${convertedDate}">${timePassed} ago</p>
                 </div>
                 <p>${status.content}</p>
             </div>`

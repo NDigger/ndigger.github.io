@@ -101,7 +101,7 @@ const pushStatuses = data => {
             const day = date.getDate();
             const month = date.getMonth() + 1;
             const year = date.getFullYear();
-            const format = val = val < 10 ? `0${val}` : val;
+            const format = val => val < 10 ? `0${val}` : val;
             return `${format(day)}.${format(month)}.${year}`
         })()
         const htmlContent = 

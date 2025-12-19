@@ -33,6 +33,13 @@
     --main-window-button-hover-text-shadow-color: rgba(255, 98, 0, 0);
 }
 
+.window .content {
+  font-family: "Roboto Condensed", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
 button:focus, a:focus { outline: none; }
 button:hover, a:hover { cursor: pointer; }
 

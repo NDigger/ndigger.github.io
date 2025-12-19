@@ -101,26 +101,24 @@ class WindowDragger {
             if (e.target.closest('.buttons') || this.model.fullscreen) return;
             this.#isHolding = true
             this.#startPosition = this.model.getPosition();
-            const t = e.touches[0];
-            this.#mousePositionOnMouseDown = new Vector2(e.pageX ?? t.pageX, e.pageY ?? t.pageY)
+            this.#mousePositionOnMouseDown = new Vector2(e.pageX ?? e.touches[0].pageX, e.pageY ?? e.touches[0].pageY)
         }
         const onRelease = () => {
             if (!this.#isHolding) return;
             const saveNewPosition = () => {
                 const style = getComputedStyle(this.element);
                 this.model.setPosition(new Vector2(
-                        parseFloat(style.left) || 0,
-                        parseFloat(style.top) || 0
-                    ))
+                    parseFloat(style.left) || 0,
+                    parseFloat(style.top) || 0
+                ))
             };
-            console.log('release');
             this.#isHolding = false;
             saveNewPosition();
         }
         windowPanel.addEventListener('mousedown', onPress);
-        windowPanel.addEventListener('touchstart', onPress);
+        windowPanel.addEventListener('touchstart', onPress, { passive: true });
         document.addEventListener('mouseup', onRelease);
-        document.addEventListener('touchend', onRelease);
+        document.addEventListener('touchend', onRelease, { passive: true });
         const move = pos => {
             this.model.setClampedPosition(new Vector2(
                 this.#startPosition.x + (pos.x - this.#mousePositionOnMouseDown.x),
@@ -130,8 +128,7 @@ class WindowDragger {
         const onMove = e => {
             if (!this.#isHolding) return; // || this.isResizing
             const prevPos = this.model.getPosition();
-            const t = e.touches[0];
-            move(new Vector2(e.pageX ?? t.pageX, e.pageY ?? t.pageY));
+            move(new Vector2(e.pageX ?? e.touches[0].pageX, e.pageY ?? e.touches[0].pageY));
             const newPos = this.model.getPosition();
             const newSkew = new Vector2((prevPos.x - newPos.x)/15, (prevPos.y - newPos.y)/15);
             const maxSkew = 18

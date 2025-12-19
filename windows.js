@@ -12,7 +12,7 @@ export const statuses = new AppWindow(AppWindowHTMLContent.STATUSES);
 [aboutMe, links, skills, statuses].forEach(el => windowManager.add(el));
 
 aboutMe.setSize(new Size(900, 500));
-skills.setSize(new Size(970, 500));
+skills.setSize(new Size(1170, 500));
 links.setSize(new Size(500, 340));
 statuses.setSize(new Size(1200, 550))
 // windowManager.windows.forEach(w => w.setCenteredPosition())

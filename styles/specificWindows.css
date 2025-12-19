@@ -132,7 +132,7 @@
 #skills .tools-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
     gap: 10px;
 }
 
@@ -146,6 +146,10 @@
     padding: 8px;
     color: var(--bright-gray-color);
     transition: all 0.1s ease-out;
+    
+    flex: 0 1 auto;
+    max-width: 100%;
+    white-space: normal;
 }
 
 #skills .tools-container > span:hover {
@@ -160,9 +164,9 @@
 
 #skills .illustrations-container {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     flex-wrap: wrap;
-    background-color: var(--weak-inverse-main-color);
+    background: radial-gradient(var(--weak-inverse-main-color), transparent 70%);
     border-radius: var(--window-border-radius);
     padding: 20px;
     --gap: 10px;
@@ -172,7 +176,6 @@
 #skills .illustrations-container img {
     max-width: 240px;
     max-height: 240px;
-    /* width: calc(33% - var(--gap) / 2); */
     border-radius: var(--window-border-radius);
     margin: 0px;
     transition: all 0.1s ease-out;
@@ -180,6 +183,33 @@
 
 #skills .illustrations-container img:hover {
     scale: 1.05;
+}
+
+#skills .tools-categories {
+    margin-top: 20px;
+    position: relative;
+    padding: 10px;
+    padding-top: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+#skills .tools-categories h3 {
+    background: none;
+}
+
+#skills .tools-categories::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: .5;
+    border-radius: var(--window-border-radius);
+    background: conic-gradient(var(--weak-inverse-main-color) 20%, transparent);
+}
+
+#skills .tools-categories * {
+    flex: 1
 }
 
 /* CREATION */
@@ -380,6 +410,21 @@
     font-size: 15px;
 }
 
+@media (max-width: 500px) {
+    #skills .tools-categories {
+        flex-direction: column;
+    }
+
+    #skills .tools-categories::after {
+        all: unset
+    }
+
+    #skills .tools-container > span {
+        flex: 1 1 100%;
+        text-align: center;
+    }
+}
+
 @media (max-width: 932px) {
     #title {
         font-size: min(calc(14vw + 1px), 2.5rem);
@@ -468,6 +513,7 @@
         justify-content: center;
         align-items: center;
     }
+
     #creations .links img {
         height: unset;
         width: min(600px, 100%);

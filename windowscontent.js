@@ -35,26 +35,6 @@ export default class AppWindowHTMLContent {
         <section id="skills" class="window">
             ${getPanelHtml('Skills')}
             <div class="content">
-                <p>Tools I use:</p>
-                <div id="tools-container" translate="no" class="tools-container">
-                    <span class="hover-sound">Adobe Illustrator</span>
-                    <span class="hover-sound">Adobe Photoshop</span>
-                    <span class="hover-sound">Clip Studio Paint X</span>
-                    <span class="hover-sound">FL Studio</span>
-                    <span class="hover-sound">Visual Studio Code</span>
-                    <span class="hover-sound">Visual Studio</span>
-                    <span class="hover-sound">Postgre SQL</span>
-                    <span class="hover-sound">Git</span>
-                </div>
-                <p>Programming languages I worked with:</p>
-                <div id="pl-container" translate="no" class="tools-container">
-                    <span class="hover-sound">Python</span>
-                    <span class="hover-sound">Java Script</span>
-                    <span class="hover-sound">C++</span>
-                    <span class="hover-sound">GDScript</span>
-                    <span class="hover-sound">Bash</span>
-                    <span class="hover-sound">OpenGL Shading Language</span>
-                </div>
                 <h2>Web Development</h2>
                 <p>Most of pages I made don't use any libraries because I don't see much of need in them for personal projects.</p>
                 <p>But there are exceptions! Drawing meshes with pure JavaScript is a complex task so I used pixi.js meshes for that.</p>
@@ -63,6 +43,32 @@ export default class AppWindowHTMLContent {
                 <p>I had worked with basics of React, express.js, various node libraries, Vite, pixi.js.</p>
                 <p>Several hosted pages you can see in the creation tab.</p>
                 <p>The page you see now also does not use any libraries at all.</p>
+                <div class="tools-categories">
+                    <div>
+                        <h3>Tools I use</h3>
+                        <div translate="no" class="tools-container">
+                            <span class="hover-sound">Adobe Illustrator</span>
+                            <span class="hover-sound">Adobe Photoshop</span>
+                            <span class="hover-sound">Clip Studio Paint X</span>
+                            <span class="hover-sound">FL Studio</span>
+                            <span class="hover-sound">Visual Studio Code</span>
+                            <span class="hover-sound">Visual Studio</span>
+                            <span class="hover-sound">Postgre SQL</span>
+                            <span class="hover-sound">Git</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h3>Programming languages I used</h3>
+                        <div id="pl-container" translate="no" class="tools-container">
+                            <span class="hover-sound">Python</span>
+                            <span class="hover-sound">Java Script</span>
+                            <span class="hover-sound">C++</span>
+                            <span class="hover-sound">GDScript</span>
+                            <span class="hover-sound">Bash</span>
+                            <span class="hover-sound">OpenGL Shading Language</span>
+                        </div>
+                    </div>
+                </div>
                 <h2>Drawing</h2>
                 <p>I have been drawing since I was 14. I can't say that I have learned anything in 4 years. For me, drawing is a simple way to relax and maybe enjoy the end result.</p>
                 <div class="illustrations-container">

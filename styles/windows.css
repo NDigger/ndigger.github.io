@@ -49,14 +49,30 @@
     animation: window-fullscreen-anim 0.3s ease-in-out forwards reverse;
 }
 
+.window > .content p {
+    margin: 20px 0;
+}
+
+.window > .content h1:not(:first-child),
+.window > .content h2:not(:first-child),
+.window > .content h3:not(:first-child),
+.window > .content h4:not(:first-child),
+.window > .content h5:not(:first-child),
+.window > .content h6:not(:first-child) {
+    margin-top: 30px;
+}
+
 .window > .content h1,
 .window > .content h2,
 .window > .content h3,
 .window > .content h4,
 .window > .content h5,
-.window > .content h6,
-.window > .content p {
-    margin: 10px 0;
+.window > .content h6 {
+    margin-bottom: 10px;
+    padding: 5px;
+    text-align: center;
+    border-radius: var(--window-border-radius);
+    background: linear-gradient(to bottom, var(--weak-inverse-main-color), transparent);
 }
 
 .window:not(#about-me) h1 {

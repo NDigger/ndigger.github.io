@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Ruda:wght@400..900&display=swap');
+
 @import url('./styles/windows.css');
 @import url('./styles/specificWindows.css');
 
@@ -33,8 +35,13 @@
     --main-window-button-hover-text-shadow-color: rgba(255, 98, 0, 0);
 }
 
-.window .content {
-  font-family: "Roboto Condensed", sans-serif;
+.window .content h1,
+.window .content h2,
+.window .content h3,
+.window .content h4,
+.window .content h5,
+.window .content h6 {
+  font-family: "Ruda", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;

@@ -8,7 +8,7 @@ const getPanelHtml = (title, {fullscreenBtn} = {}) => `
     </div>
 `
 
-export default class WindowHTMLContent {
+export default class AppWindowHTMLContent {
     static ABOUT_ME = `
         <section id="about-me" class="window">
             ${getPanelHtml('About me', {
@@ -66,11 +66,11 @@ export default class WindowHTMLContent {
                 <h2>Drawing</h2>
                 <p>I have been drawing since I was 14. I can't say that I have learned anything in 4 years. For me, drawing is a simple way to relax and maybe enjoy the end result.</p>
                 <div class="illustrations-container">
-                    <img class="open-in-window-img open-in-window" src="images/illustrations/Без названия281-1.png" alt="illustration">
-                    <img class="open-in-window-img open-in-window" src="images/illustrations/Без названия325_20240522013505.jpg" alt="illustration">
-                    <img class="open-in-window-img open-in-window" src="images/illustrations/Без названия459-3.jpg" alt="illustration">
-                    <img class="open-in-window-img open-in-window" src="images/illustrations/Без названия467_20250416203247.png" alt="illustration">
-                    <img class="open-in-window-img open-in-window" src="images/illustrations/Без названия468.png" alt="illustration">
+                    <img class="open-in-window-img open-in-window hover-sound" src="images/illustrations/Без названия281-1.png" alt="illustration">
+                    <img class="open-in-window-img open-in-window hover-sound" src="images/illustrations/Без названия325_20240522013505.jpg" alt="illustration">
+                    <img class="open-in-window-img open-in-window hover-sound" src="images/illustrations/Без названия459-3.jpg" alt="illustration">
+                    <img class="open-in-window-img open-in-window hover-sound" src="images/illustrations/Без названия467_20250416203247.png" alt="illustration">
+                    <img class="open-in-window-img open-in-window hover-sound" src="images/illustrations/Без названия468.png" alt="illustration">
                 </div>
             </div>
         </section>

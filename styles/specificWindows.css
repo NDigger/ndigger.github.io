@@ -172,6 +172,11 @@
     max-height: 240px;
     border-radius: var(--window-border-radius);
     margin: 0px;
+    transition: all 0.1s ease-out;
+}
+
+#skills .illustrations-container img:hover {
+    scale: 1.05;
 }
 
 /* CREATION */

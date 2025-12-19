@@ -1,15 +1,15 @@
 import { AppWindow, WindowManager } from './utils/appwindow.js';
 import audioManager from './audioManager.js';
-import WindowHTMLContent from './windowscontent.js';
+import AppWindowHTMLContent from './windowscontent.js';
 import { Size } from './utils/structures.js';
 
 export const windowManager = new WindowManager();
 
 // Preload windows
-export const aboutMe = new AppWindow(WindowHTMLContent.ABOUT_ME);
-export const links = new AppWindow(WindowHTMLContent.LINKS);
-export const skills = new AppWindow(WindowHTMLContent.SKILLS);
-export const statuses = new AppWindow(WindowHTMLContent.STATUSES);
+export const aboutMe = new AppWindow(AppWindowHTMLContent.ABOUT_ME);
+export const links = new AppWindow(AppWindowHTMLContent.LINKS);
+export const skills = new AppWindow(AppWindowHTMLContent.SKILLS);
+export const statuses = new AppWindow(AppWindowHTMLContent.STATUSES);
 [aboutMe, links, skills, statuses].forEach(el => windowManager.add(el));
 
 aboutMe.setSize(new Size(900, 500));
@@ -43,7 +43,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 }
             }
             if (visibleWindow == null) {
-                const w = new AppWindow(windows.image(e.target.src));
+                const w = new AppWindow(AppWindowHTMLContent.image(e.target.src));
                 w.setClampedSize(new Size(image.width * 2, image.height * 2));
                 w.onClose = () => setTimeout(() => windowManager.delete(w), 400);
                 windowManager.add(w);

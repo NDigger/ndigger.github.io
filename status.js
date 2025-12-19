@@ -26,7 +26,7 @@ const getTimePassed = since => {
 
 let statusFetched = false;
 let page = 0;
-const limit = 50;
+const limit = 30;
 
 let loadingStatuses = false
 const pushNewStatusesList = () => {
@@ -44,43 +44,65 @@ const pushNewStatusesList = () => {
         page: page,
         limit: limit 
     })
-    fetch(`${backendHost}/api/status?${params.toString()}`)
-    .then(res => res.json())
-    .then(data => {
-        if (data[0]?.id) localStorage.setItem('portfolio-last-status-seen-id', data[0].id)
+    // fetch(`${backendHost}/api/status?${params.toString()}`)
+    // .then(res => res.json())
+    // .then(data => {
+    //     if (data[0]?.id) localStorage.setItem('portfolio-last-status-seen-id', data[0].id)
+    //     clearInterval(intervalId);
+    //     pushStatuses(data);
+    //     page++;
+    //     loadingStatuses = false;
+    //     statusLoadingMessage.style.display = 'none'
+    // })
+    // .catch(err => {
+    //     console.error(err)
+    //     clearInterval(intervalId)
+    //     statusLoadingMessage.style.display = 'block'
+    //     statusLoadingMessage.textContent = String(err)
+    // })
+
+    setTimeout(() => {
         clearInterval(intervalId);
-        pushStatuses(data);
-        page++;
         loadingStatuses = false;
         statusLoadingMessage.style.display = 'none'
-    })
-    .catch(err => {
-        console.error(err)
-        clearInterval(intervalId)
-        statusLoadingMessage.style.display = 'block'
-        statusLoadingMessage.textContent = String(err)
-    })
-
-    // clearInterval(intervalId);
-    // loadingStatuses = false;
-    // statusLoadingMessage.style.display = 'none'
-    // pushStatuses([
-    //     {
-    //         id: 123, 
-    //         created_at: new Date().getTime(),
-    //         content: 'Random Content' 
-    //     },
-    //     {
-    //         id: 124, 
-    //         created_at: new Date().getTime() - 10000,
-    //         content: 'Another Random Content' 
-    //     },
-    //     {
-    //         id: 125, 
-    //         created_at: new Date().getTime() - 20000,
-    //         content: 'Another Random Content' 
-    //     }
-    // ]);
+        pushStatuses([
+            {
+                id: 123, 
+                created_at: new Date().getTime(),
+                content: 'Random Content' 
+            },
+            {
+                id: 124, 
+                created_at: new Date().getTime() - 10000,
+                content: 'Another Random Content' 
+            },
+            {
+                id: 125, 
+                created_at: new Date().getTime() - 2000000000,
+                content: 'Another Random Content, Another Random Content,Another Random Content,Another Random Content,Another Random Content,Another Random Content' 
+            },
+            {
+                id: 124, 
+                created_at: new Date().getTime() - 1000000000,
+                content: 'Another Random Content' 
+            },
+            {
+                id: 125, 
+                created_at: new Date().getTime() - 20000,
+                content: 'Another Random Content' 
+            },
+            {
+                id: 126, 
+                created_at: new Date().getTime() - 10000,
+                content: 'Another Random Content' 
+            },
+            {
+                id: 127, 
+                created_at: new Date().getTime() - 20000,
+                content: 'Another Random Content' 
+            }
+        ]);
+    }, 1000)
 }
 
 document.getElementById('status-btn').addEventListener('click', () => {
@@ -108,12 +130,18 @@ const pushStatuses = data => {
         `<div id="container-status-${status.id}" class="status ${status.id > lastStatusSeenId ? 'new' : ''}">
                 <div class="header">
                     <p class="author" translate="no">NDagger</p>
-                    <p class="time-passed" title="${convertedDate}">${timePassed} ago</p>
+                    <p class="time-passed" data-date="${convertedDate}">${timePassed} ago</p>
                 </div>
                 <p>${status.content}</p>
             </div>`
-        statusContainer.insertAdjacentHTML('beforeend', htmlContent)
-        return statusContainer.lastElementChild
+        // statusContainer.insertAdjacentHTML('beforeend', htmlContent)
+        return htmlContent
+        // return statusContainer.lastElementChild
+    })
+    statusCreatedElements.forEach((html, i) => {
+        setTimeout(
+            () => statusContainer.insertAdjacentHTML('beforeend', html)
+        , i * 50);
     })
     statuses.setTitleContent(unreadStatuses !== 0 ? `Statuses ( ${unreadStatuses} )` : 'Statuses') 
     // statusContainer.insertAdjacentHTML('beforeend', html)

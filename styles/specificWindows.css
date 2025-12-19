@@ -376,9 +376,26 @@
     background: linear-gradient(45deg, transparent, var(--weak-inverse-main-color));
     padding: 5px 20px;
     opacity: .7;
+    position: relative;
+    transform-origin: left;
+    animation: status-anim .6s ease-out forwards;
 }
 
-.window > .content .status p {
+@keyframes status-anim {
+    from {
+        transform: skewX(5deg);
+        scale: .93;
+        opacity: 0;
+        left: -20px;
+    } to {
+        transform: unset;
+        scale: 1;
+        opacity: .7;
+        left: 0px;
+    }
+}
+
+#statuses p {
     margin: 10px 0;
 }
 
@@ -412,6 +429,22 @@
     text-align: right !important;
     user-select: none;
     font-size: 15px;
+    position: relative;
+}
+
+.status .header > .time-passed::before {
+    position: absolute;
+    transform: translateX(calc(-100% - 10px));
+    content: attr(data-date);
+    width: max-content;
+    opacity: 0;
+    bottom: 20px;
+    transition: all 0.2s ease-out;
+}
+
+.status > .header > .time-passed:hover::before {
+    opacity: 0.5;
+    bottom: 0px;
 }
 
 .status > .header > .time-passed:hover {

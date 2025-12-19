@@ -26,20 +26,20 @@ const changeMusicState = () => {
         localStorage.setItem('portfolio-music-enabled', 'true');
         audioManager.music.currentTime = 0;
         audioManager.music.play();
-        musicBtn.classList.remove('audio-btn-disabled');
+        musicBtn.classList.remove('disabled');
         musicIllustrationBtn.src = './images/musicIllustrationActive.png'
         musicParticlesEmitter.emissionEnabled = true
     } else {
         localStorage.setItem('portfolio-music-enabled', 'false');
         audioManager.music.pause();
-        musicBtn.classList.add('audio-btn-disabled');
+        musicBtn.classList.add('disabled');
         musicIllustrationBtn.src = './images/musicIllustrationInactive.png'
         musicParticlesEmitter.emissionEnabled = false;
     }
 }
 
 if ((localStorage.getItem('portfolio-music-enabled') ?? 'false') === 'false') {
-    musicBtn.classList.add('audio-btn-disabled');
+    musicBtn.classList.add('disabled');
 }
 
 if ((localStorage.getItem('portfolio-music-enabled') ?? 'false') === 'false') {
@@ -82,17 +82,17 @@ const changeSoundState = () => {
     restartCssAnimation(soundBtn, 'btn-animation');
     if ((localStorage.getItem('portfolio-sound-enabled') ?? 'true') === 'true') {
         localStorage.setItem('portfolio-sound-enabled', 'false');
-        soundBtn.classList.add('audio-btn-disabled');
+        soundBtn.classList.add('disabled');
         audioManager.setMasterVolume(0)
     } else {
         localStorage.setItem('portfolio-sound-enabled', 'true');
-        soundBtn.classList.remove('audio-btn-disabled');
+        soundBtn.classList.remove('disabled');
         audioManager.setMasterVolume(1)
     }
 }
 soundBtn.addEventListener('click', changeSoundState)
 if ((localStorage.getItem('portfolio-sound-enabled') ?? 'true') === 'false') {
-    soundBtn.classList.add('audio-btn-disabled');
+    soundBtn.classList.add('disabled');
 }
 
 // Copy text when clicked

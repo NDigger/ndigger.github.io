@@ -21,7 +21,10 @@
     --main-font-color: rgb(0, 0, 0);
     --weak-inverse-main-color: rgba(0, 0, 0, 0.03);
     --weak-font-color: rgba(0, 0, 0, 0.2);
+
     --window-border-radius: 10px;
+    --distance-from-corners: .5rem;
+
     --window-panel-color: rgb(67, 67, 67);
     --gray-color: rgb(67, 67, 67);
     --bright-gray-color: rgb(80, 80, 80);
@@ -249,11 +252,15 @@ html {
     inset: 0;
 }
 
-#music-btn, #sound-btn {
-    display: none;
+.top-right {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    display: flex;
+    flex-direction: column;
+    top: var(--distance-from-corners);
+    right: var(--distance-from-corners);
+}
+
+.ui-btn {
     width: 60px;
     height: 60px;
     border: none;
@@ -262,23 +269,27 @@ html {
     transition: font-size 0.2s linear;
 }
 
-#music-btn.audio-btn-disabled::before, #sound-btn.audio-btn-disabled::before {
+#music-btn {
+    display: none;
+    top: 20px;
+    right: 20px;
+}
+
+#music-btn.disabled::before, #sound-btn.disabled::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 80%;
-    height: 3px;
-    transform: translateY(13px) translateX(25px);
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: calc(.5rem / 3);
+    transform: translateY(-50%) translateX(-50%) rotate(45deg);
     border-radius: 10px;
-    rotate: 45deg;
     background: var(--gray-color);;
     transition: all .2s ease-in-out;
 }
 
-#music-btn.audio-btn-disabled:hover::before, #sound-btn.audio-btn-disabled:hover::before {
-    width: 100%;
-    transform: translateY(15px) translateX(20px);
+#music-btn.disabled:hover::before, #sound-btn.disabled:hover::before {
+    transform: translateY(-50%) translateX(-50%) rotate(30deg);
 }
 
 #music-btn i, #sound-btn i {
@@ -286,25 +297,20 @@ html {
 }
 
 #sound-btn {
-    display: block;
     right: 20px;
     top: 20px;
 }
 
 #night-mode-btn {
     position: absolute;
-    top: 20px;
-    left: 20px;
-    width: 60px;
-    height: 60px;
-    border: none;
-    background-color: transparent;
+    top: var(--distance-from-corners);
+    left: var(--distance-from-corners);
     font-size: 1.7rem;
-    transition: font-size 0.2s linear;
     transition: all .3s ease;
 }
 
 #night-mode-btn:hover, #music-btn:hover, #sound-btn:hover {
+    scale: 1.1;
     font-size: 2rem;
 }
 
@@ -381,5 +387,22 @@ html {
 
     #sound-btn {
         top: 80px;
+    }
+}
+
+@media (max-height: 500px) {
+    .top-right {
+        flex-direction: row;
+    }
+}
+
+@media (max-width: 400px) {
+    html {
+        font-size: 0.8rem;
+    }
+
+    .ui-btn {
+        width: 40px;
+        height: 40px;
     }
 }

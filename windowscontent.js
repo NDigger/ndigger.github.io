@@ -70,11 +70,12 @@ export default class AppWindowHTMLContent {
                     <img class="open-in-window-img open-in-window hover-sound" src="images/illustrations/Без названия325_20240522013505.jpg" alt="illustration">
                     <img class="open-in-window-img open-in-window hover-sound" src="images/illustrations/Без названия459-3.jpg" alt="illustration">
                     <img class="open-in-window-img open-in-window hover-sound" src="images/illustrations/Без названия467_20250416203247.png" alt="illustration">
-                    <img class="open-in-window-img open-in-window hover-sound" src="images/illustrations/Без названия468.png" alt="illustration">
                 </div>
             </div>
         </section>
     `
+                        // <img class="open-in-window-img open-in-window hover-sound" src="images/illustrations/Без названия468.png" alt="illustration">
+
     // static LINKS = `
     //     <section id="creations" class="window">
     //         ${getPanelHtml('Creations')}

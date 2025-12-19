@@ -60,6 +60,22 @@ const pushNewStatusesList = () => {
         statusLoadingMessage.style.display = 'block'
         statusLoadingMessage.textContent = String(err)
     })
+
+    // clearInterval(intervalId);
+    // loadingStatuses = false;
+    // statusLoadingMessage.style.display = 'none'
+    // pushStatuses([
+    //     {
+    //         id: 123, 
+    //         created_at: new Date().getTime(),
+    //         content: 'Random Content' 
+    //     },
+    //     {
+    //         id: 124, 
+    //         created_at: new Date().getTime() - 10000,
+    //         content: 'Another Random Content' 
+    //     }
+    // ]);
 }
 
 document.getElementById('status-btn').addEventListener('click', () => {

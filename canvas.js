@@ -54,7 +54,7 @@ const offsetMult = .5;
 let offsetYTarget = -.5*offsetMult;
 let offsetY = -.5*offsetMult;
 
-document.addEventListener('mousemove', e => {
+document.addEventListener('pointermove', e => {
   const w = window.innerWidth;
   const h = window.innerHeight;
   offsetYTarget = (1.-(e.pageY/h)-.5)*offsetMult;

@@ -205,7 +205,7 @@
     z-index: -1;
     opacity: .5;
     border-radius: var(--window-border-radius);
-    background: conic-gradient(var(--weak-inverse-main-color) 20%, transparent);
+    background: conic-gradient(var(--weak-inverse-main-color), transparent);
 }
 
 #skills .tools-categories * {

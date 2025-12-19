@@ -69,7 +69,7 @@
 .window > .content h5,
 .window > .content h6 {
     margin-bottom: 10px;
-    padding: 5px;
+    padding: 10px;
     text-align: center;
     border-radius: var(--window-border-radius);
     background: linear-gradient(to bottom, var(--weak-inverse-main-color), transparent);

@@ -101,7 +101,8 @@ const pushStatuses = data => {
             const day = date.getDate();
             const month = date.getMonth() + 1;
             const year = date.getFullYear();
-            return `${day}.${month}.${year}`
+            const format = val = val < 10 ? `0${val}` : val;
+            return `${format(day)}.${format(month)}.${year}`
         })()
         const htmlContent = 
         `<div id="container-status-${status.id}" class="status ${status.id > lastStatusSeenId ? 'new' : ''}">

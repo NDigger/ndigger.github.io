@@ -64,11 +64,15 @@ const u_time = gl.getUniformLocation(program, "u_time");
 const nav = performance.getEntriesByType("navigation")[0];
 const bonus = nav.type === "reload" ? 5 : 0;
 
+const u_zoom = gl.getUniformLocation(program, "u_zoom");
 function render(time) {
   gl.uniform1f(u_time, time * 0.001 + bonus);
 
   offsetY += (offsetYTarget - offsetY)/300
   gl.uniform2f(u_offset, 0, offsetY);
+
+  const zoom = Math.round((window.outerWidth / window.innerWidth) * 100) / 100;
+  gl.uniform1f(u_zoom, 1/zoom);
 
   gl.drawArrays(gl.TRIANGLES, 0, 6);
   requestAnimationFrame(render);

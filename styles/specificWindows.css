@@ -513,13 +513,17 @@
     }
 }
 
-@media (max-height: 500px) {
+@media (max-height: 450px) {
     #title {
         display: none;
     }
 
     #title-author {
         display: inline;
+    }
+
+    #main-window {
+        margin: 0;
     }
 
     #main-window .buttons {

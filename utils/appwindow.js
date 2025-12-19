@@ -97,13 +97,15 @@ class WindowDragger {
         this.element = this.model.element;
 
         const windowPanel = this.element.querySelector('.window-panel');
-        windowPanel.addEventListener('mousedown', e => {
+        const onPress = e => {
             if (e.target.closest('.buttons') || this.model.fullscreen) return;
             this.#isHolding = true
             this.#startPosition = this.model.getPosition();
-            this.#mousePositionOnMouseDown = new Vector2(e.pageX, e.pageY)
-        });
-        document.addEventListener('mouseup', () => {
+            const t = e.touches[0];
+            this.#mousePositionOnMouseDown = new Vector2(e.pageX ?? t.pageX, e.pageY ?? t.pageY)
+        }
+        const onRelease = () => {
+            if (!this.#isHolding) return;
             const saveNewPosition = () => {
                 const style = getComputedStyle(this.element);
                 this.model.setPosition(new Vector2(
@@ -111,26 +113,33 @@ class WindowDragger {
                         parseFloat(style.top) || 0
                     ))
             };
-            if (!this.#isHolding) return;
+            console.log('release');
             this.#isHolding = false;
             saveNewPosition();
-        });
+        }
+        windowPanel.addEventListener('mousedown', onPress);
+        windowPanel.addEventListener('touchstart', onPress);
+        document.addEventListener('mouseup', onRelease);
+        document.addEventListener('touchend', onRelease);
         const move = pos => {
             this.model.setClampedPosition(new Vector2(
                 this.#startPosition.x + (pos.x - this.#mousePositionOnMouseDown.x),
                 this.#startPosition.y + (pos.y - this.#mousePositionOnMouseDown.y)
             ))
         }
-        document.addEventListener('mousemove', e => {
+        const onMove = e => {
             if (!this.#isHolding) return; // || this.isResizing
             const prevPos = this.model.getPosition();
-            move(new Vector2(e.pageX, e.pageY));
+            const t = e.touches[0];
+            move(new Vector2(e.pageX ?? t.pageX, e.pageY ?? t.pageY));
             const newPos = this.model.getPosition();
             const newSkew = new Vector2((prevPos.x - newPos.x)/15, (prevPos.y - newPos.y)/15);
             const maxSkew = 18
             if (Math.abs(this.#windowSkew.x) < Math.abs(newSkew.x)) this.#windowSkew.x = Math.max(Math.min(newSkew.x, maxSkew), -maxSkew);
             if (Math.abs(this.#windowSkew.y) < Math.abs(newSkew.y)) this.#windowSkew.y = Math.max(Math.min(newSkew.y, maxSkew), -maxSkew);
-        })
+        }
+        document.addEventListener('mousemove', onMove);
+        document.addEventListener('touchmove', onMove);
         
         window.addEventListener('resize', () => {
             this.model.setClampedPosition(this.model.getPosition())
@@ -291,7 +300,6 @@ export class WindowManager {
         this.windows.push(window);
         window.element.addEventListener('mousedown', e => {
             if (e.target.classList.contains("open-in-window")) return
-            console.log(1);
             this.bringToFront(window)
         });
         this.bringToFront(window);

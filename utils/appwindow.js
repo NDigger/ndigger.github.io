@@ -289,7 +289,11 @@ export class WindowManager {
 
     add(window) {
         this.windows.push(window);
-        window.element.addEventListener('mousedown', () => this.bringToFront(window));
+        window.element.addEventListener('mousedown', e => {
+            if (e.target.classList.contains("open-in-window")) return
+            console.log(1);
+            this.bringToFront(window)
+        });
         this.bringToFront(window);
         return window;
     }

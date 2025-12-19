@@ -12,7 +12,7 @@ export default class AppWindowHTMLContent {
     static ABOUT_ME = `
         <section id="about-me" class="window">
             ${getPanelHtml('About me', {
-                fullscreenBtn: true
+                fullscreenBtn: false
             })}
             <div class="header">
                 <img class="profile-image" src="./images/profileImage.png" alt="Profile Image">

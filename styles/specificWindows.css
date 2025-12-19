@@ -152,6 +152,7 @@
 }
 
 #skills .tools-container > span:hover {
+    color: var(--main-font-color);
     box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.2);
     background-color: var(--weak-inverse-main-color);
 }
@@ -164,7 +165,8 @@
     display: flex;
     justify-content: start;
     flex-wrap: wrap;
-    gap: 10px;
+    --gap: 10px;
+    gap: var(--gap);
 }
 
 #skills .illustrations-container img {
@@ -454,12 +456,8 @@
         padding-right: 0px; 
     }
 
-    #skills .illustrations-container {
-        justify-content: space-evenly;
-    }
-
     #skills .illustrations-container > img { 
-        width: 45%;
+        width: calc(50% - var(--gap) / 2);
         max-width: none;
         max-height: none;
     }

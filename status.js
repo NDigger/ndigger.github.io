@@ -47,7 +47,10 @@ const pushNewStatusesList = () => {
     fetch(`${backendHost}/api/status?${params.toString()}`)
     .then(res => res.json())
     .then(data => {
-        if (data[0]?.id) localStorage.setItem('portfolio-last-status-seen-id', data[0].id)
+        const recentStatusId = data[0]?.id;
+        const recentStatusSeenId = localStorage.getItem('portfolio-last-status-seen-id') ?? 0;
+        if (recentStatusId > recentStatusSeenId && page === 0) 
+            localStorage.setItem('portfolio-last-status-seen-id', recentStatusId)
         clearInterval(intervalId);
         pushStatuses(data);
         page++;

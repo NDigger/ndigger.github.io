@@ -269,10 +269,12 @@ html {
     transition: font-size 0.2s linear;
 }
 
+#music-btn, #sound-btn {
+    position: relative;
+}
+
 #music-btn {
     display: none;
-    top: 20px;
-    right: 20px;
 }
 
 #music-btn.disabled::before, #sound-btn.disabled::before {
@@ -294,11 +296,6 @@ html {
 
 #music-btn i, #sound-btn i {
     color: var(--gray-color)
-}
-
-#sound-btn {
-    right: 20px;
-    top: 20px;
 }
 
 #night-mode-btn {
@@ -384,10 +381,6 @@ html {
     .main-window-music-particle {
         display: none;
     }
-
-    #sound-btn {
-        top: 80px;
-    }
 }
 
 @media (max-height: 500px) {
@@ -396,9 +389,9 @@ html {
     }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 500px) and (max-height: 450px) {
     html {
-        font-size: 0.8rem;
+        font-size: 0.9rem;
     }
 
     .ui-btn {

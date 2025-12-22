@@ -8,3 +8,5 @@ window.addEventListener('load', () => {
   Array.from(document.querySelectorAll('.hover-sound'))
   .forEach(el => el.addEventListener('mouseover', () => audioManager.resetPlayHover(audioManager.sounds.hover)))
 })
+
+Array.from(document.querySelectorAll('a')).forEach(el => el.tabIndex = -1);

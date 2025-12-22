@@ -85,6 +85,10 @@ html {
     font-size: 1.4rem;
 }
 
+meta[name="theme-color"] {
+    content: var(--window-background-color);
+}
+
 /* Override black screen on page opened */
 #override {
     position: fixed;

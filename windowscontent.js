@@ -2,8 +2,8 @@ const getPanelHtml = (title, {fullscreenBtn} = {}) => `
     <div class="window-panel">
         <p class="title"><span class="content" title="${title}">${title}</span></p>
         <div class="buttons">
-            ${fullscreenBtn ? '<button class="fullscreen" title="Fullscreen" aria-label="screen mode"><i class="bi bi-window-fullscreen"></i></button>' : ''}
-            <button class="close" title="Close" aria-label="close"><i class="bi bi-x-lg"></i></button>
+            ${fullscreenBtn ? '<button class="fullscreen" title="Fullscreen"><i class="bi bi-window-fullscreen"></i></button>' : ''}
+            <button class="close" title="Close"><i class="bi bi-x-lg"></i></button>
         </div>
     </div>
 `
@@ -103,15 +103,15 @@ export default class AppWindowHTMLContent {
             <div class="content">
                 <div class="centered">
                     <div class="flex-links">
-                        <a title="Redirect" aria-label="youtube" class="gold-btn hover-sound" href="https://www.youtube.com/@scout1495" target="_blank">
+                        <a title="Redirect" class="gold-btn hover-sound" href="https://www.youtube.com/@scout1495" target="_blank">
                             <i class="bi bi-youtube"></i>
                             <p translate="no">Youtube</p>
                         </a>
-                        <a title="Redirect" aria-label="github" class="gold-btn hover-sound" href="https://github.com/NDigger" target="_blank">
+                        <a title="Redirect" class="gold-btn hover-sound" href="https://github.com/NDigger" target="_blank">
                             <i class="bi bi-github"></i>
                             <p translate="no">Github</p>
                         </a>
-                        <a title="Redirect" aria-label="itch.io" class="gold-btn hover-sound" href="https://ndagger1.itch.io/" target="_blank">
+                        <a title="Redirect" class="gold-btn hover-sound" href="https://ndagger1.itch.io/" target="_blank">
                             <i class="bi bi-shop-window"></i>
                             <p translate="no">Itch.io</p>
                         </a>
@@ -119,7 +119,7 @@ export default class AppWindowHTMLContent {
                     <div class="discord">
                         <i class="bi bi-discord" title="Discord"></i>
                         <p translate="no">@pizda69</p>
-                        <button id="copy-discord" title="Copy" aria-label="discord" id="discord-btn" class="copyable hover-sound copy-btn">
+                        <button id="copy-discord" title="Copy" id="discord-btn" class="copyable hover-sound copy-btn">
                             <i class="bi bi-copy"></i>
                         </button>
                         <div id="discord-copied" class="discord-copied">

@@ -70,14 +70,35 @@
     transition: all 0.1s linear;
     opacity: .5;
 }
-
+/* 
 .gold-btn:hover {
     color: var(--main-window-button-hover-color);
     opacity: 1;
     text-shadow: 0px 0px 5px var(--main-window-button-hover-text-shadow-color),
                  0px 0px 50px var(--main-window-button-hover-text-shadow-color);
     scale: 1.06;
+} */
+
+@media only screen and (hover: none) and (pointer: coarse) {
+    .gold-btn:active {
+        color: var(--main-window-button-hover-color);
+        opacity: 1;
+        text-shadow: 0px 0px 5px var(--main-window-button-hover-text-shadow-color),
+                    0px 0px 50px var(--main-window-button-hover-text-shadow-color);
+        scale: 1.06;
+    }
 }
+
+@media not all and (hover: none) and (pointer: coarse) {
+    .gold-btn:hover {
+        color: var(--main-window-button-hover-color);
+        opacity: 1;
+        text-shadow: 0px 0px 5px var(--main-window-button-hover-text-shadow-color),
+                    0px 0px 50px var(--main-window-button-hover-text-shadow-color);
+        scale: 1.06;
+    }
+}
+
 
 .gold-btn i, .gold-btn svg {
     font-size: 1em;

@@ -163,7 +163,8 @@ meta[name="theme-color"] {
     }
 }
 
-#music-illustration-btn:hover {
+.desktop #music-illustration-btn:hover,
+.screen #music-illustration-btn:active {
     filter: brightness(100%);
 }
 
@@ -209,7 +210,10 @@ meta[name="theme-color"] {
     transition: all .2s ease-in-out;
 }
 
-#music-btn.disabled:hover::before, #sound-btn.disabled:hover::before {
+.desktop #music-btn.disabled:hover::before,
+.screen #music-btn.disabled:active::before, 
+.desktop #sound-btn.disabled:hover::before,
+.screen #sound-btn.disabled:active::before {
     transform: translateY(-50%) translateX(-50%) rotate(30deg);
 }
 
@@ -225,7 +229,12 @@ meta[name="theme-color"] {
     transition: all .3s ease;
 }
 
-#night-mode-btn:hover, #music-btn:hover, #sound-btn:hover {
+.desktop #night-mode-btn:hover,
+.screen #night-mode-btn:hover, 
+.desktop #music-btn:hover,
+.screen #music-btn:hover, 
+.desktop #sound-btn:hover,
+.screen #sound-btn:hover {
     scale: 1.1;
     font-size: 2rem;
 }

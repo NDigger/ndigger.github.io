@@ -204,11 +204,11 @@
     border-top-right-radius: var(--border-radius);
 }
 
-.window-panel .fullscreen:hover, .window-panel .fullscreen:active {
+.window-panel .fullscreen:is(:hover, :active) {
     background-color: rgba(255, 255, 255, 0.13);
 }
 
-.window-panel .close:hover, .window-panel .close:active {
+.window-panel .close:is(:hover, :active) {
     background-color: rgb(223, 10, 10);
 }
 

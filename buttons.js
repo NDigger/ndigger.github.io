@@ -122,7 +122,6 @@ const colorChangers = [
     new RootColorChanger('--title-author-text-shadow-color', new Color(255, 98, 0, 0.8)),
     new RootColorChanger('--main-window-button-hover-color', new Color(255, 200, 0)),
     new RootColorChanger('--main-window-button-hover-text-shadow-color', new Color(255, 98, 0, .8)),
-    new RootColorChanger('--override-color', new Color(0, 0, 0)),
     new CanvasColorChanger('u_backgroundColor', new Color(1, 1, 1), new Color(0.1, 0.1, 0.12)),
     new CanvasColorChanger('u_wavesColor', new Color(0.9, 0.9, 1), new Color (0, 0, 0)),
     new CanvasColorChanger('u_secondaryWavesColor', new Color(1., 0.9, 0.9), new Color (.3, .3, .4)),

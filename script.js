@@ -10,3 +10,5 @@ window.addEventListener('load', () => {
 })
 
 Array.from(document.querySelectorAll('a')).forEach(el => el.tabIndex = -1);
+
+document.querySelector('body').classList.add(navigator.maxTouchPoints > 1 ? 'screen' : 'desktop')

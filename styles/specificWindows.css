@@ -281,8 +281,8 @@
 
 .desktop #links .discord .copy-btn:hover,
 .screen #links .discord .copy-btn:active {
-    scale: 1.1 !important;
-    opacity: 1 !important;
+    scale: 1.1;
+    opacity: 1;
 }
 
 #links .discord .copy-btn,
@@ -302,10 +302,15 @@
         scale: 1.5;
         opacity: 0;
         rotate: -5deg;
-    } to {
+        pointer-events: none;
+    } 80% {
         scale: 1;
         opacity: .5;
         rotate: 0deg;
+    } 99% {
+        pointer-events: none;
+    } 100% {
+        pointer-events: initial;
     }
 }
 

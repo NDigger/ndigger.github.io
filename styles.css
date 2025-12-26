@@ -33,9 +33,17 @@
     --buttons-mobile-color: rgba(255, 255, 255, 0.5);
     --window-background-color: rgba(255, 255, 255, 1);
 
+    --svh100: 100vh 
+
     --title-author-text-shadow-color: rgba(0, 0, 0, 0);
     --main-window-button-hover-color: rgb(0, 0, 0);
     --main-window-button-hover-text-shadow-color: rgba(255, 98, 0, 0);
+}
+
+@supports (height: 100svh) {
+    :root {
+        --svh100: 100svh;
+    }
 }
 
 .window .content h1,
@@ -72,11 +80,9 @@ img {
 
 html, body {
     width: 100vw;
-    height: 100vh;
-    height: 100svh;
+    height: var(--svh100);
     max-width: 100vw;
-    max-height: 100vh;
-    max-height: 100svh;
+    max-height: var(--svh100);
     position: relative;
     overflow: hidden;
 }

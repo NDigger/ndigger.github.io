@@ -8,13 +8,14 @@
     border-radius: var(--border-radius);
     box-shadow: var(--window-box-shadow);
     user-select: none;
+    background-color: var(--window-background-color);
+    backdrop-filter: blur(120px);
     animation: main-window-appearance 3s ease-out forwards;
 }
 
 #main-window .content {
     border-bottom-left-radius: var(--window-border-radius);
     border-bottom-right-radius: var(--window-border-radius);
-    backdrop-filter: blur(100px) brightness(100%) opacity(93%);
     padding: 30px 70px;
 }
 

@@ -18,22 +18,23 @@ musicParticlesEmitter.offset = new Vector2(60, -110)
 musicParticlesEmitter.emissionEnabled = false
 
 const musicBtn = document.getElementById('music-btn');
-const musicIllustrationBtn = document.querySelector('#music-illustration-btn img');
+const musicIllustrationBtn = document.querySelector('#music-illustration-btn');
+const musicIllustrationBtnImg = document.querySelector('#music-illustration-btn img');
 const changeMusicState = () => {
     restartCssAnimation(musicBtn, 'btn-animation');
-    restartCssAnimation(musicIllustrationBtn, 'music-illustration-animation');
+    restartCssAnimation(musicIllustrationBtnImg, 'music-illustration-animation');
     if ((localStorage.getItem('portfolio-music-enabled') ?? 'false') === 'false') {
         localStorage.setItem('portfolio-music-enabled', 'true');
         audioManager.music.currentTime = 0;
         audioManager.music.play();
         musicBtn.classList.remove('disabled');
-        musicIllustrationBtn.src = './images/musicIllustrationActive.png'
+        musicIllustrationBtnImg.src = './images/musicIllustrationActive.png'
         musicParticlesEmitter.emissionEnabled = true
     } else {
         localStorage.setItem('portfolio-music-enabled', 'false');
         audioManager.music.pause();
         musicBtn.classList.add('disabled');
-        musicIllustrationBtn.src = './images/musicIllustrationInactive.png'
+        musicIllustrationBtnImg.src = './images/musicIllustrationInactive.png'
         musicParticlesEmitter.emissionEnabled = false;
     }
 }
@@ -43,9 +44,9 @@ if ((localStorage.getItem('portfolio-music-enabled') ?? 'false') === 'false') {
 }
 
 if ((localStorage.getItem('portfolio-music-enabled') ?? 'false') === 'false') {
-        musicIllustrationBtn.src = './images/musicIllustrationInactiveSleep.png'
+        musicIllustrationBtnImg.src = './images/musicIllustrationInactiveSleep.png'
     } else {
-        musicIllustrationBtn.src = './images/musicIllustrationActiveSleep.png'
+        musicIllustrationBtnImg.src = './images/musicIllustrationActiveSleep.png'
     }
         
 
@@ -54,21 +55,21 @@ document.addEventListener('click', () => {
         musicParticlesEmitter.emissionEnabled = true
     }
 
-    restartCssAnimation(musicIllustrationBtn, 'music-illustration-animation');
+    restartCssAnimation(musicIllustrationBtnImg, 'music-illustration-animation');
     if ((localStorage.getItem('portfolio-music-enabled') ?? 'false') === 'false') {
-        musicIllustrationBtn.src = './images/musicIllustrationInactive.png'
+        musicIllustrationBtnImg.src = './images/musicIllustrationInactive.png'
     } else {
-        musicIllustrationBtn.src = './images/musicIllustrationActive.png'
+        musicIllustrationBtnImg.src = './images/musicIllustrationActive.png'
     }
         
     // Blinking music button imitation
     setInterval(() => {
         setTimeout(() => {
             if ((localStorage.getItem('portfolio-music-enabled') ?? 'true') === 'true') return
-            musicIllustrationBtn.src = 'images/musicIllustrationInactiveBlink.png'
+            musicIllustrationBtnImg.src = 'images/musicIllustrationInactiveBlink.png'
             setTimeout(() => {
                 if ((localStorage.getItem('portfolio-music-enabled') ?? 'true') === 'true') return
-                musicIllustrationBtn.src = 'images/musicIllustrationInactive.png'
+                musicIllustrationBtnImg.src = 'images/musicIllustrationInactive.png'
             }, 100)
         }, Math.random() * 4500)
     }, 5000)

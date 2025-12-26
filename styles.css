@@ -249,11 +249,11 @@ meta[name="theme-color"] {
 }
 
 .desktop #night-mode-btn:hover,
-.screen #night-mode-btn:hover, 
+.screen #night-mode-btn:active, 
 .desktop #music-btn:hover,
-.screen #music-btn:hover, 
+.screen #music-btn:active, 
 .desktop #sound-btn:hover,
-.screen #sound-btn:hover {
+.screen #sound-btn:active {
     scale: 1.1;
     font-size: 2rem;
 }

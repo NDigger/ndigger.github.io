@@ -114,11 +114,18 @@ animate();
 //
 
 const u_zoom = gl.getUniformLocation(program, "u_zoom");
+let offsetX = 0;
+let lasttime = performance.now();
 function render(time) {
   gl.uniform1f(u_time, time/1000 + bonus);
 
+  const dt = time - lasttime;
+  lasttime = time;
+
+  offsetX += dt/10000 * (velocityX <= 0 ? 1 : -1);
+  console.log(velocityX)
   offsetY += (offsetYTarget - offsetY)/300
-  gl.uniform2f(u_offset, 0, offsetY);
+  gl.uniform2f(u_offset, offsetX, offsetY);
   gl.uniform2f(gl.getUniformLocation(program, "u_scrollOffset"), -scrollPosX/3000, 0);
 
   const zoom = Math.round((window.outerWidth / window.innerWidth) * 100) / 100;

@@ -66,8 +66,8 @@
         float drawStars(in vec2 st, in vec2 ast, in float speed) {
             float time = u_time * t * .5;
             float scale = 5. * ((u_scrollOffset.y/30.)+1.);
-            vec2 fst = fract(ast * scale * speed + vec2(time, random(vec2(speed)) * 10.) + u_scrollOffset);
-            vec2 ist = floor(ast * scale * speed + vec2(time, random(vec2(speed)) * 10.) + u_scrollOffset);
+            vec2 fst = fract(ast * scale * speed + vec2(u_offset.x, random(vec2(speed)) * 10.) + u_scrollOffset);
+            vec2 ist = floor(ast * scale * speed + vec2(u_offset.x, random(vec2(speed)) * 10.) + u_scrollOffset);
             if (random(ist) * 1. > .5) { 
                 return 0.; 
             } else {

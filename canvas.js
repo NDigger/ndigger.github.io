@@ -2,14 +2,14 @@ const canvas = document.getElementById("glcanvas");
 const gl = canvas.getContext("webgl");
 
 function getShader(id, type) {
-  const src = document.getElementById(id).textContent;
-  const shader = gl.createShader(type);
-  gl.shaderSource(shader, src);
-  gl.compileShader(shader);
-  if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-    console.error(gl.getShaderInfoLog(shader));
-  }
-  return shader;
+const src = document.getElementById(id).textContent;
+const shader = gl.createShader(type);
+gl.shaderSource(shader, src);
+gl.compileShader(shader);
+if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+	console.error(gl.getShaderInfoLog(shader));
+}
+return shader;
 }
 
 const vs = getShader("vs", gl.VERTEX_SHADER);
@@ -23,12 +23,12 @@ gl.useProgram(program);
 
 // Fullscreen Rect
 const vertices = new Float32Array([
-  -1, -1,
-   1, -1,
-  -1,  1,
-  -1,  1,
-   1, -1,
-   1,  1
+-1, -1,
+1, -1,
+-1,  1,
+-1,  1,
+1, -1,
+1,  1
 ]);
 
 const buffer = gl.createBuffer();
@@ -55,9 +55,8 @@ let offsetYTarget = -.5*offsetMult;
 let offsetY = -.5*offsetMult;
 
 document.addEventListener('pointermove', e => {
-  const w = window.innerWidth;
-  const h = window.innerHeight;
-  offsetYTarget = (1.-(e.pageY/h)-.5)*offsetMult;
+const h = window.innerHeight;
+offsetYTarget = (1.-(e.pageY/h)-.5)*offsetMult;
 })
 
 const u_time = gl.getUniformLocation(program, "u_time");
@@ -77,37 +76,42 @@ let lastTime = 0;
 
 const body = document.querySelector('body');
 body.addEventListener('mousedown', (e) => {
-  if (e.target !== body) return
-  isDragging = true;
-  lastMouseX = e.clientX;
-  lastTime = performance.now();
+if (e.target !== body) return
+isDragging = true;
+lastMouseX = e.clientX;
+lastTime = performance.now();
 });
 
 body.addEventListener('mousemove', (e) => {
-  if (isDragging) {
-    let now = performance.now();
-    let deltaX = e.clientX - lastMouseX;
-    let deltaTime = (now - lastTime) / 1000;
-    velocityX = deltaX / deltaTime;
+if (isDragging) {
+	let now = performance.now();
+	let deltaX = e.clientX - lastMouseX;
+	let deltaTime = (now - lastTime) / 1000;
+	velocityX = deltaX / deltaTime;
+	const velDir = velocityX < 0 ? 1 : -1;
+	if (config.shaderMovementDir !== velDir) {
+		config.shaderMovementDir = velDir;
+		localStorage.setItem('portfolio-config', JSON.stringify(config));
+	}
 
-    targetPosX += deltaX;
-    lastMouseX = e.clientX;
-    lastTime = now;
-  }
+	targetPosX += deltaX;
+	lastMouseX = e.clientX;
+	lastTime = now;
+}
 });
 
 body.addEventListener('mouseup', () => {
-  isDragging = false;
+isDragging = false;
 });
 
 function animate() {
-  if (!isDragging) {
-    velocityX *= 0.98;
-    targetPosX += velocityX * 0.016;
-  }
+if (!isDragging) {
+	velocityX *= 0.98;
+	targetPosX += velocityX * 0.016;
+}
 
-  scrollPosX += (targetPosX - scrollPosX) * 0.1;
-  requestAnimationFrame(animate);
+scrollPosX += (targetPosX - scrollPosX) * 0.1;
+requestAnimationFrame(animate);
 }
 
 animate();
@@ -117,21 +121,22 @@ const u_zoom = gl.getUniformLocation(program, "u_zoom");
 let offsetX = 0;
 let lasttime = performance.now();
 function render(time) {
-  gl.uniform1f(u_time, time/1000 + bonus);
+gl.uniform1f(u_time, time/1000 + bonus);
 
-  const dt = time - lasttime;
-  lasttime = time;
+const dt = time - lasttime;
+lasttime = time;
 
-  offsetX += dt/10000 * (velocityX <= 0 ? 1 : -1);
-  offsetY += (offsetYTarget - offsetY)/300
-  gl.uniform2f(u_offset, offsetX, offsetY);
-  gl.uniform2f(gl.getUniformLocation(program, "u_scrollOffset"), -scrollPosX/3000, 0);
+console.log(offsetX)
+offsetX += dt/10000 * config.shaderMovementDir;
+offsetY += (offsetYTarget - offsetY)/300
+gl.uniform2f(u_offset, offsetX, offsetY);
+gl.uniform2f(gl.getUniformLocation(program, "u_scrollOffset"), -scrollPosX/3000, 0);
 
-  const zoom = Math.round((window.outerWidth / window.innerWidth) * 100) / 100;
-  gl.uniform1f(u_zoom, 1/zoom);
+const zoom = Math.round((window.outerWidth / window.innerWidth) * 100) / 100;
+gl.uniform1f(u_zoom, 1/zoom);
 
-  gl.drawArrays(gl.TRIANGLES, 0, 6);
-  requestAnimationFrame(render);
+gl.drawArrays(gl.TRIANGLES, 0, 6);
+requestAnimationFrame(render);
 }
 requestAnimationFrame(render);
 

@@ -104,6 +104,7 @@
         top: calc(50vh - var(--height) / 2);
         left: calc(50vw - var(--width) / 2);
         scale: 1.5;
+        rotate: -2deg;
     }
     100% {
         opacity: 1;
@@ -138,6 +139,7 @@
         top: calc(50vh - var(--height) / 2);
         left: calc(50vw - var(--width) / 2);
         scale: 0;
+        rotate: 2deg;
     }
 }
 

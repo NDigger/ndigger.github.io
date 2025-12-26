@@ -48,9 +48,10 @@ const pushNewStatusesList = () => {
     .then(res => res.json())
     .then(data => {
         const recentStatusId = data[0]?.id;
-        const recentStatusSeenId = localStorage.getItem('portfolio-last-status-seen-id') ?? 0;
+        const recentStatusSeenId = config.lastStatusSeenId;
         if (recentStatusId > recentStatusSeenId && page === 0) 
-            localStorage.setItem('portfolio-last-status-seen-id', recentStatusId)
+            config.lastStatusSeenId = recentStatusId
+            localStorage.setItem('portfolio-config', JSON.stringify(config))
         clearInterval(intervalId);
         pushStatuses(data);
         page++;
@@ -114,7 +115,7 @@ document.getElementById('status-btn').addEventListener('click', () => {
     pushNewStatusesList()
 })
 
-const lastStatusSeenId = localStorage.getItem('portfolio-last-status-seen-id') || Number.MAX_VALUE
+const lastStatusSeenId = config.lastStatusSeenId
 let unreadStatuses = 0
 const pushStatuses = data => {
     const statusContainer = document.getElementById('status-container');

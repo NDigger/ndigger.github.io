@@ -1,5 +1,5 @@
 import { ParticleEmitter } from './utils/particles.js';
-import { Vector2, restartCssAnimation, getNightModeEnabled, Color } from './utils/structures.js';
+import { Vector2, restartCssAnimation, Color } from './utils/structures.js';
 import audioManager from './audioManager.js';
 import { RootColorChanger, CanvasColorChanger } from './utils/colorChangers.js';
 
@@ -23,15 +23,15 @@ const musicIllustrationBtnImg = document.querySelector('#music-illustration-btn 
 const changeMusicState = () => {
     restartCssAnimation(musicBtn, 'btn-animation');
     restartCssAnimation(musicIllustrationBtnImg, 'music-illustration-animation');
-    if ((localStorage.getItem('portfolio-music-enabled') ?? 'false') === 'false') {
-        localStorage.setItem('portfolio-music-enabled', 'true');
+    config.musicEnabled = !config.musicEnabled
+    localStorage.setItem('portfolio-config', JSON.stringify(config))
+    if (config.musicEnabled) {
         audioManager.music.currentTime = 0;
         audioManager.music.play();
         musicBtn.classList.remove('disabled');
         musicIllustrationBtnImg.src = './images/musicIllustrationActive.png'
         musicParticlesEmitter.emissionEnabled = true
     } else {
-        localStorage.setItem('portfolio-music-enabled', 'false');
         audioManager.music.pause();
         musicBtn.classList.add('disabled');
         musicIllustrationBtnImg.src = './images/musicIllustrationInactive.png'
@@ -39,24 +39,24 @@ const changeMusicState = () => {
     }
 }
 
-if ((localStorage.getItem('portfolio-music-enabled') ?? 'false') === 'false') {
+if (!config.musicEnabled) {
     musicBtn.classList.add('disabled');
 }
 
-if ((localStorage.getItem('portfolio-music-enabled') ?? 'false') === 'false') {
-        musicIllustrationBtnImg.src = './images/musicIllustrationInactiveSleep.png'
-    } else {
-        musicIllustrationBtnImg.src = './images/musicIllustrationActiveSleep.png'
-    }
-        
+if (!config.musicEnabled) {
+    musicIllustrationBtnImg.src = './images/musicIllustrationInactiveSleep.png'
+} else {
+    musicIllustrationBtnImg.src = './images/musicIllustrationActiveSleep.png'
+}
+    
 
 document.addEventListener('click', () => {
-    if ((localStorage.getItem('portfolio-music-enabled') ?? 'false') === 'true') {
+    if (config.musicEnabled) {
         musicParticlesEmitter.emissionEnabled = true
     }
 
     restartCssAnimation(musicIllustrationBtnImg, 'music-illustration-animation');
-    if ((localStorage.getItem('portfolio-music-enabled') ?? 'false') === 'false') {
+    if (!config.musicEnabled) {
         musicIllustrationBtnImg.src = './images/musicIllustrationInactive.png'
     } else {
         musicIllustrationBtnImg.src = './images/musicIllustrationActive.png'
@@ -65,10 +65,10 @@ document.addEventListener('click', () => {
     // Blinking music button imitation
     setInterval(() => {
         setTimeout(() => {
-            if ((localStorage.getItem('portfolio-music-enabled') ?? 'true') === 'true') return
+            if (config.musicEnabled) return
             musicIllustrationBtnImg.src = 'images/musicIllustrationInactiveBlink.png'
             setTimeout(() => {
-                if ((localStorage.getItem('portfolio-music-enabled') ?? 'true') === 'true') return
+                if (config.musicEnabled) return
                 musicIllustrationBtnImg.src = 'images/musicIllustrationInactive.png'
             }, 100)
         }, Math.random() * 4500)
@@ -81,18 +81,18 @@ document.addEventListener('click', () => {
 const soundBtn = document.getElementById('sound-btn');
 const changeSoundState = () => {
     restartCssAnimation(soundBtn, 'btn-animation');
-    if ((localStorage.getItem('portfolio-sound-enabled') ?? 'true') === 'true') {
-        localStorage.setItem('portfolio-sound-enabled', 'false');
+    config.soundEnabled = !config.soundEnabled;
+    localStorage.setItem('portfolio-config', JSON.stringify(config))
+    if (!config.soundEnabled) {
         soundBtn.classList.add('disabled');
         audioManager.setMasterVolume(0)
     } else {
-        localStorage.setItem('portfolio-sound-enabled', 'true');
         soundBtn.classList.remove('disabled');
         audioManager.setMasterVolume(1)
     }
 }
 soundBtn.addEventListener('click', changeSoundState)
-if ((localStorage.getItem('portfolio-sound-enabled') ?? 'true') === 'false') {
+if (!config.soundEnabled) {
     soundBtn.classList.add('disabled');
 }
 
@@ -132,13 +132,12 @@ const sunIcon = '<i class="bi bi-sun-fill"></i>';
 const moonIcon = '<i class="bi bi-moon-fill"></i>';
 const nightModeBtn = document.getElementById('night-mode-btn')
 nightModeBtn.addEventListener('click', () => {
-    const nightModeEnabled = getNightModeEnabled()
-    if (nightModeEnabled === false) {
-        localStorage.setItem('portfolio-night-mode-enabled', 'true');
+    config.nightModeEnabled = !config.nightModeEnabled
+    localStorage.setItem('portfolio-config', JSON.stringify(config))
+    if (config.nightModeEnabled) {
         nightModeBtn.innerHTML = sunIcon
         audioManager.resetPlay(audioManager.sounds.shine)
     } else {
-        localStorage.setItem('portfolio-night-mode-enabled', 'false');
         nightModeBtn.innerHTML = moonIcon
         audioManager.resetPlay(audioManager.sounds.shine2)
     }
@@ -146,6 +145,5 @@ nightModeBtn.addEventListener('click', () => {
     colorChangers.map(colorChanger => colorChanger.run())
 })
 
-const nightModeEnabled = getNightModeEnabled()
-nightModeBtn.innerHTML = nightModeEnabled ? sunIcon : moonIcon
+nightModeBtn.innerHTML = config.nightModeEnabled ? sunIcon : moonIcon
 colorChangers.map(colorChanger => colorChanger.apply())

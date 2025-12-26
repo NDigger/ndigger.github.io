@@ -18,12 +18,12 @@ export const setMasterVolume = value => {
     sounds.shine2.volume = 1 * value;
 }
 
-setMasterVolume(localStorage.getItem('portfolio-sound-enabled') === 'false' ? 0 : 1)
+setMasterVolume(!config.soundEnabled ? 0 : 1)
 
 export const music = new Audio('./audio/musicSmooth.mp3');
 music.loop = true;
 document.addEventListener('click', () => {
-    if ((localStorage.getItem('portfolio-music-enabled') ?? 'false') == 'true') {
+    if (config.musicEnabled) {
         music.play();
     }
 })

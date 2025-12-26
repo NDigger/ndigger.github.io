@@ -73,20 +73,20 @@
 
         float drawStars(in vec2 st, in vec2 ast, in float layer) {
             float time = u_time * t * .5;
-            float speed = layer;
+            float speed = layer/2.;
             float scale = 5. * ((u_scrollOffset.y/30.)+1.);
             vec2 fst = fract(ast * scale * speed + vec2(0, random(vec2(speed)) * 10.) + u_offset + u_scrollOffset);
             vec2 ist = floor(ast * scale * speed + vec2(0, random(vec2(speed)) * 10.) + u_offset + u_scrollOffset);
             float rnd = random(ist + layer + u_seed);
-            if (rnd * 1. > .5) { 
+            if (rnd * 1. > .6) { 
                 return 0.; 
             } else {
-                float size = 30. * (rnd + .4) * (1. - sin1(time * (rnd * 10. + 10.) + rnd) * .5);
-                vec2 pos = vec2(.5) + rnd * .5 + vec2(sin(time), cos(time * rnd * 10.)) * .1;
-                float circle = 1.-smoothstep(distance(fst, pos) * size, .0, .2);
+                float size = 30. * (rnd + .4) * (1. - sin1(time * (rnd * 10. + 5.) + rnd) * .2);
+                vec2 pos = vec2(.5) + vec2(random(ist.xy + layer), random(ist)) * .3 + vec2(sin(time * rnd * 5.), cos(time * rnd * 10.)) * .1;
+                float circle = 1.-smoothstep(distance(fst, pos) * size, .0, .15);
                 float yOpacity = (st.y * 2. + 0.9);
-                float star = circle/float(speed) * yOpacity / starLayers;
-                float disap = clamp(sin1(time * 2. + rnd * 100.) * 5. - 2.5, 0., 1.);
+                float star = circle * yOpacity / starLayers / float(layer * .5);
+                float disap = clamp(sin1(time * 2. + rnd * 100.) * 20. - 10., 0., 1.);
                 return clamp(star * disap, 0., .3);
             }
         }
@@ -112,8 +112,8 @@
             st -= .5;
             vec2 ast = st;
             st += u_scrollOffset;
-            st.x += u_seed * 500.;
             st *= u_zoom;
+            st.x += u_seed * 500.;
             vec3 color = vec3(u_backgroundColor);
             float time = u_time * .2;
 
@@ -126,16 +126,15 @@
                 color += vec3(drawStars(st, (ast + vec2(0., 1.)) * u_zoom, float(i)));
             }
 
-            vec2 nst = vec2(st.x + time, st.y);
-            nst.y += .5;
-            nst.x *= 1.2;
-            float ist = floor(nst.x);
-            float fst = fract(nst.x);
+            st.y += .5;
+            st.x *= 1.2;
+            float ist = floor(st.x);
+            float fst = fract(st.x);
             float ground = mix(random(vec2(ist)) * 3., random(vec2(ist + 1.)) * 3., smoothstep(0., 1., fst)) * .08;
-            if (nst.y < ground + .1 || (nst.y < ground + .115 && nst.y > ground + .11 )) {
-                color = mix(u_wavesColor, u_secondaryWavesColor, clamp(nst.y * 2.3 + abs(u_scrollOffset.y) * 1.5 / u_zoom, 0., 1.));
+            if (st.y < ground + .1 || (st.y < ground + .115 && st.y > ground + .11 )) {
+                color = mix(u_wavesColor, u_secondaryWavesColor, clamp(st.y * 2.3 + abs(u_scrollOffset.y) * 1.5 / u_zoom, 0., 1.));
             }    
-            nst.y -= .5;
+            st.y -= .5;
 
             ast *= clamp(u_zoom, 1., 2.);
             float distanceNightCircle = clamp(1.2-length(ast) * 0.9, 0., 1.) + u_backgroundColor.r;
@@ -194,6 +193,7 @@
         <button id="music-btn" class="ui-btn"><i class="bi bi-music-note-beamed hover-sound"></i></button>
         <button id="sound-btn" class="ui-btn hover-sound"><i class="bi bi-music-note"></i></button>
     </div>
+    <script src="globals.js"></script>
     <script src="script.js" type="module"></script>
     <script src="canvas.js"></script>
 </body>

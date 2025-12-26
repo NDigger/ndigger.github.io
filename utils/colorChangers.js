@@ -1,5 +1,5 @@
 import LerpApp from './interpolation.js';
-import { Color, getNightModeEnabled } from './structures.js';
+import { Color } from './structures.js';
 
 const getRootColor = key => {
     const str = getComputedStyle(document.documentElement).getPropertyValue(key);
@@ -25,13 +25,11 @@ class ColorChanger {
     }
 
     run() {
-        const nightMode = getNightModeEnabled()
-        this.colorLerp.run(nightMode ? this.darkModeColor.duplicate() : this.brightModeColor.duplicate(), colorChangeTime);
+        this.colorLerp.run(config.nightModeEnabled ? this.darkModeColor.duplicate() : this.brightModeColor.duplicate(), colorChangeTime);
     }
 
     apply() {
-        const nightMode = getNightModeEnabled()
-        this.colorLerp.apply(nightMode ? this.darkModeColor.duplicate() : this.brightModeColor.duplicate())
+        this.colorLerp.apply(config.nightModeEnabled ? this.darkModeColor.duplicate() : this.brightModeColor.duplicate())
     }
 }
 

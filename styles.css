@@ -33,7 +33,7 @@
     --buttons-mobile-color: rgba(255, 255, 255, 0.5);
     --window-background-color: rgba(255, 255, 255, 1);
 
-    --svh100: 100vh 
+    --svh100: 100vh;
 
     --title-author-text-shadow-color: rgba(0, 0, 0, 0);
     --main-window-button-hover-color: rgb(0, 0, 0);

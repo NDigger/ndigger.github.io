@@ -122,7 +122,8 @@ meta[name="theme-color"] {
 }
 
 #music-illustration-btn {
-    user-select: none;
+    background-color: transparent;
+    border: none;
     -webkit-user-drag: none;
     position: absolute;
     width: 150px;
@@ -131,6 +132,28 @@ meta[name="theme-color"] {
     filter: brightness(70%);
     transition: filter 0.1s linear;
 }
+
+#music-illustration-btn img {
+    width: inherit;
+    -webkit-user-drag: none;
+}
+
+.desktop #music-illustration-btn:hover,
+.screen #music-illustration-btn:active {
+    filter: brightness(100%);
+    cursor: pointer;
+}
+
+.desktop #music-illustration-btn:hover::before,
+.screen #music-illustration-btn:active:before {
+    content: '';
+    user-select: none;
+    background: radial-gradient(rgba(255, 255, 255, .08), transparent 50%);
+    position: absolute;
+    inset: -30px;
+    filter: brightness(70%);
+}
+
 
 .main-window-music-particle {
     position: absolute;
@@ -150,7 +173,7 @@ meta[name="theme-color"] {
     }
 }
 
-#music-illustration-btn.music-illustration-animation {
+#music-illustration-btn img.music-illustration-animation {
     animation: music-illustration-anim 0.2s ease-out;
 }
 
@@ -161,15 +184,6 @@ meta[name="theme-color"] {
     100% {
         transform: scaleY(1);
     }
-}
-
-.desktop #music-illustration-btn:hover,
-.screen #music-illustration-btn:active {
-    filter: brightness(100%);
-}
-
-#music-illustration-btn {
-    cursor: pointer;
 }
 
 .top-right {

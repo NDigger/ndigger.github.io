@@ -18,7 +18,7 @@ musicParticlesEmitter.offset = new Vector2(60, -110)
 musicParticlesEmitter.emissionEnabled = false
 
 const musicBtn = document.getElementById('music-btn');
-const musicIllustrationBtn = document.getElementById('music-illustration-btn');
+const musicIllustrationBtn = document.querySelector('#music-illustration-btn img');
 const changeMusicState = () => {
     restartCssAnimation(musicBtn, 'btn-animation');
     restartCssAnimation(musicIllustrationBtn, 'music-illustration-animation');

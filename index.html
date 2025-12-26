@@ -129,41 +129,12 @@
             vec2 nst = vec2(st.x + time, st.y);
             nst.y += .5;
             nst.x *= 1.2;
-            vec2 ist = floor(nst);
-            vec2 fst = fract(nst);
-            float randomness = 2.;
-            float ground = mix(
-                random(vec2(ist.x)) * randomness,
-                random(vec2(ist.x + 1.)) * randomness,
-                smoothstep(0., 1., fst.x)
-                ) * .08;
-
-            float groundPosY = .1;
-            float pg =  ground + groundPosY;
-            bool line = nst.y < pg + .015 && nst.y > pg + .01;
-            float line2Size = 0.08;
-            bool line2 = nst.y < pg && nst.y > pg;
-            float lineTop = pg;
-            float lineBottom = pg - .15;
-            vec2 mst = vec2(nst.x, pg);
-            float waveX = clamp(fract(nst.x/2.) * PI * 1.5, PI/2., PI * 1.5);
-            float wave = (1.-abs(sin(waveX))) + line2Size;
-            bool jumpWave = nst.y <= pg && pg - wave < nst.y;
-            bool cond = line2 || line || jumpWave;
-            float t = clamp((lineTop - nst.y) / (lineTop - lineBottom), 0., 1.);
-            float t2 = clamp((lineTop - nst.y) / (lineTop - pg - .1), 0., 1.);
-            color = mix(
-                        color,
-                        mix(
-                        u_secondaryWavesColor, 
-                        u_wavesColor, 
-                        clamp(-nst.y * 2.5 + 1.3, 0., 1.)
-                        ),
-                        // * 2. + abs(u_scrollOffset.y) * 1.5 / u_zoom
-                        cond ? 1. : 0.
-                        );
-            color = mix(color, u_wavesColor, 1.-t2);
-
+            float ist = floor(nst.x);
+            float fst = fract(nst.x);
+            float ground = mix(random(vec2(ist)) * 3., random(vec2(ist + 1.)) * 3., smoothstep(0., 1., fst)) * .08;
+            if (nst.y < ground + .1 || (nst.y < ground + .115 && nst.y > ground + .11 )) {
+                color = mix(u_wavesColor, u_secondaryWavesColor, clamp(nst.y * 2.3 + abs(u_scrollOffset.y) * 1.5 / u_zoom, 0., 1.));
+            }    
             nst.y -= .5;
 
             ast *= clamp(u_zoom, 1., 2.);

@@ -32,6 +32,7 @@
     --weak-box-shadow: 0px 0px 3px gray;
     --buttons-mobile-color: rgba(255, 255, 255, 0.5);
     --window-background-color: rgba(255, 255, 255, 1);
+    --override-color: rgb(255, 255, 255);
 
     --svh100: 100vh;
 
@@ -100,16 +101,16 @@ meta[name="theme-color"] {
     position: fixed;
     inset: 0;
     z-index: 3;
-    animation: override-disappear 1s linear forwards;
+    background-color: black;
+    animation: override-disappear 1s ease-in forwards;
     pointer-events: none;
 }
 
 @keyframes override-disappear {
     from {
-        background-color: black;
-    }
-    to {
-        background-color: transparent;
+        opacity: 1;
+    } to {
+        opacity: 0;
     }
 }
 
@@ -170,98 +171,6 @@ meta[name="theme-color"] {
 
 #music-illustration-btn {
     cursor: pointer;
-}
-
-#quick-links {
-    display: none !important;
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    gap: 10px;
-    transform: translateX(-50%);
-    display: flex;
-    justify-content: center;
-    user-select: none;
-}
-
-#quick-links button {
-    position: relative;
-    color: var(--main-font-color);
-    backdrop-filter: blur(100px) brightness(100%) opacity(90%);
-    background-color: transparent;
-    border: var(--button-border);
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    font-size: 1.2rem;
-    transition: font-size 0.1s linear;
-}
-
-#quick-links *:not(button):not(a) {
-    pointer-events: none;
-}
-
-#quick-links button.copyable::after {
-    position: absolute;
-    content: 'Copied @pizda69!';
-    width: 300px;
-    height: 40px;
-    top: -50px;
-    left: 50%;
-    border-radius: 10px;
-    background-color: var(--window-background-color);
-    opacity: 0;
-    font-size: 1.3rem;
-    pointer-events: none;
-}
-
-#quick-links button.copyable::before {
-    pointer-events: none;
-    position: absolute;
-    content: '';
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-top: 10px solid var(--window-background-color);
-    top: -10px;
-    left: 50%;
-    opacity: 0;
-}
-
-#quick-links button.copyable.show-copied-popup::after,
-#quick-links button.copyable.show-copied-popup::before {
-    animation: s-popup 2s ease-in-out forwards;
-}
-
-@keyframes s-popup {
-    0% {
-        opacity: 0;
-        transform: translateX(-50%);
-    }
-    20% {
-        transform: translateX(-50%) skew(0deg);
-        opacity: .6;
-    }
-    40% {
-        transform: translateX(-50%) skew(0deg);
-        opacity: .6;
-    }
-    100% {
-        transform: translateX(-40%) skew(-10deg);
-        opacity: 0;
-    }
-}
-
-#quick-links i {
-    color: var(--gray-color);
-}
-
-#quick-links button:hover {
-    font-size: 1.25rem;
-}
-
-#quick-links a {
-    position: absolute;
-    inset: 0;
 }
 
 .top-right {
@@ -366,11 +275,6 @@ meta[name="theme-color"] {
 @media (max-width: 932px) {
     html {
         font-size: 1.15rem;
-    }
-
-    #quick-links {
-        top: 20px;
-        height: min-content;
     }
 
     #discord-btn::before {

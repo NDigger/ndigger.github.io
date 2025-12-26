@@ -105,23 +105,26 @@
             
             vec2 nst = vec2(st.x + time, st.y);
 
-            if (nst.y < sin(nst.x * 2.) * .1 - .35
-            || (nst.y < sin(nst.x * 2.) * .1 - .335 && nst.y > sin(nst.x * 2.) * .1 - .34)
-            ) {
-                color = mix(u_wavesColor, u_secondaryWavesColor, nst.y * 2.3 + 1.1); // vec3(.9, .9, 1.) vec3(.9, 1., 1.)
-            }
+            //if (nst.y < sin(nst.x * 2.) * .1 - .35
+            //|| (nst.y < sin(nst.x * 2.) * .1 - .335 && nst.y > sin(nst.x * 2.) * .1 - .34)
+            //) {
+            //    color = mix(u_wavesColor, u_secondaryWavesColor, nst.y * 2.3 + 1.1); // vec3(.9, .9, 1.) vec3(.9, 1., 1.)
+            //}
 
-            
-            //float ist = floor(nst.x);
-            //float fst = fract(nst.x);
-            //float ground = mix(random(vec2(ist)) * 3., random(vec2(ist + 1.)) * 3., smoothstep(0., 1., fst)) * .08;
-            //if (nst.y < ground + .1 || (nst.y < ground + .115 && nst.y > ground + .11 )) {
-            //    color = mix(u_wavesColor, u_secondaryWavesColor, nst.y * 2.3);
-            //}    
 
-            //vec2 mst = vec2(st.x + time / 25., st.y);
-            //float moon = clamp(step(.98, 1.-length(mst - vec2(1.25, 0.9))) - step(.98, 1.-length(mst - vec2(1.255, 0.904))), 0., 1.);
-            //color = mix(color, vec3(moon), moon);
+            nst.y += .5;
+            nst.x *= 1.2;
+            float ist = floor(nst.x);
+            float fst = fract(nst.x);
+            float ground = mix(random(vec2(ist)) * 3., random(vec2(ist + 1.)) * 3., smoothstep(0., 1., fst)) * .08;
+            if (nst.y < ground + .1 || (nst.y < ground + .115 && nst.y > ground + .11 )) {
+                color = mix(u_wavesColor, u_secondaryWavesColor, nst.y * 2.3);
+            }    
+            nst.y -= .5;
+
+            vec2 mst = vec2(st.x + time / 25., st.y);
+            float moon = clamp(step(.98, 1.-length(mst - vec2(1.25, 0.9))) - step(.98, 1.-length(mst - vec2(1.255, 0.904))), 0., 1.);
+            color = mix(color, vec3(moon), moon);
             float distanceNightCircle = clamp(1.2-length(st / clamp(u_zoom, 1., 2.)) * 0.9, 0., 1.) + u_backgroundColor.r;
             
             color = clamp(color, vec3(0.), vec3(1.));
@@ -139,34 +142,20 @@
                 <h1 id="title">hi, i'm <span id="title-author" translate="no">NDagger</span></h1>
                 <div class="buttons">
                     <button id="about-me-btn" title="About me" class="hover-sound gold-btn">
-                        <!-- <i class="bi bi-text-center"></i> -->
                         <i class="bi bi-info-square"></i>
                         <p>About me</p>
                     </button>
                     <button id="skills-btn" title="Skills" class="hover-sound gold-btn">
                         <i class="bi bi-box-seam"></i>
-                        <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" />
-                        </svg> -->
                         <p>Skills</p>
                     </button>
                     <button id="links-btn" title="Links" class="hover-sound gold-btn">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
                         </svg>
-                        <!-- <i class="bi bi-link" style="transform: rotate(45deg) !important"></i> -->
                         <p>Links</p>
                     </button>
-                    <!-- <button id="rest-btn" title="Creation">
-                        <i class="bi bi-joystick"></i>
-                        <p>Rest</p>
-                    </button>
-                    <button id="faq-btn" title="Not Frequently Asked Questions">
-                        <i class="bi bi-question-lg"></i>
-                        <p>NFAQ</p>
-                    </button> -->
                     <button id="status-btn" title="Statuses" class="hover-sound gold-btn">
-                        <!-- <i class="bi bi-list"></i> -->
                         <i class="bi bi-clock-fill"></i>
                         <p>Statuses</p>
                     </button>
@@ -174,11 +163,6 @@
             </div>
         </div>
     </section>
-    <!-- <section id="quick-links">
-        <button title="My Discord (Copy)" id="discord-btn" class="copyable hover-sound"><i class="bi bi-discord"></i></button>
-        <button title="My YouTube" id="youtube-btn"><i class="bi bi-youtube"></i><a href="https://www.youtube.com/@scout1495" class="hover-sound" target="_blank" title="My YouTube"></a></button>
-        <button title="My GitHub" id="github-btn"><i class="bi bi-github"></i><a href="https://github.com/NDigger" class="hover-sound" target="_blank" title="My GitHub"></a></button>
-    </section> -->
     <button id="night-mode-btn" class="ui-btn night-mode-btn-animation hover-sound"><i class="bi bi-moon-fill night-mode-btn-animation"></i></button>
     <div class="top-right">
         <button id="music-btn" class="ui-btn"><i class="bi bi-music-note-beamed hover-sound"></i></button>

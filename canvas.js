@@ -123,7 +123,6 @@ function render(time) {
   lasttime = time;
 
   offsetX += dt/10000 * (velocityX <= 0 ? 1 : -1);
-  console.log(velocityX)
   offsetY += (offsetYTarget - offsetY)/300
   gl.uniform2f(u_offset, offsetX, offsetY);
   gl.uniform2f(gl.getUniformLocation(program, "u_scrollOffset"), -scrollPosX/3000, 0);

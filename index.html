@@ -46,6 +46,10 @@
         varying vec2 v_uv;
         uniform float u_time;
 
+        #define PI 3.14159265
+
+        const float starLayers = 6.;
+
         uniform vec2 u_resolution;
         uniform vec3 u_backgroundColor;
         uniform vec3 u_wavesColor;
@@ -63,15 +67,27 @@
                 43758.5453123);
         }
 
-        float drawStars(in vec2 st, in vec2 ast, in float speed) {
+        float sin1(in float v) {
+            return sin(v) * .5 + .5;
+        }
+
+        float drawStars(in vec2 st, in vec2 ast, in float layer) {
             float time = u_time * t * .5;
+            float speed = layer;
             float scale = 5. * ((u_scrollOffset.y/30.)+1.);
-            vec2 fst = fract(ast * scale * speed + vec2(u_offset.x, random(vec2(speed)) * 10.) + u_scrollOffset);
-            vec2 ist = floor(ast * scale * speed + vec2(u_offset.x, random(vec2(speed)) * 10.) + u_scrollOffset);
-            if (random(ist) * 1. > .5) { 
+            vec2 fst = fract(ast * scale * speed + vec2(0, random(vec2(speed)) * 10.) + u_offset + u_scrollOffset);
+            vec2 ist = floor(ast * scale * speed + vec2(0, random(vec2(speed)) * 10.) + u_offset + u_scrollOffset);
+            float rnd = random(ist + layer + u_seed);
+            if (rnd * 1. > .5) { 
                 return 0.; 
             } else {
-                return clamp((1.-step(.5,distance(fst, vec2(.5) + random(ist) * 1.) * 30. * (random(ist) + .5)))/float(speed) / 8. * (st.y * 2. + 0.9), 0., .3);
+                float size = 30. * (rnd + .4) * (1. - sin1(time * (rnd * 10. + 10.) + rnd) * .5);
+                vec2 pos = vec2(.5) + rnd * .5 + vec2(sin(time), cos(time * rnd * 10.)) * .1;
+                float circle = 1.-smoothstep(distance(fst, pos) * size, .0, .2);
+                float yOpacity = (st.y * 2. + 0.9);
+                float star = circle/float(speed) * yOpacity / starLayers;
+                float disap = clamp(sin1(time * 2. + rnd * 100.) * 5. - 2.5, 0., 1.);
+                return clamp(star * disap, 0., .3);
             }
         }
 
@@ -106,33 +122,50 @@
             ast.y += startDistance;
             ast.y -= easeOut(pow(u_time, .5) / 5.) * startDistance;
             st += u_offset;
-            for (int i = 1; i < 6; i++) {
-                color += vec3(drawStars(st, (ast + vec2(0., 1.)) * u_zoom, float(i)/2.));
+            for (int i = 1; i < int(starLayers); i++) {
+                color += vec3(drawStars(st, (ast + vec2(0., 1.)) * u_zoom, float(i)));
             }
-            
+
             vec2 nst = vec2(st.x + time, st.y);
-
-            //if (nst.y < sin(nst.x * 2.) * .1 - .35
-            //|| (nst.y < sin(nst.x * 2.) * .1 - .335 && nst.y > sin(nst.x * 2.) * .1 - .34)
-            //) {
-            //    color = mix(u_wavesColor, u_secondaryWavesColor, nst.y * 2.3 + 1.1); // vec3(.9, .9, 1.) vec3(.9, 1., 1.)
-            //}
-
-
             nst.y += .5;
             nst.x *= 1.2;
-            float ist = floor(nst.x);
-            float fst = fract(nst.x);
-            float ground = mix(random(vec2(ist)) * 3., random(vec2(ist + 1.)) * 3., smoothstep(0., 1., fst)) * .08;
-            if (nst.y < ground + .1 || (nst.y < ground + .115 && nst.y > ground + .11 )) {
-                color = mix(u_wavesColor, u_secondaryWavesColor, clamp(nst.y * 2.3 + abs(u_scrollOffset.y) * 1.5 / u_zoom, 0., 1.));
-            }    
+            vec2 ist = floor(nst);
+            vec2 fst = fract(nst);
+            float randomness = 2.;
+            float ground = mix(
+                random(vec2(ist.x)) * randomness,
+                random(vec2(ist.x + 1.)) * randomness,
+                smoothstep(0., 1., fst.x)
+                ) * .08;
+
+            float groundPosY = .1;
+            float pg =  ground + groundPosY;
+            bool line = nst.y < pg + .015 && nst.y > pg + .01;
+            float line2Size = 0.08;
+            bool line2 = nst.y < pg && nst.y > pg;
+            float lineTop = pg;
+            float lineBottom = pg - .15;
+            vec2 mst = vec2(nst.x, pg);
+            float waveX = clamp(fract(nst.x/2.) * PI * 1.5, PI/2., PI * 1.5);
+            float wave = (1.-abs(sin(waveX))) + line2Size;
+            bool jumpWave = nst.y <= pg && pg - wave < nst.y;
+            bool cond = line2 || line || jumpWave;
+            float t = clamp((lineTop - nst.y) / (lineTop - lineBottom), 0., 1.);
+            float t2 = clamp((lineTop - nst.y) / (lineTop - pg - .1), 0., 1.);
+            color = mix(
+                        color,
+                        mix(
+                        u_secondaryWavesColor, 
+                        u_wavesColor, 
+                        clamp(-nst.y * 2.5 + 1.3, 0., 1.)
+                        ),
+                        // * 2. + abs(u_scrollOffset.y) * 1.5 / u_zoom
+                        cond ? 1. : 0.
+                        );
+            color = mix(color, u_wavesColor, 1.-t2);
+
             nst.y -= .5;
 
-
-            //vec2 mst = vec2(st.x + time / 25., st.y);
-            //float moon = clamp(step(.98, 1.-length(mst - vec2(1.25, 0.9))) - step(.98, 1.-length(mst - vec2(1.255, 0.904))), 0., 1.);
-            //color = mix(color, vec3(moon), moon);
             ast *= clamp(u_zoom, 1., 2.);
             float distanceNightCircle = clamp(1.2-length(ast) * 0.9, 0., 1.) + u_backgroundColor.r;
             
@@ -140,6 +173,7 @@
             color *= clamp(distanceNightCircle, 0., 1.);
 
             color = mix(color, vec3(u_backgroundColor), clamp(st.y/50., 0., 1.));
+            //color = mix(vec3(1.), color, .95 + length(ast + vec2(0., -1.5)) * .05);
             gl_FragColor = vec4(color,1.0);
         }
     </script>

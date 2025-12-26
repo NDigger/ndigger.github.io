@@ -487,6 +487,7 @@
         box-shadow: none;
         background-color: transparent;
         animation: none;
+        backdrop-filter: unset;
     }
 
     #main-window > .window-panel {

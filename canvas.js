@@ -126,7 +126,6 @@ gl.uniform1f(u_time, time/1000 + bonus);
 const dt = time - lasttime;
 lasttime = time;
 
-console.log(offsetX)
 offsetX += dt/10000 * config.shaderMovementDir;
 offsetY += (offsetYTarget - offsetY)/300
 gl.uniform2f(u_offset, offsetX, offsetY);

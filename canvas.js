@@ -64,12 +64,85 @@ const u_time = gl.getUniformLocation(program, "u_time");
 const nav = performance.getEntriesByType("navigation")[0];
 const bonus = nav.type === "reload" ? 5 : 0;
 
+const u_seed = gl.getUniformLocation(program, "u_seed");
+gl.uniform1f(u_seed, Math.random())
+
+//
+let scrollPosX = 0;
+let scrollPosY = 0;
+
+let targetPosX = 0;
+let targetPosY = 0;
+
+let velocityX = 0;
+let velocityY = 0;
+
+let isDragging = false;
+let lastMouseX = 0;
+let lastMouseY = 0;
+let lastTime = 0;
+
+window.addEventListener('mousedown', (e) => {
+  isDragging = true;
+  lastMouseX = e.clientX;
+  lastMouseY = e.clientY;
+  lastTime = performance.now();
+});
+
+window.addEventListener('mousemove', (e) => {
+  if (isDragging) {
+    let now = performance.now();
+    let deltaX = e.clientX - lastMouseX;
+    let deltaY = e.clientY - lastMouseY;
+    let deltaTime = (now - lastTime) / 1000;
+
+    velocityX = deltaX / deltaTime;
+    velocityY = deltaY / deltaTime;
+
+    // Обновляем целевую позицию плавно (просто увеличиваем targetPos)
+    targetPosX += deltaX;
+    targetPosY += deltaY;
+
+    lastMouseX = e.clientX;
+    lastMouseY = e.clientY;
+    lastTime = now;
+  }
+});
+
+window.addEventListener('mouseup', () => {
+  isDragging = false;
+});
+
+function animate() {
+  if (!isDragging) {
+    velocityX *= 0.98;
+    velocityY *= 0.98;
+
+    targetPosX += velocityX * 0.016;
+    targetPosY += velocityY * 0.016;
+  }
+
+  // Плавно приближаемся к targetPos (интерполяция)
+  scrollPosX += (targetPosX - scrollPosX) * 0.1;
+  scrollPosY += (targetPosY - scrollPosY) * 0.1;
+  scrollPosY = Math.max(scrollPosY, 0);
+  targetPosY = Math.max(targetPosY, 0);
+
+  console.log(`X: ${scrollPosX.toFixed(2)}, Y: ${scrollPosY.toFixed(2)}`);
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+//
+
 const u_zoom = gl.getUniformLocation(program, "u_zoom");
 function render(time) {
-  gl.uniform1f(u_time, time * 0.001 + bonus);
+  gl.uniform1f(u_time, time/1000 + bonus);
 
   offsetY += (offsetYTarget - offsetY)/300
   gl.uniform2f(u_offset, 0, offsetY);
+  gl.uniform2f(gl.getUniformLocation(program, "u_scrollOffset"), -scrollPosX/3000, scrollPosY/3000);
 
   const zoom = Math.round((window.outerWidth / window.innerWidth) * 100) / 100;
   gl.uniform1f(u_zoom, 1/zoom);

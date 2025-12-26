@@ -85,6 +85,7 @@
     text-shadow: 0 0 5px var(--main-window-button-hover-text-shadow-color),
                  0 0 50px var(--main-window-button-hover-text-shadow-color);
     scale: 1.06;
+
 }
 
 .gold-btn i, .gold-btn svg {
@@ -93,6 +94,23 @@
     height: 1em;
     text-shadow: 0px 2px 0px rgba(0, 0, 0, 0.1);
     transition: font-size 0.1s linear;
+}
+
+.gold-btn div {
+    position: relative;
+}
+
+.gold-btn .shadow {
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    filter: url('#text-shadow');
+    opacity: 0;
+}
+
+.gold-btn:hover svg.shadow {
+    opacity: 1;
 }
 
 .gold-btn p {
@@ -532,7 +550,7 @@
         max-width: none;
         max-height: none;
     }
-    
+
     #creations .game-info-container .download.pc-only {
         display: none;
     }

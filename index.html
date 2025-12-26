@@ -51,7 +51,9 @@
         uniform vec3 u_wavesColor;
         uniform vec3 u_secondaryWavesColor;
         uniform vec2 u_offset;
+        uniform vec2 u_scrollOffset;
         uniform float u_zoom;
+        uniform float u_seed;
 
         const float t = 0.25;
 
@@ -61,15 +63,15 @@
                 43758.5453123);
         }
 
-        float drawStars(in vec2 st, in float speed) {
+        float drawStars(in vec2 st, in vec2 ast, in float speed) {
             float time = u_time * t * .5;
-            float scale = 5.;
-            vec2 fst = fract(st * scale * speed + vec2(time, random(vec2(speed)) * 10.));
-            vec2 ist = floor(st * scale * speed + vec2(time, random(vec2(speed)) * 10.));
+            float scale = 5. * ((u_scrollOffset.y/30.)+1.);
+            vec2 fst = fract(ast * scale * speed + vec2(time, random(vec2(speed)) * 10.) + u_scrollOffset);
+            vec2 ist = floor(ast * scale * speed + vec2(time, random(vec2(speed)) * 10.) + u_scrollOffset);
             if (random(ist) * 1. > .5) { 
                 return 0.; 
             } else {
-                return (1.-step(.5,distance(fst, vec2(.5) + random(ist) * 1.) * 30. * (random(ist) + .5)))/float(speed) / 8. * (st.y * 2. + 0.9);
+                return clamp((1.-step(.5,distance(fst, vec2(.5) + random(ist) * 1.) * 30. * (random(ist) + .5)))/float(speed) / 8. * (st.y * 2. + 0.9), 0., .3);
             }
         }
 
@@ -92,15 +94,20 @@
         void main() {
             vec2 st = getCenterSquareResolution(v_uv * u_resolution);
             st -= .5;
+            vec2 ast = st;
+            st += u_scrollOffset;
+            st.x += u_seed * 500.;
             st *= u_zoom;
             vec3 color = vec3(u_backgroundColor);
             float time = u_time * .2;
 
             st.y += startDistance;
             st.y -= easeOut(pow(u_time, .5) / 5.) * startDistance;
+            ast.y += startDistance;
+            ast.y -= easeOut(pow(u_time, .5) / 5.) * startDistance;
             st += u_offset;
             for (int i = 1; i < 6; i++) {
-                color += vec3(drawStars(st, float(i)/2.));
+                color += vec3(drawStars(st, (ast + vec2(0., 1.)) * u_zoom, float(i)/2.));
             }
             
             vec2 nst = vec2(st.x + time, st.y);
@@ -118,17 +125,21 @@
             float fst = fract(nst.x);
             float ground = mix(random(vec2(ist)) * 3., random(vec2(ist + 1.)) * 3., smoothstep(0., 1., fst)) * .08;
             if (nst.y < ground + .1 || (nst.y < ground + .115 && nst.y > ground + .11 )) {
-                color = mix(u_wavesColor, u_secondaryWavesColor, nst.y * 2.3);
+                color = mix(u_wavesColor, u_secondaryWavesColor, clamp(nst.y * 2.3 + abs(u_scrollOffset.y) * 1.5 / u_zoom, 0., 1.));
             }    
             nst.y -= .5;
 
-            vec2 mst = vec2(st.x + time / 25., st.y);
-            float moon = clamp(step(.98, 1.-length(mst - vec2(1.25, 0.9))) - step(.98, 1.-length(mst - vec2(1.255, 0.904))), 0., 1.);
-            color = mix(color, vec3(moon), moon);
-            float distanceNightCircle = clamp(1.2-length(st / clamp(u_zoom, 1., 2.)) * 0.9, 0., 1.) + u_backgroundColor.r;
+
+            //vec2 mst = vec2(st.x + time / 25., st.y);
+            //float moon = clamp(step(.98, 1.-length(mst - vec2(1.25, 0.9))) - step(.98, 1.-length(mst - vec2(1.255, 0.904))), 0., 1.);
+            //color = mix(color, vec3(moon), moon);
+            ast *= clamp(u_zoom, 1., 2.);
+            float distanceNightCircle = clamp(1.2-length(ast) * 0.9, 0., 1.) + u_backgroundColor.r;
             
             color = clamp(color, vec3(0.), vec3(1.));
             color *= clamp(distanceNightCircle, 0., 1.);
+
+            color = mix(color, vec3(u_backgroundColor), clamp(st.y/50., 0., 1.));
             gl_FragColor = vec4(color,1.0);
         }
     </script>
@@ -152,9 +163,17 @@
                         <p>Skills</p>
                     </button>
                     <button id="links-btn" title="Links" class="hover-sound gold-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
-                        </svg>
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
+                            </svg>
+                            <svg class="shadow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <defs> 
+                                    <filter id="text-shadow" x="-200%" y="-200%" width="400%" height="400%"> <feDropShadow dx="0" dy="0" stdDeviation="20" flood-color="var(--main-window-button-hover-text-shadow-color)"/> </filter> 
+                                </defs>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
+                            </svg>
+                        </div>
                         <p>Links</p>
                     </button>
                     <button id="status-btn" title="Statuses" class="hover-sound gold-btn">
@@ -165,10 +184,10 @@
             </div>
         </div>
     </section>
-    <button id="night-mode-btn" class="ui-btn night-mode-btn-animation hover-sound"><i class="bi bi-moon-fill night-mode-btn-animation"></i></button>
+    <button id="night-mode-btn" class="ui-btn hover-sound"><i class="bi bi-moon-fill"></i></button>
     <div class="top-right">
         <button id="music-btn" class="ui-btn"><i class="bi bi-music-note-beamed hover-sound"></i></button>
-        <button id="sound-btn" class="ui-btn night-mode-btn-animation hover-sound"><i class="bi bi-music-note night-mode-btn-animation"></i></button>
+        <button id="sound-btn" class="ui-btn hover-sound"><i class="bi bi-music-note"></i></button>
     </div>
     <script src="script.js" type="module"></script>
     <script src="canvas.js"></script>

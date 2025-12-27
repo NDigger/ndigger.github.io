@@ -55,8 +55,8 @@ let offsetYTarget = -.5*offsetMult;
 let offsetY = -.5*offsetMult;
 
 document.addEventListener('pointermove', e => {
-const h = window.innerHeight;
-offsetYTarget = (1.-(e.pageY/h)-.5)*offsetMult;
+	const h = window.innerHeight;
+	offsetYTarget = (1.-(e.pageY/h)-.5)*offsetMult;
 })
 
 const u_time = gl.getUniformLocation(program, "u_time");
@@ -101,17 +101,17 @@ if (isDragging) {
 });
 
 body.addEventListener('mouseup', () => {
-isDragging = false;
+	isDragging = false;
 });
 
 function animate() {
-if (!isDragging) {
-	velocityX *= 0.98;
-	targetPosX += velocityX * 0.016;
-}
+	if (!isDragging) {
+		velocityX *= 0.98;
+		targetPosX += velocityX * 0.016;
+	}
 
-scrollPosX += (targetPosX - scrollPosX) * 0.1;
-requestAnimationFrame(animate);
+	scrollPosX += (targetPosX - scrollPosX) * 0.1;
+	requestAnimationFrame(animate);
 }
 
 animate();
@@ -121,21 +121,21 @@ const u_zoom = gl.getUniformLocation(program, "u_zoom");
 let offsetX = 0;
 let lasttime = performance.now();
 function render(time) {
-gl.uniform1f(u_time, time/1000 + bonus);
+	gl.uniform1f(u_time, time/1000 + bonus);
 
-const dt = time - lasttime;
-lasttime = time;
+	const dt = time - lasttime;
+	lasttime = time;
 
-offsetX += dt/10000 * config.shaderMovementDir;
-offsetY += (offsetYTarget - offsetY)/300
-gl.uniform2f(u_offset, offsetX, offsetY);
-gl.uniform2f(gl.getUniformLocation(program, "u_scrollOffset"), -scrollPosX/3000, 0);
+	const zoom = Math.round((window.outerWidth / window.innerWidth) * 100) / 100;
+	gl.uniform1f(u_zoom, 1/zoom);
 
-const zoom = Math.round((window.outerWidth / window.innerWidth) * 100) / 100;
-gl.uniform1f(u_zoom, 1/zoom);
+	offsetX += dt/10000 * config.shaderMovementDir;
+	offsetY += (offsetYTarget - offsetY)/300
+	gl.uniform2f(u_offset, offsetX, offsetY);
+	gl.uniform2f(gl.getUniformLocation(program, "u_scrollOffset"), -scrollPosX/3000*zoom, 0);
 
-gl.drawArrays(gl.TRIANGLES, 0, 6);
-requestAnimationFrame(render);
+	gl.drawArrays(gl.TRIANGLES, 0, 6);
+	requestAnimationFrame(render);
 }
 requestAnimationFrame(render);
 

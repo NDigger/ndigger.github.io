@@ -44,69 +44,69 @@ const pushNewStatusesList = () => {
         page: page,
         limit: limit 
     })
-    // fetch(`${backendHost}/api/status?${params.toString()}`)
-    // .then(res => res.json())
-    // .then(data => {
-    //     const recentStatusId = data[0]?.id;
-    //     const recentStatusSeenId = config.lastStatusSeenId;
-    //     if (recentStatusId > recentStatusSeenId && page === 0) 
-    //         config.lastStatusSeenId = recentStatusId
-    //         localStorage.setItem('portfolio-config', JSON.stringify(config))
-    //     clearInterval(intervalId);
-    //     pushStatuses(data);
-    //     page++;
-    //     loadingStatuses = false;
-    //     statusLoadingMessage.style.display = 'none'
-    // })
-    // .catch(err => {
-    //     console.error(err)
-    //     clearInterval(intervalId)
-    //     statusLoadingMessage.style.display = 'block'
-    //     statusLoadingMessage.textContent = String(err)
-    // })
-
-    setTimeout(() => {
+    fetch(`${backendHost}/api/status?${params.toString()}`)
+    .then(res => res.json())
+    .then(data => {
+        const recentStatusId = data[0]?.id;
+        const recentStatusSeenId = config.lastStatusSeenId;
+        if (recentStatusId > recentStatusSeenId && page === 0) 
+            config.lastStatusSeenId = recentStatusId
+            localStorage.setItem('portfolio-config', JSON.stringify(config))
         clearInterval(intervalId);
+        pushStatuses(data);
+        page++;
         loadingStatuses = false;
         statusLoadingMessage.style.display = 'none'
-        pushStatuses([
-            {
-                id: 123, 
-                created_at: new Date().getTime(),
-                content: 'Random Content' 
-            },
-            {
-                id: 124, 
-                created_at: new Date().getTime() - 10000,
-                content: 'Another Random Content' 
-            },
-            {
-                id: 125, 
-                created_at: new Date().getTime() - 2000000000,
-                content: 'Another Random Content, Another Random Content,Another Random Content,Another Random Content,Another Random Content,Another Random Content' 
-            },
-            {
-                id: 124, 
-                created_at: new Date().getTime() - 1000000000,
-                content: 'Another Random Content' 
-            },
-            {
-                id: 125, 
-                created_at: new Date().getTime() - 20000,
-                content: 'Another Random Content' 
-            },
-            {
-                id: 126, 
-                created_at: new Date().getTime() - 10000,
-                content: 'Another Random Content' 
-            },
-            {
-                id: 127, 
-                created_at: new Date().getTime() - 20000,
-                content: 'Another Random Content' 
-            }
-        ]);
-    }, 1000)
+    })
+    .catch(err => {
+        console.error(err)
+        clearInterval(intervalId)
+        statusLoadingMessage.style.display = 'block'
+        statusLoadingMessage.textContent = String(err)
+    })
+
+    // setTimeout(() => {
+    //     clearInterval(intervalId);
+    //     loadingStatuses = false;
+    //     statusLoadingMessage.style.display = 'none'
+    //     pushStatuses([
+    //         {
+    //             id: 123, 
+    //             created_at: new Date().getTime(),
+    //             content: 'Random Content' 
+    //         },
+    //         {
+    //             id: 124, 
+    //             created_at: new Date().getTime() - 10000,
+    //             content: 'Another Random Content' 
+    //         },
+    //         {
+    //             id: 125, 
+    //             created_at: new Date().getTime() - 2000000000,
+    //             content: 'Another Random Content, Another Random Content,Another Random Content,Another Random Content,Another Random Content,Another Random Content' 
+    //         },
+    //         {
+    //             id: 124, 
+    //             created_at: new Date().getTime() - 1000000000,
+    //             content: 'Another Random Content' 
+    //         },
+    //         {
+    //             id: 125, 
+    //             created_at: new Date().getTime() - 20000,
+    //             content: 'Another Random Content' 
+    //         },
+    //         {
+    //             id: 126, 
+    //             created_at: new Date().getTime() - 10000,
+    //             content: 'Another Random Content' 
+    //         },
+    //         {
+    //             id: 127, 
+    //             created_at: new Date().getTime() - 20000,
+    //             content: 'Another Random Content' 
+    //         }
+    //     ]);
+    // }, 1000)
 }
 
 document.getElementById('status-btn').addEventListener('click', () => {

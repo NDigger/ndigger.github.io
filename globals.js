@@ -4,6 +4,6 @@ const config = configItem ? JSON.parse(configItem) : {
     musicEnabled: false,
     soundEnabled: true,
     nightModeEnabled: false,
-    lastStatusSeenId: 0,
+    lastStatusSeenId: Number.MAX_VALUE,
     shaderMovementDir: 1,
 }

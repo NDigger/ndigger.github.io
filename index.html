@@ -128,8 +128,8 @@
 
             st.y += .5;
             st.x *= 1.2;
-            float ist = floor(st.x);
-            float fst = fract(st.x);
+            float ist = floor(st.x + sin1(st.x * 1.5));
+            float fst = fract(st.x + sin1(st.x * 1.5));
             float ground = mix(random(vec2(ist)) * 3., random(vec2(ist + 1.)) * 3., smoothstep(0., 1., fst)) * .08;
             if (st.y < ground + .1 || (st.y < ground + .115 && st.y > ground + .11 )) {
                 color = mix(u_wavesColor, u_secondaryWavesColor, clamp(st.y * 2.3 + abs(u_scrollOffset.y) * 1.5 / u_zoom, 0., 1.));

@@ -428,6 +428,7 @@
 }
 
 .status > .header > .time-passed {
+    color: var(--main-font-color);
     text-align: right !important;
     user-select: none;
     font-size: 15px;
@@ -443,20 +444,15 @@
     transition: all 0.3s ease-out;
 }
 
-.desktop .status > .header > .time-passed:hover::before
-.screen .status > .header > .time-passed:active::before {
-    opacity: 0.5;
-    transform: translateX(calc(-100% - 10px));
-}
-
 .desktop .status > .header > .time-passed:hover,
 .screen .status > .header > .time-passed:active {
-    filter: brightness(1.35);
     cursor: help;
 }
 
-.status > .header > .time-passed::selection {
-    cursor: copy !important;
+.desktop .status > .header > .time-passed:hover::before,
+.screen .status > .header > .time-passed:active::before {
+    opacity: 0.5;
+    transform: translateX(calc(-100% - 10px));
 }
 
 @media (max-width: 500px) {

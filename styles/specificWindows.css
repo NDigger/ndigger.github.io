@@ -379,14 +379,14 @@
     padding: 5px 20px;
     opacity: .7;
     position: relative;
-    transform-origin: left;
+    /* transform-origin: left; */
     animation: status-anim .6s ease-out forwards;
 }
 
 @keyframes status-anim {
     from {
         /* transform: skewX(5deg); */
-        scale: .93;
+        scale: .95;
         opacity: 0;
         left: -20px;
     } to {

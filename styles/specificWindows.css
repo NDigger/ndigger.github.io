@@ -385,7 +385,7 @@
 
 @keyframes status-anim {
     from {
-        transform: skewX(5deg);
+        /* transform: skewX(5deg); */
         scale: .93;
         opacity: 0;
         left: -20px;

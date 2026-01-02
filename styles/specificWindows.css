@@ -199,6 +199,7 @@
     padding: 20px;
     --gap: 10px;
     gap: var(--gap);
+    --screen-width: calc(50% - var(--gap) / 2);
 }
 
 #skills .illustrations-container img {
@@ -549,7 +550,7 @@
     }
 
     #skills .illustrations-container > img { 
-        width: calc(50% - var(--gap) / 2);
+        width: var(--screen-width);
         max-width: none;
         max-height: none;
     }

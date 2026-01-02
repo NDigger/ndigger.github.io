@@ -21,20 +21,20 @@ export default class AppWindowHTMLContent {
                     <h2 class="subtitle">The low tier progarmer</h2>
                 </div>
             </div>
-            <div class="content">
+            <article class="content">
                 <p>Hi, I'm NDagger or NDigger or someone else.</p>
                 <p>I'm the child who is working on a factory and trying to create pages with some functionality.</p>
                 <p>Things that I work with for a long time are programming and drawing, you can see more details below.</p>
                 <p>I have been programming since I was 18 and continue to do so to this day. I started programming out of sheer boredom and an important piece of advice. It turned out to be much more interesting than I thought. Unfortunately, learning libraries for programming languages ​​is tens of times more difficult for me, but I try.</p>
                 <p>I have used programming to create games, create pages, and create different content for games.</p>
                 <p>I also like or liked drawing, cool right?</p>
-            </div>
+            </article>
         </section>
     `
     static SKILLS = `
         <section id="skills" class="window">
             ${getPanelHtml('Skills')}
-            <div class="content">
+            <article class="content">
                 <h2>Web Development</h2>
                 <p>Most of pages I made don't use any libraries because I don't see much of need in them for personal projects.</p>
                 <p>But there are exceptions! Drawing meshes with pure JavaScript is a complex task so I used pixi.js meshes for that.</p>
@@ -78,7 +78,7 @@ export default class AppWindowHTMLContent {
                     <img class="open-in-window-img open-in-window hover-sound" src="images/illustrations/Без названия467_20250416203247.png" alt="illustration">
                 </div>
             </div>
-        </section>
+        </article>
     `
                         // <img class="open-in-window-img open-in-window hover-sound" src="images/illustrations/Без названия468.png" alt="illustration">
 
@@ -100,7 +100,7 @@ export default class AppWindowHTMLContent {
     static LINKS = `
         <section id="links" class="window">
             ${getPanelHtml('Links')}
-            <div class="content">
+            <article class="content">
                 <div class="centered">
                     <div class="flex-links">
                         <a title="Redirect" class="gold-btn hover-sound" href="https://www.youtube.com/@scout1495" target="_blank">
@@ -127,7 +127,7 @@ export default class AppWindowHTMLContent {
                         </div>
                     </div>
                 </div>
-            </div>
+            </article>
         </section>
     `
 
@@ -149,11 +149,11 @@ export default class AppWindowHTMLContent {
             ${getPanelHtml(`Status Info`, {
                 fullscreenBtn: true
             })}
-            <div class="content status-content">
+            <article class="content status-content">
                 <h3>ID: ${data.id}</h3>
                 <p>Created at: ${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}</p>
                 <p class="content">${data.content}</p>
-            </div>
+            </article>
         </section>
         `
     }
@@ -163,11 +163,11 @@ export default class AppWindowHTMLContent {
             ${getPanelHtml('Statuses', {
                 fullscreenBtn: true
             })}
-            <div class="content">
+            <article class="content">
                 <p id="status-loading-message">loading</p>
                 <div id="status-container">
                 </div>
-            </div>
+            </article>
         </section>
     `
 }

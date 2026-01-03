@@ -367,13 +367,15 @@
     border-radius: var(--window-border-radius);
 }
 
-.status-container {
+#status-container {
     overflow-y: hidden;
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .status {
-    margin: 10px 0;
     color: var(--main-font-color);
     border-left: 3px dashed var(--main-font-color);
     background: linear-gradient(45deg, transparent, var(--weak-inverse-main-color));
@@ -414,25 +416,26 @@
 }
 
 .status > .header {
+    font-size: .7rem;
     display: flex;
     justify-content: space-between;
 }
 
 .status > .header * {
-    font-size: 15px;
     margin: 0px;
 }
 
 .status > .header > .author {
     user-select: none;
     pointer-events: none;
+    font-size: inherit;
 }
 
 .status > .header > .time-passed {
+    font-size: inherit;
     color: var(--main-font-color);
     text-align: right !important;
     user-select: none;
-    font-size: 15px;
     position: relative;
     transition: all 0.5s ease-out;
 }
@@ -597,6 +600,14 @@
     #links .discord {
         width: 100%;
         padding-left: 20px;
+    }
+
+    #statuses > .content {
+        padding: 12px;
+    }
+    
+    .status {
+        padding: 2px 13px;
     }
 }
 

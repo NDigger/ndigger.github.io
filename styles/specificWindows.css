@@ -380,7 +380,7 @@
     border-left: 3px dashed var(--main-font-color);
     background: linear-gradient(45deg, transparent, var(--weak-inverse-main-color));
     padding: 5px 20px;
-    opacity: .7;
+    opacity: .75;
     position: relative;
     /* transform-origin: left; */
     animation: status-anim .6s ease-out forwards;

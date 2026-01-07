@@ -32,6 +32,7 @@
 </head>
 <body>
     <div id="override"></div>
+    <div id="cursor-glow"></div>
     <canvas id="glcanvas" width="1600" height="1080"></canvas>
     <script id="vs" type="x-shader/x-vertex">
         attribute vec2 a_position;
@@ -137,8 +138,8 @@
             st.y -= .5;
 
             ast *= clamp(u_zoom, 1., 2.);
-            float distanceNightCircle = clamp(1.2-length(ast) * 0.9, 0., 1.) + u_backgroundColor.r;
-            
+            float distanceNightCircle = clamp(1.35-length(ast) * 0.9, 0., 1.) + u_backgroundColor.r;
+            distanceNightCircle -= random(ast) * .03;
             color = clamp(color, vec3(0.), vec3(1.));
             color *= clamp(distanceNightCircle, 0., 1.);
 

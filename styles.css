@@ -299,6 +299,30 @@ meta[name="theme-color"] {
     cursor: pointer;
 }
 
+#cursor-glow {
+    width: 1500px;
+    height: 1500px;
+    position: absolute;
+    z-index: 2;
+    transform: translateX(-50%) translateY(-50%) scaleX(.5);
+    background: radial-gradient(rgba(255, 255, 255, .005), transparent 50%);
+    animation: cursor-glow-anim 15s linear infinite;
+    pointer-events: none;
+    user-select: none;
+}
+
+.screen #cursor-glow {
+    background: transparent;
+}
+
+@keyframes cursor-glow-anim {
+    from {
+        transform: translateX(-50%) translateY(-50%) rotate(0deg);
+    } to {
+        transform: translateX(-50%) translateY(-50%) rotate(360deg);
+    }
+}
+
 @media (max-width: 932px) {
     html {
         font-size: 1.15rem;

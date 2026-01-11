@@ -30,7 +30,6 @@ const limit = 30;
 
 let loadingStatuses = false
 const pushNewStatusesList = () => {
-    if (loadingStatuses) return
     loadingStatuses = true
     const statusLoadingMessage = document.getElementById('status-loading-message')
     const intervalId = setInterval(() => {
@@ -49,13 +48,13 @@ const pushNewStatusesList = () => {
     .then(data => {
         const recentStatusId = data[0]?.id;
         const recentStatusSeenId = config.lastStatusSeenId;
-        if (recentStatusId > recentStatusSeenId && page === 0) 
+        if (recentStatusId > recentStatusSeenId && page === 0) {
             config.lastStatusSeenId = recentStatusId
             localStorage.setItem('portfolio-config', JSON.stringify(config))
+        }
         clearInterval(intervalId);
         pushStatuses(data);
         page++;
-        loadingStatuses = false;
         statusLoadingMessage.style.display = 'none'
     })
     .catch(err => {
@@ -63,6 +62,9 @@ const pushNewStatusesList = () => {
         clearInterval(intervalId)
         statusLoadingMessage.style.display = 'block'
         statusLoadingMessage.textContent = String(err)
+    })
+    .finally(() => {
+        loadingStatuses = false;
     })
 
     // setTimeout(() => {
@@ -184,6 +186,6 @@ window.addEventListener('DOMContentLoaded', () => {
         const scrollTop = statusScroll.scrollTop;
         const style = getComputedStyle(statusScroll);
         const scrollMax = statusScroll.scrollHeight - style.height.match(/(\d+)/)[0];
-        if (scrollTop >= scrollMax - 100) pushNewStatusesList();
+        if (scrollTop >= scrollMax - 100 && !loadingStatuses) pushNewStatusesList();
     })
 })

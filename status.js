@@ -58,13 +58,11 @@ const pushNewStatusesList = () => {
         statusLoadingMessage.style.display = 'none'
     })
     .catch(err => {
+        loadingStatuses = false;
         console.error(err)
         clearInterval(intervalId)
         statusLoadingMessage.style.display = 'block'
         statusLoadingMessage.textContent = String(err)
-    })
-    .finally(() => {
-        loadingStatuses = false;
     })
 
     // setTimeout(() => {
@@ -149,6 +147,7 @@ const pushStatuses = data => {
             () => statusContainer.insertAdjacentHTML('beforeend', html)
         , i * 50);
     })
+    setTimeout(() => loadingStatuses = false, statusCreatedElements.length * 50)
     statuses.setTitleContent(unreadStatuses !== 0 ? `Statuses ( ${unreadStatuses} )` : 'Statuses') 
     // statusContainer.insertAdjacentHTML('beforeend', html)
 

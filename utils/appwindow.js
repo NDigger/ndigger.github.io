@@ -59,7 +59,7 @@ class WindowView {
             this.#removeAnimationClasses()
             this.model.visible = false
             this.animationRunning = false
-            }, windowViewAnimationSpeed)
+        }, windowViewAnimationSpeed)
     }
 
     fullscreenTransition() {
@@ -203,7 +203,7 @@ export class AppWindow {
         const fullscreenBtn = this.element.querySelector('.window-panel > .buttons > .fullscreen')
         if (enabled && !this.fullscreen) {
             this.fullscreen = true
-            fullscreenBtn.title = "Windowed"
+            if (fullscreenBtn != undefined) fullscreenBtn.title = "Windowed"
             this.element.classList.add('window-fullscreen')
             this.#savedPosition = this.#position.duplicate();
             this.#savedSize = this.#size.duplicate();
@@ -214,7 +214,7 @@ export class AppWindow {
             }, 300)
         } else if (!enabled && this.fullscreen) {
             this.fullscreen = false
-            fullscreenBtn.title = "Fullscreen"
+            if (fullscreenBtn != undefined) fullscreenBtn.title = "Fullscreen"
             this.element.classList.remove('window-fullscreen')
             this.setPosition(this.#savedPosition);
             this.setSize(this.#savedSize);
@@ -259,6 +259,7 @@ export class AppWindow {
     show = () => {
         this.setCenteredPosition();
         this.#view.show();
+        this.element.classList.add('window-fullscreen')
     }
 
     delete() {

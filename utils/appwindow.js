@@ -259,7 +259,6 @@ export class AppWindow {
     show = () => {
         this.setCenteredPosition();
         this.#view.show();
-        this.element.classList.add('window-fullscreen')
     }
 
     delete() {

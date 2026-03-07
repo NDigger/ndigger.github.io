@@ -133,7 +133,6 @@ const moonIcon = '<i class="bi bi-moon-fill"></i>';
 const nightModeBtn = document.getElementById('night-mode-btn')
 const updateBodyClassList = () => {
     document.querySelector('body').classList.toggle('dark', config.nightModeEnabled);
-    console.log(document.querySelector('body'))
 }
 nightModeBtn.addEventListener('click', () => {
     config.nightModeEnabled = !config.nightModeEnabled

@@ -507,8 +507,35 @@ body.dark #visitor-counter-content img {
 }
 
 @media (max-width: 932px) {
-    #visitor-counter-content {
+    /* #visitor-counter-content {
         display: none;
+    } */
+
+    #visitor-counter-content {
+        position: static;
+        display: flex;
+        flex-direction: column;
+        transform: unset !important;
+        flex: 1;
+        gap: 5px;
+        align-self: flex-start;
+        flex-direction: row-reverse;
+        align-items: flex-end;
+    }
+
+    #visitor-counter-content * {
+        transform: unset !important;
+        position: static !important;
+    }
+
+    #visitor-counter-content p {
+        text-align: center;
+        margin: 0;
+    }
+
+    #visitor-counter-content img {
+        height: 30px;
+        object-fit: contain;
     }
 
     #title {

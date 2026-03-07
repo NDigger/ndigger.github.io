@@ -69,43 +69,16 @@ const pushNewStatusesList = () => {
     //     clearInterval(intervalId);
     //     loadingStatuses = false;
     //     statusLoadingMessage.style.display = 'none'
-    //     pushStatuses([
-    //         {
-    //             id: 123, 
-    //             created_at: new Date().getTime(),
-    //             content: 'Random Content' 
-    //         },
-    //         {
-    //             id: 124, 
-    //             created_at: new Date().getTime() - 10000,
-    //             content: 'Another Random Content' 
-    //         },
-    //         {
-    //             id: 125, 
-    //             created_at: new Date().getTime() - 2000000000,
-    //             content: 'Another Random Content, Another Random Content,Another Random Content,Another Random Content,Another Random Content,Another Random Content' 
-    //         },
-    //         {
-    //             id: 124, 
-    //             created_at: new Date().getTime() - 1000000000,
-    //             content: 'Another Random Content' 
-    //         },
-    //         {
-    //             id: 125, 
-    //             created_at: new Date().getTime() - 20000,
-    //             content: 'Another Random Content' 
-    //         },
-    //         {
-    //             id: 126, 
-    //             created_at: new Date().getTime() - 10000,
-    //             content: 'Another Random Content' 
-    //         },
-    //         {
-    //             id: 127, 
-    //             created_at: new Date().getTime() - 20000,
-    //             content: 'Another Random Content' 
-    //         }
-    //     ]);
+    //     const statuses = [];
+    //     for(let i = 0; i < 50; i++) {
+    //         const contents = ['happy', 'fun', 'sad', 'lalala hehehe www', 'another status', 'nuh uh', 'text content', 'impossible', 'i need some time to sleep', 'and order and order'];
+    //         statuses.push({
+    //             id: i,
+    //             created_at: Date.now(),
+    //             content: contents[Math.floor(Math.random() * contents.length)],
+    //         })
+    //     }
+    //     pushStatuses(statuses);
     // }, 1000)
 }
 

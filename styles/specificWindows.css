@@ -521,7 +521,6 @@ body.dark #visitor-counter-content img {
         align-self: flex-start;
         flex-direction: row-reverse;
         align-items: flex-end;
-        padding-bottom: 40px;
     }
 
     #visitor-counter-content * {

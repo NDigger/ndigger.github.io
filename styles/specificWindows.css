@@ -493,7 +493,7 @@
     /* filter: brightness(.3); */
 }
 
-#visitor-counter-text {
+#visitor-counter-text { /**/
     position: fixed;
     left: 50%;
     bottom: 15px;

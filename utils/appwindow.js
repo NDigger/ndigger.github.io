@@ -181,7 +181,7 @@ export class AppWindow {
 
     constructor(html) {
         document.querySelector('body').insertAdjacentHTML("beforeend", html);
-        this.id = html.match(/<section id="(.+)" class="window">/)[1];
+        this.id = html.match(/<section id="(.+)" /)[1];
         this.element = document.getElementById(this.id);
         this.#dragger = new WindowDragger(this); 
         this.#view = new WindowView(this);
@@ -265,12 +265,10 @@ export class AppWindow {
     }
 
     destroy() {
-        if (this.#view.visible) {
-            this.hide()
-            setTimeout(() => {
-                this.element.remove()
-            }, windowViewAnimationSpeed)
-        }
+        this.hide()
+        setTimeout(() => {
+            this.element.remove()
+        }, windowViewAnimationSpeed)
     }
 
     setPosition(vec2) {

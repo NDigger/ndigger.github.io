@@ -32,19 +32,22 @@ bindWindowListeners(document.getElementById('status-btn'), statuses);
 
 window.addEventListener('DOMContentLoaded', () => {
     const openInWindowImages = Array.from(document.querySelectorAll('.open-in-window-img'));
-    openInWindowImages.forEach(image => {
-        image.title = "Click to open"
-        image.addEventListener('click', e => {
-            let visibleWindow = windowManager.getWindow(e.target.src);
-            if (visibleWindow == null) {
-                const w = new AppWindow(AppWindowHTMLContent.image(e.target.src));
-                w.setClampedSize(new Size(image.width * 2, image.height * 2));
-                w.onClose = () => windowManager.destroy(w);
-                windowManager.add(w);
-                w.show();
-            } else {
-                windowManager.destroy(visibleWindow)
-            }
-        })
-    })
+    openInWindowImages.forEach(image => openWindowOnImageClick(image))
 });
+
+export function openWindowOnImageClick(image) {
+    image.title = "Click to open"
+    image.addEventListener('click', e => {
+        const visibleWindow = windowManager.getWindow(e.target.src);
+        if (visibleWindow == null) {
+            const w = new AppWindow(AppWindowHTMLContent.image(e.target.src));
+            w.setClampedSize(new Size(Math.min(image.width * 2, window.innerWidth-80), Math.min(image.height * 2, window.innerHeight-80)));
+            w.onClose = () => windowManager.destroy(w);
+            windowManager.add(w);
+            w.show();
+        } else {
+            windowManager.destroy(visibleWindow)
+        }
+        e.stopPropagation()
+    })
+}

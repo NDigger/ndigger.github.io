@@ -3,9 +3,22 @@ import { AppWindow } from "./utils/appwindow.js";
 import { windowManager } from "./windows.js";
 import { AppWindowHTMLContent } from "./windowscontent.js";
 import { Size } from './utils/structures.js';
+import { openWindowOnImageClick } from "./windows.js";
 
 const backendHost = 'https://backend-statuses.vercel.app'
 // const backendHost = 'http://localhost:3000'
+
+export const getDateStr = date => {
+    const pad = (n) => n.toString().padStart(2, '0');
+
+    const day = pad(date.getDate());
+    const month = pad(date.getMonth() + 1); // месяцы от 0 до 11
+    const year = pad(date.getFullYear() % 100); // последние две цифры года
+    const hours = pad(date.getHours());
+    const minutes = pad(date.getMinutes());
+
+    return `${day}.${month}.${year} - ${hours}:${minutes}`;
+}
 
 const statusContainer = document.getElementById('status-container');
 const getTimePassed = since => {
@@ -80,8 +93,8 @@ const loadStatuses = () => {
     //     const statuses = []
     //     for(let i = 0; i < 50; i++) {
     //         const contents = [
-    //             'i need some time to sleep', 'and order and order',
-    //             'привет https://media.tenor.com/RTIUZu7zLZkAAAAe/maud-pie-pinkie-pie.png',
+    //             'i need some time to sleep', 'and order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and orderand order and order',
+    //             'привет https://media.tenor.com/RTIUZu7zLZkAAAAe/maud-pie-pinkie-pie.png пока https://media.tenor.com/RTIUZu7zLZkAAAAe/maud-pie-pinkie-pie.png',
     //             'Today I finished watching mlp s7:( https://youtu.be/-c6sE584NP8?si=aIYfM9bAQS86j6Zb I\'m still excited how much have I got attached to it .0. I also got used a bit more to English in it and during time I was figuring out new words to me without any pressure what I used to feel when looking at any new words in common. waaa im sleeping, also musicals are actually nice, I might come back to earlier episodes on eng just to check them out too, I think I missed a bunch of gems >_∆',
     //             'https://user-images.githubusercontent.com/14011726/94132137-7d4fc100-fe7c-11ea-8512-69f90cb65e48.gif',
     //         ];
@@ -114,11 +127,13 @@ const escapeHTML = str => {
 }
 
 const replaceContentURLs = async str => {
-    const regex = /(?:^|\s)(https?:\/\/|data:image\/)\S+/g;
+    const regex = /(https?:\/\/\S+|data:image\/\S+)/g;
     const matches = Array.from(str.matchAll(regex));
     const urlList = matches.map(v => v[0].trim());
     const replace = (url, content) => {
-        str = str.replace(url, content)
+        const escapeRegExp = string => string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(`(?<!["'])${escapeRegExp(url)}(?!["'])`, 'g');
+        str = str.replace(regex, content);
     }
     for (const url of urlList) {
         try {
@@ -132,18 +147,18 @@ const replaceContentURLs = async str => {
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                     allowfullscreen>
                 </iframe>`)
-                break;
+                continue;
             }
             const res = await fetch(url);
             // const res = await fetch(url);
             const contentType = res.headers.get('Content-Type')
             if (contentType.startsWith('image/')) {
-                replace(url, `<img class="embed" src="${url}"">`)
-                break;
+                replace(url, `<img class="embed open-in-window" src="${url}">`)
+                continue;
             }
             else {
                 replace(url, `<a href="${url}" target="_blank">${url}</a>`)
-                break;
+                continue;
             }
         } catch(e) {
             replace(url, `<a href="${url}" target="_blank">${url}</a>`)
@@ -161,31 +176,31 @@ document.getElementById('status-btn').addEventListener('click', () => {
 const lastStatusSeenId = config.lastStatusSeenId
 let unreadStatuses = 0
 const pushStatus = async status => {
-    // const onClick = e => {
-    //     const mainElement = e.currentTarget
-    //     const id = Number(mainElement.id.match(/(\d+)$/)[1]);
-    //     let visibleWindow = windowManager.getWindow(id);
-    //     if (visibleWindow == null) {
-    //         const d = data.find(v => v.id === id)
-    //         const w = new AppWindow(AppWindowHTMLContent.status(d));
-    //         w.setClampedSize(new Size(600, 500));
-    //         w.onClose = () => setTimeout(() => windowManager.destroy(w), 400);
-    //         windowManager.add(w);
-    //         w.show();
-    //     } else {
-    //         windowManager.destroy(visibleWindow)
-    //     }
-    // }
+    const onClick = async (element) => {
+        const id = Number(element.id.match(/(\d+)$/)[1]);
+        let visibleWindow = windowManager.getWindow(`status-info-${id}`);
+        if (visibleWindow == null) {
+            const localStatus = status
+            // status.content = await replaceContentURLs(escapeHTML(localStatus.content));
+            const html = AppWindowHTMLContent.status(status)
+            console.log(html)
+            const w = new AppWindow(html);
+            Array.from(w.element.querySelectorAll('.content .status-content img')).forEach(img => {
+                openWindowOnImageClick(img)
+            })
+            const width = Math.min(window.innerWidth - 80, window.innerWidth * html.length * 0.0005)
+            const height = Math.min(window.innerHeight - 80, 150 + window.innerHeight * html.length * 0.00025)
+            w.setClampedSize(new Size(width, height));
+            w.onClose = () => setTimeout(() => windowManager.destroy(w), 400);
+            windowManager.add(w);
+            w.show();
+        } else {
+            windowManager.destroy(visibleWindow)
+        }
+    }
     
     const date = new Date(status.created_at);
     const timePassed = getTimePassed(date.getTime());
-    const convertedDate = (() => {
-        const day = date.getDate();
-        const month = date.getMonth() + 1;
-        const year = date.getFullYear();
-        const format = val => val < 10 ? `0${val}` : val;
-        return `${format(day)}.${format(month)}.${year}`
-    })()
     const content = await replaceContentURLs(escapeHTML(status.content));
     const isNew = status.id > lastStatusSeenId;
     if (isNew) {
@@ -194,14 +209,18 @@ const pushStatus = async status => {
     const htmlContent = 
     `<div id="container-status-${status.id}" class="status ${isNew ? 'new' : ''}">
         <div class="header">
-            <p class="author" translate="no">NDagger</p>
-            <p class="time-passed" data-date="${convertedDate}">${timePassed} ago</p>
+            <button class="author open-in-window" translate="no">NDagger</button>
+            <p class="time-passed" data-date="${getDateStr(date)}">${timePassed} ago</p>
         </div>
         <p class="status-content">${content}</p>
     </div>`
     statusContainer.insertAdjacentHTML('beforeend', htmlContent)
+    Array.from(statusContainer.lastElementChild.querySelectorAll('.status-content img')).forEach(img => {
+        openWindowOnImageClick(img)
+    })
     // statusCreatedElements.push(htmlContent)
-    // statusContainer.lastElementChild.addEventListener('mousedown', onClick)
+    const author = statusContainer.lastElementChild.querySelector('.header .author')
+    author.addEventListener('click', () => onClick(statusContainer.lastElementChild))
     document.querySelector('#statuses .title').textContent = `Statuses ( ${unreadStatuses}/${statusContainer.childElementCount} )`
 } 
 

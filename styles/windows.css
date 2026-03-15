@@ -240,6 +240,27 @@
     margin: 0 auto;
 }
 
+.window .image-content {
+    margin: 0px !important;
+    padding: 0px !important;
+    overflow-y: hidden !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.window .image-content img {
+    display: block;
+    margin: 0 auto !important;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.open-in-window:hover {
+    cursor: pointer;
+}
+
 @media (max-width: 932px) {
     .window, .window * {
         border-radius: unset;

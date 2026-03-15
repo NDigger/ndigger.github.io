@@ -1,3 +1,5 @@
+import { getDateStr } from "./status.js"
+
 const getPanelHtml = (title, {fullscreenBtn} = {}) => `
     <div class="window-panel">
         <p class="title"><span class="content" title="${title}">${title}</span></p>
@@ -132,13 +134,12 @@ export class AppWindowHTMLContent {
     static status = data => {
         const date = new Date(data.created_at);
         return `
-        <section id="status-${data.id}" class="window">
-            ${getPanelHtml(`Status ${data.id}`, {
+        <section id="status-info-${data.id}" class="window status-info">
+            ${getPanelHtml(getDateStr(new Date(data.created_at)), {
                 fullscreenBtn: true
             })}
-            <article class="content status-info">
-                <p>Created at: ${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}</p>
-                <p class="content">${data.content}</p>
+            <article class="content">
+                <p class="status-content">${data.content}</p>
             </article>
         </section>
         `

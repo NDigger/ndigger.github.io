@@ -460,7 +460,9 @@
 
 .status > .header > .author {
     user-select: none;
-    pointer-events: none;
+    background-color: transparent;
+    border: none;
+    /* pointer-events: none; */
     font-size: inherit;
 }
 
@@ -492,7 +494,8 @@
     transform: translateX(calc(-100% - 10px));
 }
 
-.status .status-content .embed {
+.status .status-content .embed,
+.status-info .status-content .embed {
     display: block;
     padding: 2px;
     max-width: 100%;
@@ -502,13 +505,15 @@
     border-radius: var(--window-border-radius);
 }
 
-.status .status-content img {
+.status .status-content img,
+.status-info .status-content img {
     height: auto;
     width: auto;
     max-height: calc(var(--height) - 100px);
 }
 
-.status .status-content iframe {
+.status .status-content iframe,
+.status-info .status-content iframe {
     width: min(100%, 1920px);
     height: min(52vw, 1080px, calc(var(--height) - 100px));
 }

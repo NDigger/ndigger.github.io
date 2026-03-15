@@ -200,7 +200,7 @@ const pushStatus = async status => {
     statusContainer.insertAdjacentHTML('beforeend', htmlContent)
     // statusCreatedElements.push(htmlContent)
     // statusContainer.lastElementChild.addEventListener('mousedown', onClick)
-    document.querySelector('#statuses .title').textContent = unreadStatuses !== 0 ? `Statuses ${unreadStatuses}/${statusContainer.childElementCount}` : 'Statuses'
+    document.querySelector('#statuses .title').textContent = `Statuses ${unreadStatuses}/${statusContainer.childElementCount}`
 } 
 
 window.addEventListener('DOMContentLoaded', () => {

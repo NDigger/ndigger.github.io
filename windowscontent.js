@@ -80,23 +80,6 @@ export class AppWindowHTMLContent {
             </div>
         </article>
     `
-                        // <img class="open-in-window-img open-in-window hover-sound" src="images/illustrations/Без названия468.png" alt="illustration">
-
-    // static LINKS = `
-    //     <section id="creations" class="window">
-    //         ${getPanelHtml('Creations')}
-    //         <div class="content">
-    //             <div class="centered-links">
-    //                 <h1>Avaliable pages</h1>
-    //                 <div class="links">
-    //                     <a class="hover-sound" href="./old" target="_blank" title="Click to visit"><img src="./images/pages/old.png"></a>
-    //                     <a class="hover-sound" href="./typing-speed-test" target="_blank" title="Click to visit"><img src="./images/pages/tts.png"></a>
-    //                     <a class="hover-sound" href="./webagon" target="_blank" title="Click to visit"><img src="./images/pages/webagon.png"></a>
-    //                 </div>
-    //             </div>
-    //         </div>
-    //     </section>
-    // `
     static LINKS = `
         <section id="links" class="window">
             ${getPanelHtml('Links')}
@@ -150,11 +133,10 @@ export class AppWindowHTMLContent {
         const date = new Date(data.created_at);
         return `
         <section id="status-${data.id}" class="window">
-            ${getPanelHtml(`Status Info`, {
+            ${getPanelHtml(`Status ${data.id}`, {
                 fullscreenBtn: true
             })}
             <article class="content status-info">
-                <p>ID: ${data.id}</p>
                 <p>Created at: ${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}</p>
                 <p class="content">${data.content}</p>
             </article>
@@ -167,8 +149,8 @@ export class AppWindowHTMLContent {
             ${getPanelHtml('Statuses', {
                 fullscreenBtn: true
             })}
+            <div class="loading-progress-bar"></div>
             <article class="content">
-                <p id="status-loading-message">loading</p>
                 <div id="status-container">
                 </div>
             </article>

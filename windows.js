@@ -35,23 +35,15 @@ window.addEventListener('DOMContentLoaded', () => {
     openInWindowImages.forEach(image => {
         image.title = "Click to open"
         image.addEventListener('click', e => {
-            let visibleWindow = null
-            for (const window of windowManager.windows) {
-                if (window.id === e.target.src) {
-                    visibleWindow = window;
-                    continue;
-                }
-            }
+            let visibleWindow = windowManager.getWindow(e.target.src);
             if (visibleWindow == null) {
                 const w = new AppWindow(AppWindowHTMLContent.image(e.target.src));
                 w.setClampedSize(new Size(image.width * 2, image.height * 2));
-                w.onClose = () => setTimeout(() => windowManager.delete(w), 400);
+                w.onClose = () => windowManager.destroy(w);
                 windowManager.add(w);
                 w.show();
             } else {
-                if (visibleWindow.animationRunning) return
-                visibleWindow.hide()
-                setTimeout(() => windowManager.delete(visibleWindow), 400);
+                windowManager.destroy(visibleWindow)
             }
         })
     })

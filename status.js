@@ -29,60 +29,76 @@ let page = 0;
 const limit = 30;
 
 let loadingStatuses = false
-const pushNewStatusesList = () => {
+const statusTitle = document.querySelector('#statuses .title');
+const statusLoadingProgressBar = document.querySelector('#statuses .loading-progress-bar');
+const loadStatuses = () => {
     loadingStatuses = true
-    const statusLoadingMessage = document.getElementById('status-loading-message')
+    let loadingState = 0
     const intervalId = setInterval(() => {
-        const v = statusLoadingMessage.textContent
-        if (v === 'loading') statusLoadingMessage.textContent = 'loading.'
-        else if (v === 'loading.') statusLoadingMessage.textContent = 'loading..'
-        else if (v === 'loading..') statusLoadingMessage.textContent = 'loading...'
-        else if (v === 'loading...') statusLoadingMessage.textContent = 'loading'
+        loadingState = (loadingState + 1) % 5
+        const content = `Loading${".".repeat(Math.max(loadingState-1, 0))}`
+        statusTitle.textContent = content
     }, 200)
     const params = new URLSearchParams({ 
         page: page,
         limit: limit 
     })
-    // fetch(`${backendHost}/api/status?${params.toString()}`)
-    // .then(res => res.json())
-    // .then(data => {
-    //     const recentStatusId = data[0]?.id;
-    //     const recentStatusSeenId = config.lastStatusSeenId;
-    //     if (recentStatusId > recentStatusSeenId && page === 0) {
-    //         config.lastStatusSeenId = recentStatusId
-    //         localStorage.setItem('portfolio-config', JSON.stringify(config))
-    //     }
-    //     clearInterval(intervalId);
-    //     pushStatuses(data);
-    //     page++;
-    //     statusLoadingMessage.style.display = 'none'
-    // })
-    // .catch(err => {
-    //     loadingStatuses = false;
-    //     console.error(err)
-    //     clearInterval(intervalId)
-    //     statusLoadingMessage.style.display = 'block'
-    //     statusLoadingMessage.textContent = String(err)
-    // })
-
-    setTimeout(() => {
-        clearInterval(intervalId);
-        loadingStatuses = false;
-        statusLoadingMessage.style.display = 'none'
-        const statuses = [];
-        for(let i = 0; i < 50; i++) {
-            const contents = [
-                'i need some time to sleep', 'and order and order',
-                'привет https://media.tenor.com/RTIUZu7zLZkAAAAe/maud-pie-pinkie-pie.png'
-            ];
-            statuses.push({
-                id: i,
-                created_at: Date.now(),
-                content: contents[Math.floor(Math.random() * contents.length)],
-            })
+    fetch(`${backendHost}/api/status?${params.toString()}`)
+    .then(res => res.json())
+    .then(async data => {
+        const recentStatusId = data[0]?.id;
+        const recentStatusSeenId = config.lastStatusSeenId;
+        if (recentStatusId > recentStatusSeenId && page === 0) {
+            config.lastStatusSeenId = recentStatusId
+            localStorage.setItem('portfolio-config', JSON.stringify(config))
         }
-        pushStatuses(statuses);
-    }, 1000)
+        clearInterval(intervalId);
+        const setProgress = p => {
+            statusLoadingProgressBar.style.setProperty('--progress', p)
+        }
+        for (let i = 0; i < statuses.length; i++) {
+            const status = statuses[i]
+            setProgress((i+1)/statuses.length)
+            await pushStatus(status)
+        }
+        setProgress(0)
+        loadingStatuses = false;
+        page++;
+    })
+    .catch(err => {
+        loadingStatuses = false;
+        console.error(err)
+        document.querySelector('#statuses .title').textContent = err
+        clearInterval(intervalId)
+    })
+
+    // setTimeout(async () => {
+    //     clearInterval(intervalId);
+    //     const statuses = []
+    //     for(let i = 0; i < 50; i++) {
+    //         const contents = [
+    //             'i need some time to sleep', 'and order and order',
+    //             'привет https://media.tenor.com/RTIUZu7zLZkAAAAe/maud-pie-pinkie-pie.png',
+    //             'Today I finished watching mlp s7:( https://youtu.be/-c6sE584NP8?si=aIYfM9bAQS86j6Zb I\'m still excited how much have I got attached to it .0. I also got used a bit more to English in it and during time I was figuring out new words to me without any pressure what I used to feel when looking at any new words in common. waaa im sleeping, also musicals are actually nice, I might come back to earlier episodes on eng just to check them out too, I think I missed a bunch of gems >_∆',
+    //             'https://user-images.githubusercontent.com/14011726/94132137-7d4fc100-fe7c-11ea-8512-69f90cb65e48.gif',
+    //         ];
+    //         statuses.push({
+    //             id: i,
+    //             created_at: Date.now(),
+    //             content: contents[Math.floor(Math.random() * contents.length)],
+    //         })
+    //     }
+        // const setProgress = p => {
+        //     statusLoadingProgressBar.style.setProperty('--progress', p)
+        // }
+        // for (let i = 0; i < statuses.length; i++) {
+        //     const status = statuses[i]
+        //     setProgress((i+1)/statuses.length)
+        //     await pushStatus(status)
+        // }
+        // setProgress(0)
+    //     loadingStatuses = false;
+    // }, 1000)
 }
 
 const escapeHTML = str => {
@@ -98,19 +114,36 @@ const replaceContentURLs = async str => {
     const regex = /(?:^|\s)(https?:\/\/|data:image\/)\S+/g;
     const matches = Array.from(str.matchAll(regex));
     const urlList = matches.map(v => v[0].trim());
+    const replace = (url, content) => {
+        str = str.replace(url, content)
+    }
     for (const url of urlList) {
         try {
+            if (['https://www.youtube.com/watch', 'https://youtu.be/'].some(v => url.startsWith(v))) {
+                var videoId = url.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
+                replace(url, `<iframe width="560" height="315" 
+                    src="https://www.youtube.com/embed/${videoId[1]}" 
+                    class="embed"
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>`)
+                break;
+            }
             const res = await fetch(url);
+            // const res = await fetch(url);
             const contentType = res.headers.get('Content-Type')
-            console.log(contentType)
             if (contentType.startsWith('image/')) {
-                str = str.replace(url, `<img src="${url}"">`)
+                replace(url, `<img class="embed" src="${url}"">`)
+                break;
             }
             else {
-                str = str.replace(url, `<a href="${url}" target="_blank">${url}</a>`)
+                replace(url, `<a href="${url}" target="_blank">${url}</a>`)
+                break;
             }
         } catch(e) {
-            str = str.replace(url, `<a href="${url}" target="_blank">${url}</a>`)
+            replace(url, `<a href="${url}" target="_blank">${url}</a>`)
         }
     }
     return str
@@ -119,69 +152,55 @@ const replaceContentURLs = async str => {
 document.getElementById('status-btn').addEventListener('click', () => {
     if (statusFetched) return
     statusFetched = true
-    pushNewStatusesList()
+    loadStatuses()
 })
 
 const lastStatusSeenId = config.lastStatusSeenId
 let unreadStatuses = 0
-const pushStatuses = async data => {
+const pushStatus = async status => {
     const statusContainer = document.getElementById('status-container');
-    const statusCreatedElements = [];
-
-    const onClick = e => {
-        const mainElement = e.currentTarget
-        const id = Number(mainElement.id.match(/(\d+)$/)[1])
-        let visibleWindow = null
-        for (const window of windowManager.windows) {
-            if (window.id === `status-${id}`) {
-                visibleWindow = window;
-                continue;
-            }
-        }
-        if (visibleWindow == null) {
-            const d = data.find(v => v.id === id)
-            const w = new AppWindow(AppWindowHTMLContent.status(d));
-            w.setClampedSize(new Size(600, 500));
-            w.onClose = () => setTimeout(() => windowManager.destroy(w), 400);
-            windowManager.add(w);
-            w.show();
-        } else {
-            visibleWindow.destroy()
-        }
-    }
+    // const onClick = e => {
+    //     const mainElement = e.currentTarget
+    //     const id = Number(mainElement.id.match(/(\d+)$/)[1]);
+    //     let visibleWindow = windowManager.getWindow(id);
+    //     if (visibleWindow == null) {
+    //         const d = data.find(v => v.id === id)
+    //         const w = new AppWindow(AppWindowHTMLContent.status(d));
+    //         w.setClampedSize(new Size(600, 500));
+    //         w.onClose = () => setTimeout(() => windowManager.destroy(w), 400);
+    //         windowManager.add(w);
+    //         w.show();
+    //     } else {
+    //         windowManager.destroy(visibleWindow)
+    //     }
+    // }
     
-    for (const status of data) {
-        if (status.id > lastStatusSeenId) unreadStatuses++
-        const date = new Date(status.created_at);
-        const timePassed = getTimePassed(date.getTime());
-        const convertedDate = (() => {
-            const day = date.getDate();
-            const month = date.getMonth() + 1;
-            const year = date.getFullYear();
-            const format = val => val < 10 ? `0${val}` : val;
-            return `${format(day)}.${format(month)}.${year}`
-        })()
-        const content = await replaceContentURLs(escapeHTML(status.content))
-        const htmlContent = 
-        `<div id="container-status-${status.id}" class="status ${status.id > lastStatusSeenId ? 'new' : ''}">
-            <div class="header">
-                <p class="author" translate="no">NDagger</p>
-                <p class="time-passed" data-date="${convertedDate}">${timePassed} ago</p>
-            </div>
-            <p class="status-content">${content}</p>
-        </div>`
-        statusCreatedElements.push(htmlContent)
+    const date = new Date(status.created_at);
+    const timePassed = getTimePassed(date.getTime());
+    const convertedDate = (() => {
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+        const format = val => val < 10 ? `0${val}` : val;
+        return `${format(day)}.${format(month)}.${year}`
+    })()
+    const content = await replaceContentURLs(escapeHTML(status.content));
+    const isNew = status.id > lastStatusSeenId;
+    if (isNew) {
+        unreadStatuses++
     }
-    statusCreatedElements.forEach((html, i) => {
-        setTimeout(
-            () => {
-                statusContainer.insertAdjacentHTML('beforeend', html)
-                statusContainer.lastElementChild.addEventListener('click', onClick)
-            }
-        , i * 50);
-    })
-    statuses.setTitleContent(unreadStatuses !== 0 ? `Statuses ( ${unreadStatuses} )` : 'Statuses') 
-    setTimeout(() => loadingStatuses = false, statusCreatedElements.length * 50)
+    const htmlContent = 
+    `<div id="container-status-${status.id}" class="status ${isNew ? 'new' : ''}">
+        <div class="header">
+            <p class="author" translate="no">NDagger</p>
+            <p class="time-passed" data-date="${convertedDate}">${timePassed} ago</p>
+        </div>
+        <p class="status-content">${content}</p>
+    </div>`
+    statusContainer.insertAdjacentHTML('beforeend', htmlContent)
+    // statusCreatedElements.push(htmlContent)
+    // statusContainer.lastElementChild.addEventListener('mousedown', onClick)
+    document.querySelector('#statuses .title').textContent = unreadStatuses !== 0 ? `Statuses ${unreadStatuses}/${statusContainer.childElementCount}` : 'Statuses'
 } 
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -190,6 +209,6 @@ window.addEventListener('DOMContentLoaded', () => {
         const scrollTop = statusScroll.scrollTop;
         const style = getComputedStyle(statusScroll);
         const scrollMax = statusScroll.scrollHeight - style.height.match(/(\d+)/)[0];
-        if (scrollTop >= scrollMax - 100 && !loadingStatuses) pushNewStatusesList();
+        if (scrollTop >= scrollMax - 100 && !loadingStatuses) loadStatuses();
     })
 })

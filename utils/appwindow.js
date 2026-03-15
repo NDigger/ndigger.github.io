@@ -67,19 +67,19 @@ class WindowView {
 
     fullscreenTransition() {
         audioManager.resetPlay(audioManager.sounds.clickFullscreen)
-        this.element.classList.remove('window-fullscreen-hide');
-        restartCssAnimation(this.element, 'window-fullscreen-show');
+        this.element.classList.remove('fullscreen-hide');
+        restartCssAnimation(this.element, 'fullscreen-show');
         setTimeout(() => {
-            this.element.classList.remove('window-fullscreen-show');
+            this.element.classList.remove('fullscreen-show');
         }, windowViewAnimationSpeed)
     }
 
     windowedTransition() {
         audioManager.resetPlay(audioManager.sounds.clickFullscreen)
-        this.element.classList.remove('window-fullscreen-show');
-        restartCssAnimation(this.element, 'window-fullscreen-hide');
+        this.element.classList.remove('fullscreen-show');
+        restartCssAnimation(this.element, 'fullscreen-hide');
         setTimeout(() => {
-            this.element.classList.remove('window-fullscreen-hide');
+            this.element.classList.remove('fullscreen-hide');
         }, windowViewAnimationSpeed)
     }
 }
@@ -307,16 +307,26 @@ export class WindowManager {
             if (e.target.classList.contains("open-in-window")) return
             this.bringToFront(window)
         });
-        this.bringToFront(window);
+        requestAnimationFrame(() => this.bringToFront(window));
         return window;
     }
 
     destroy(window) {
+        requestAnimationFrame(() => this.bringToFront(window));
         window.destroy();
         this.windows.splice(this.windows.indexOf(window), 1);
     }
 
     bringToFront(window) {
         window.element.style.zIndex = this.#zIndex++;
+    }
+
+    getWindow(id) {
+        for (const window of this.windows) {
+            if (window.id === id) {
+                return window;
+            }
+        }
+        return undefined
     }
 }

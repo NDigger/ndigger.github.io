@@ -1,4 +1,5 @@
 .window {
+    --animation-time: .25s;
     --width: 800px;
     --height: 500px;
     --border-radius: var(--window-border-radius);
@@ -42,12 +43,12 @@
     --border-radius: 0px;
 }
 
-.window-fullscreen-show {
-    animation: window-fullscreen-anim 0.3s ease-in-out forwards;
+.window.fullscreen-show {
+    animation: window-fullscreen-anim var(--animation-time) ease-in-out forwards;
 }
 
-.window-fullscreen-hide {
-    animation: window-fullscreen-anim 0.3s ease-in-out forwards reverse;
+.window.fullscreen-hide {
+    animation: window-fullscreen-anim var(--animation-time) ease-in-out forwards reverse;
 }
 
 .window > .content p {
@@ -101,16 +102,15 @@
 }
 
 .show-window {
-    animation: s-window 0.4s ease-out forwards;
+    animation: s-window var(--animation-time) ease-out forwards;
 }
 
 @keyframes s-window {
     0% {
-        opacity: 0;
+        /* opacity: 0; */
         top: calc(50vh - var(--height) / 2);
         left: calc(50vw - var(--width) / 2);
-        scale: 1.5;
-        rotate: -2deg;
+        scale: 0;
     }
     100% {
         opacity: 1;
@@ -130,23 +130,7 @@
 }
 
 .hide-window {
-    animation: h-window 0.3s ease-in forwards;
-}
-
-@keyframes h-window {
-    0% {
-        opacity: 1;
-        top: var(--top);
-        left: var(--left);
-        scale: 1;
-    }
-    100% {
-        opacity: 0;
-        top: calc(50vh - var(--height) / 2);
-        left: calc(50vw - var(--width) / 2);
-        scale: 0;
-        rotate: 2deg;
-    }
+    animation: s-window var(--animation-time) ease-in forwards reverse;
 }
 
 .window-panel {
@@ -234,7 +218,7 @@
 }
 
 .window > .content::-webkit-scrollbar {
-  width: 8px;
+  width: 5px;
 }
 
 .window > .content::-webkit-scrollbar-track {
@@ -242,7 +226,7 @@
 }
 
 .window > .content::-webkit-scrollbar-thumb {
-  background: rgba(100, 100, 100, 0.5);
+  background: var(--weak-font-color);
   border-radius: 4px;
 }
 

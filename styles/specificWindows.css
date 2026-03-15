@@ -377,15 +377,45 @@
     gap: 10px;
 }
 
+#statuses p {
+    margin: 10px 0;
+}
+
+#statuses .loading-progress-bar {
+    position: absolute;
+    background-color: white;
+    --progress: 0;
+    width: min(calc((var(--width) - 6px) * var(--progress)), calc(100vw - 6px));
+    top: 45px;
+    left: 3px;
+    height: 3px;
+}
+
+.status.new {
+    opacity: 1;
+    position: relative;
+    border-left: 3px solid var(--font-color);
+    --font-color: rgb(0, 0, 0);
+}
+
+:root.dark .status.new {
+    --font-color: rgb(205, 205, 205);
+}
+
 .status {
-    color: var(--font-color);
-    border-left: 3px dashed var(--font-color);
+    --status-font-color: rgb(45, 45, 45);
+    color: var(--status-font-color);
+    border-left: 3px dashed var(--status-font-color);
     background: linear-gradient(45deg, transparent, var(--weak-inverse-main-color));
     padding: 5px 20px;
     opacity: .75;
     position: relative;
     /* transform-origin: left; */
     animation: status-anim .6s ease-out forwards;
+}
+
+:root.dark .status {
+    --status-font-color: var(--font-color);
 }
 
 @keyframes status-anim {
@@ -402,14 +432,15 @@
     }
 }
 
-#statuses p {
-    margin: 10px 0;
-}
-
 .status.new {
+    --status-font-color: var(--font-color);
     opacity: 1;
     position: relative;
     border-left: 3px solid var(--font-color);
+}
+
+:root.dark .status.new {
+    --status-font-color: rgb(205, 205, 205);
 }
 
 .status * {
@@ -460,7 +491,7 @@
     transform: translateX(calc(-100% - 10px));
 }
 
-.status .status-content img {
+.status .status-content .embed {
     display: block;
     padding: 2px;
     max-width: 100%;
@@ -468,6 +499,17 @@
     margin-top: var(--m);
     margin-bottom: var(--m);
     border-radius: var(--window-border-radius);
+}
+
+.status .status-content img {
+    height: auto;
+    width: auto;
+    max-height: calc(var(--height) - 100px);
+}
+
+.status .status-content iframe {
+    width: min(100%, 1920px);
+    height: min(calc(var(--height) - 100px), min(1080px, calc(var(--width) / 2)));
 }
 
 @media (max-width: 500px) {

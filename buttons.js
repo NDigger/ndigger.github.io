@@ -128,17 +128,22 @@ const updateState = () => {
     nightModeBtn.innerHTML = config.nightModeEnabled ? sunIcon : moonIcon
     if (darkMode) {
         nightModeBtn.innerHTML = sunIcon
-        audioManager.resetPlay(audioManager.sounds.shine)
     } else {
         nightModeBtn.innerHTML = moonIcon
-        audioManager.resetPlay(audioManager.sounds.shine2)
     }
     restartCssAnimation(nightModeBtn.querySelector('i'), 'btn-animation');
     colorChangers.map(colorChanger => colorChanger.run())
 }
 
 nightModeBtn.addEventListener('click', () => {
-    config.nightModeEnabled = !config.nightModeEnabled
+    config.nightModeEnabled = !config.nightModeEnabled;
+    const darkMode = config.nightModeEnabled;
+    if (darkMode) {
+        nightModeBtn.innerHTML = sunIcon
+        audioManager.resetPlay(audioManager.sounds.shine)
+    } else {
+        audioManager.resetPlay(audioManager.sounds.shine2)
+    }
     updateState()
 })
 

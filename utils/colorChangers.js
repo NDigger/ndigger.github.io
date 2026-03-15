@@ -1,6 +1,6 @@
 import LerpApp from './interpolation.js';
 
-const colorChangeTime = 0.2;
+const colorChangeTime = 0.15;
 class ColorChanger {
     colorLerp = new LerpApp.Lerp();
     brightModeColor = null;

@@ -28,8 +28,7 @@
 
     --window-panel-color: rgb(67, 67, 67);
     --gray-color: rgb(67, 67, 67);
-    --bright-gray-color: rgb(80, 80, 80);
-    --window-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    --window-box-shadow: 0px 0px 20px rgba(0, 0, 0, .2);
     --weak-box-shadow: 0px 0px 3px gray;
     --buttons-mobile-color: rgba(255, 255, 255, 0.5);
     --window-background-color: rgba(255, 255, 255, 1);
@@ -38,14 +37,13 @@
     --main-window-button-hover-color: rgb(0, 0, 0);
     --main-window-button-hover-text-shadow-color: rgba(255, 98, 0, 0);
 
-    --mode-transition-time: 0.1s;
+    --mode-transition-time: 0.15s;
 }
 
 :root.dark {
     --main-color: rgb(40, 40, 45);
     --font-color: rgb(165, 165, 165);
     --gray-color: rgb(75, 75, 75);
-    --bright-gray-color: rgb(110, 110, 110);
     --window-panel-color: rgb(0, 0, 0);
     --buttons-mobile-color: rgb(0, 0, 0, 0.5);
     --weak-font-color: rgba(255, 255, 255, 0.2);
@@ -116,7 +114,7 @@ meta[name="theme-color"] {
 #override {
     position: fixed;
     inset: 0;
-    z-index: 3;
+    z-index: 99;
     background-color: black;
     animation: override-disappear 1s ease-in forwards;
     pointer-events: none;
@@ -243,7 +241,7 @@ meta[name="theme-color"] {
     height: calc(.5rem / 3);
     transform: translateY(-50%) translateX(-50%) rotate(45deg);
     border-radius: 10px;
-    background: var(--gray-color);;
+    background: var(--gray-color);
     transition: all .2s ease-in-out;
 }
 
@@ -314,13 +312,16 @@ meta[name="theme-color"] {
 }
 
 #cursor-glow {
-    width: 1500px;
-    height: 1500px;
-    position: absolute;
+    --size: 1500px;
+    --center-offset: -45%;
+    width: var(--size);
+    height: var(--size);
+    position: fixed;
     z-index: 2;
-    transform: translateX(-50%) translateY(-50%) scaleX(.5);
-    background: radial-gradient(rgba(255, 255, 255, .005), transparent 50%);
-    animation: cursor-glow-anim 15s linear infinite;
+    transform-origin: calc(-1 * var(--center-offset));
+    transform: translateX(var(--center-offset), 50%) scaleX(.5) ;
+    background: radial-gradient(rgba(255, 255, 255, .008), transparent 50%);
+    animation: cursor-glow-anim 10s linear infinite;
     pointer-events: none;
     user-select: none;
 }
@@ -331,9 +332,9 @@ meta[name="theme-color"] {
 
 @keyframes cursor-glow-anim {
     from {
-        transform: translateX(-50%) translateY(-50%) rotate(0deg);
+        transform: translateX(var(--center-offset)) translateY(-50%) rotate(0deg);
     } to {
-        transform: translateX(-50%) translateY(-50%) rotate(360deg);
+        transform: translateX(var(--center-offset)) translateY(-50%) rotate(360deg);
     }
 }
 

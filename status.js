@@ -88,15 +88,15 @@ const loadStatuses = () => {
     //             content: contents[Math.floor(Math.random() * contents.length)],
     //         })
     //     }
-        // const setProgress = p => {
-        //     statusLoadingProgressBar.style.setProperty('--progress', p)
-        // }
-        // for (let i = 0; i < statuses.length; i++) {
-        //     const status = statuses[i]
-        //     setProgress((i+1)/statuses.length)
-        //     await pushStatus(status)
-        // }
-        // setProgress(0)
+    //     const setProgress = p => {
+    //         statusLoadingProgressBar.style.setProperty('--progress', p)
+    //     }
+    //     for (let i = 0; i < statuses.length; i++) {
+    //         const status = statuses[i]
+    //         setProgress((i+1)/statuses.length)
+    //         await pushStatus(status)
+    //     }
+    //     setProgress(0)
     //     loadingStatuses = false;
     // }, 1000)
 }
@@ -200,7 +200,7 @@ const pushStatus = async status => {
     statusContainer.insertAdjacentHTML('beforeend', htmlContent)
     // statusCreatedElements.push(htmlContent)
     // statusContainer.lastElementChild.addEventListener('mousedown', onClick)
-    document.querySelector('#statuses .title').textContent = `Statuses ${unreadStatuses}/${statusContainer.childElementCount}`
+    document.querySelector('#statuses .title').textContent = `Statuses ( ${unreadStatuses}/${statusContainer.childElementCount} )`
 } 
 
 window.addEventListener('DOMContentLoaded', () => {

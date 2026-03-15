@@ -46,6 +46,8 @@ const loadStatuses = () => {
     fetch(`${backendHost}/api/status?${params.toString()}`)
     .then(res => res.json())
     .then(async statuses => {
+        document.querySelector('#statuses .title').textContent = `Statuses ( ${unreadStatuses}/${statusContainer.childElementCount} )`
+        
         const recentStatusId = statuses[0]?.id;
         const recentStatusSeenId = config.lastStatusSeenId;
         if (recentStatusId > recentStatusSeenId && page === 0) {

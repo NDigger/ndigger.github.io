@@ -209,7 +209,7 @@ const pushStatus = async status => {
     const htmlContent = 
     `<div id="container-status-${status.id}" class="status ${isNew ? 'new' : ''}">
         <div class="header">
-            <button class="author open-in-window" translate="no">NDagger</button>
+            <button class="author" translate="no">NDagger</button>
             <p class="time-passed" data-date="${getDateStr(date)}">${timePassed} ago</p>
         </div>
         <p class="status-content">${content}</p>

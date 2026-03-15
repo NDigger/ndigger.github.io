@@ -18,7 +18,7 @@
 
 :root {
     --main-color: rgb(255, 255, 255);
-    --main-font-color: rgb(0, 0, 0);
+    --font-color: rgb(0, 0, 0);
     --weak-inverse-main-color: rgba(0, 0, 0, 0.03);
     --weak-font-color: rgba(0, 0, 0, 0.2);
 
@@ -37,6 +37,23 @@
     --title-author-text-shadow-color: rgba(0, 0, 0, 0);
     --main-window-button-hover-color: rgb(0, 0, 0);
     --main-window-button-hover-text-shadow-color: rgba(255, 98, 0, 0);
+
+    --mode-transition-time: 0.1s;
+}
+
+:root.dark {
+    --main-color: rgb(40, 40, 45);
+    --font-color: rgb(165, 165, 165);
+    --gray-color: rgb(75, 75, 75);
+    --bright-gray-color: rgb(110, 110, 110);
+    --window-panel-color: rgb(0, 0, 0);
+    --buttons-mobile-color: rgb(0, 0, 0, 0.5);
+    --weak-font-color: rgba(255, 255, 255, 0.2);
+    --weak-inverse-main-color: rgba(255, 255, 255, 0.03);
+    --window-background-color: rgb(255, 255, 255, 0);
+    --title-author-text-shadow-color: rgba(255, 98, 0, 0.8);
+    --main-window-button-hover-color: rgb(255, 200, 0);
+    --main-window-button-hover-text-shadow-color: rgba(255, 98, 0, .8);
 }
 
 @supports (height: 100svh) {
@@ -61,7 +78,8 @@ button:focus, a:focus { outline: none; }
 button:hover, a:hover { cursor: pointer; }
 
 * {
-    color: var(--main-font-color)
+    transition: color var(--mode-transition-time);
+    color: var(--font-color)
 }
 
 img {
@@ -236,7 +254,7 @@ meta[name="theme-color"] {
     transform: translateY(-50%) translateX(-50%) rotate(30deg);
 }
 
-#music-btn i, #sound-btn i {
+#music-btn i, #sound-btn i, #night-mode-btn i {
     color: var(--gray-color)
 }
 
@@ -273,10 +291,6 @@ meta[name="theme-color"] {
         scale: 1;
         rotate: 0deg;
     }
-}
-
-#night-mode-btn i {
-    color: var(--gray-color)
 }
 
 .image-content {

@@ -43,43 +43,68 @@ const pushNewStatusesList = () => {
         page: page,
         limit: limit 
     })
-    fetch(`${backendHost}/api/status?${params.toString()}`)
-    .then(res => res.json())
-    .then(data => {
-        const recentStatusId = data[0]?.id;
-        const recentStatusSeenId = config.lastStatusSeenId;
-        if (recentStatusId > recentStatusSeenId && page === 0) {
-            config.lastStatusSeenId = recentStatusId
-            localStorage.setItem('portfolio-config', JSON.stringify(config))
-        }
-        clearInterval(intervalId);
-        pushStatuses(data);
-        page++;
-        statusLoadingMessage.style.display = 'none'
-    })
-    .catch(err => {
-        loadingStatuses = false;
-        console.error(err)
-        clearInterval(intervalId)
-        statusLoadingMessage.style.display = 'block'
-        statusLoadingMessage.textContent = String(err)
-    })
-
-    // setTimeout(() => {
-    //     clearInterval(intervalId);
-    //     loadingStatuses = false;
-    //     statusLoadingMessage.style.display = 'none'
-    //     const statuses = [];
-    //     for(let i = 0; i < 50; i++) {
-    //         const contents = ['happy', 'fun', 'sad', 'lalala hehehe www', 'another status', 'nuh uh', 'text content', 'impossible', 'i need some time to sleep', 'and order and order'];
-    //         statuses.push({
-    //             id: i,
-    //             created_at: Date.now(),
-    //             content: contents[Math.floor(Math.random() * contents.length)],
-    //         })
+    // fetch(`${backendHost}/api/status?${params.toString()}`)
+    // .then(res => res.json())
+    // .then(data => {
+    //     const recentStatusId = data[0]?.id;
+    //     const recentStatusSeenId = config.lastStatusSeenId;
+    //     if (recentStatusId > recentStatusSeenId && page === 0) {
+    //         config.lastStatusSeenId = recentStatusId
+    //         localStorage.setItem('portfolio-config', JSON.stringify(config))
     //     }
-    //     pushStatuses(statuses);
-    // }, 1000)
+    //     clearInterval(intervalId);
+    //     pushStatuses(data);
+    //     page++;
+    //     statusLoadingMessage.style.display = 'none'
+    // })
+    // .catch(err => {
+    //     loadingStatuses = false;
+    //     console.error(err)
+    //     clearInterval(intervalId)
+    //     statusLoadingMessage.style.display = 'block'
+    //     statusLoadingMessage.textContent = String(err)
+    // })
+
+    setTimeout(() => {
+        clearInterval(intervalId);
+        loadingStatuses = false;
+        statusLoadingMessage.style.display = 'none'
+        const statuses = [];
+        for(let i = 0; i < 50; i++) {
+            const contents = [
+                'i need some time to sleep', 'and order and order',
+                'привет https://media.tenor.com/RTIUZu7zLZkAAAAe/maud-pie-pinkie-pie.png'
+            ];
+            statuses.push({
+                id: i,
+                created_at: Date.now(),
+                content: contents[Math.floor(Math.random() * contents.length)],
+            })
+        }
+        pushStatuses(statuses);
+    }, 1000)
+}
+
+const replaceContentURLs = async str => {
+    const regex = /(?:^|\s)(https?:\/\/|data:image\/)\S+/g;
+    const matches = Array.from(str.matchAll(regex));
+    const urlList = matches.map(v => v[0].trim());
+    for (const url of urlList) {
+        try {
+            const res = await fetch(url);
+            const contentType = res.headers.get('Content-Type')
+            console.log(contentType)
+            if (contentType.startsWith('image/')) {
+                str = str.replace(url, `<img src="${url}"">`)
+            }
+            else {
+                str = str.replace(url, `<a href="${url}" target="_blank">${url}</a>`)
+            }
+        } catch(e) {
+            str = str.replace(url, `<a href="${url}" target="_blank">${url}</a>`)
+        }
+    }
+    return str
 }
 
 document.getElementById('status-btn').addEventListener('click', () => {
@@ -90,9 +115,10 @@ document.getElementById('status-btn').addEventListener('click', () => {
 
 const lastStatusSeenId = config.lastStatusSeenId
 let unreadStatuses = 0
-const pushStatuses = data => {
+const pushStatuses = async data => {
     const statusContainer = document.getElementById('status-container');
-    const statusCreatedElements = data.map(status => { 
+    const statusCreatedElements = [];
+    for (const status of data) {
         if (status.id > lastStatusSeenId) unreadStatuses++
         const date = new Date(status.created_at);
         const timePassed = getTimePassed(date.getTime());
@@ -103,18 +129,17 @@ const pushStatuses = data => {
             const format = val => val < 10 ? `0${val}` : val;
             return `${format(day)}.${format(month)}.${year}`
         })()
+        const content = await replaceContentURLs(status.content)
         const htmlContent = 
         `<div id="container-status-${status.id}" class="status ${status.id > lastStatusSeenId ? 'new' : ''}">
-                <div class="header">
-                    <p class="author" translate="no">NDagger</p>
-                    <p class="time-passed" data-date="${convertedDate}">${timePassed} ago</p>
-                </div>
-                <p>${status.content}</p>
-            </div>`
-        // statusContainer.insertAdjacentHTML('beforeend', htmlContent)
-        return htmlContent
-        // return statusContainer.lastElementChild
-    })
+            <div class="header">
+                <p class="author" translate="no">NDagger</p>
+                <p class="time-passed" data-date="${convertedDate}">${timePassed} ago</p>
+            </div>
+            <p class="status-content">${content}</p>
+        </div>`
+        statusCreatedElements.push(htmlContent)
+    }
     statusCreatedElements.forEach((html, i) => {
         setTimeout(
             () => statusContainer.insertAdjacentHTML('beforeend', html)

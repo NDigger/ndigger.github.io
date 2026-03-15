@@ -3,6 +3,7 @@
     --height: 500px;
     --border-radius: var(--window-border-radius);
     border-radius: var(--border-radius);
+    transition: background-color var(--mode-transition-time);
     background-color: var(--window-background-color);
     backdrop-filter: blur(120px) brightness(90%);
     position: fixed;
@@ -77,17 +78,13 @@
 
 .window:not(#about-me) h1 {
     font-size: 2.5rem;
-    /* border-left: 5px solid var(--main-font-color); */
-    /* padding: 0px 25px; */
     text-align: left;
 }
 
 .window .content h2 {
     margin-top: 50px !important;
-    /* padding: 0px 15px; */
     font-size: 2rem;
     font-weight: 500;
-    /* border-left: 3px solid var(--main-font-color); */
 }
 
 .window .content p {
@@ -148,6 +145,7 @@
     font-weight: 900;
     border-top-left-radius: var(--border-radius);
     border-top-right-radius: var(--border-radius);
+    transition: background-color var(--mode-transition-time);
     background-color: var(--window-panel-color);
     width: 100%;
     --height: 50px;
@@ -240,7 +238,7 @@
 }
 
 .window > .content::-webkit-scrollbar-thumb:active {
-  background: var(--main-font-color);
+  background: var(--font-color);
   border-radius: 4px;
 }
 

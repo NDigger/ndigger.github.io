@@ -1,5 +1,5 @@
 import { AppWindow, WindowManager } from './utils/appwindow.js';
-import AppWindowHTMLContent from './windowscontent.js';
+import { AppWindowHTMLContent } from './windowscontent.js';
 import { Size } from './utils/structures.js';
 
 export const windowManager = new WindowManager();

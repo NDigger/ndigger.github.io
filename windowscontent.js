@@ -8,7 +8,7 @@ const getPanelHtml = (title, {fullscreenBtn} = {}) => `
     </div>
 `
 
-export default class AppWindowHTMLContent {
+export class AppWindowHTMLContent {
     static ABOUT_ME = `
         <section id="about-me" class="window">
             ${getPanelHtml('About me', {
@@ -153,8 +153,8 @@ export default class AppWindowHTMLContent {
             ${getPanelHtml(`Status Info`, {
                 fullscreenBtn: true
             })}
-            <article class="content status-content">
-                <h3>ID: ${data.id}</h3>
+            <article class="content status-info">
+                <p>ID: ${data.id}</p>
                 <p>Created at: ${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}</p>
                 <p class="content">${data.content}</p>
             </article>

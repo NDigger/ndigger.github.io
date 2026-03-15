@@ -6,6 +6,7 @@ class WindowView {
     model;
     element;
     animationRunning = false;
+    visible = false;
 
     constructor(model) {
         this.model = model;
@@ -35,7 +36,8 @@ class WindowView {
     }
 
     show() {
-        if (this.animationRunning) return
+        if (this.animationRunning || this.visible) return
+        this.visible = true
         audioManager.resetPlay(audioManager.sounds.click)
         this.animationRunning = true
         this.#removeAnimationClasses()
@@ -45,11 +47,12 @@ class WindowView {
         setTimeout(() => {
             this.#removeAnimationClasses()
             this.animationRunning = false
-            }, windowViewAnimationSpeed)
+        }, windowViewAnimationSpeed)
     }
 
     hide() {
-        if (this.animationRunning) return
+        if (this.animationRunning || !this.visible) return
+        this.visible = false
         audioManager.resetPlay(audioManager.sounds.clickClose)
         this.animationRunning = true
         this.#removeAnimationClasses()
@@ -68,7 +71,7 @@ class WindowView {
         restartCssAnimation(this.element, 'window-fullscreen-show');
         setTimeout(() => {
             this.element.classList.remove('window-fullscreen-show');
-        }, 300)
+        }, windowViewAnimationSpeed)
     }
 
     windowedTransition() {
@@ -77,7 +80,7 @@ class WindowView {
         restartCssAnimation(this.element, 'window-fullscreen-hide');
         setTimeout(() => {
             this.element.classList.remove('window-fullscreen-hide');
-        }, 300)
+        }, windowViewAnimationSpeed)
     }
 }
 
@@ -253,7 +256,7 @@ export class AppWindow {
 
     hide = () => {
         this.#view.hide();
-        setTimeout(() => this.setFullscreenEnabled(false), 500);
+        setTimeout(() => this.setFullscreenEnabled(false), windowViewAnimationSpeed);
     }
 
     show = () => {
@@ -261,8 +264,13 @@ export class AppWindow {
         this.#view.show();
     }
 
-    delete() {
-        this.element.remove()
+    destroy() {
+        if (this.#view.visible) {
+            this.hide()
+            setTimeout(() => {
+                this.element.remove()
+            }, windowViewAnimationSpeed)
+        }
     }
 
     setPosition(vec2) {
@@ -303,8 +311,8 @@ export class WindowManager {
         return window;
     }
 
-    delete(window) {
-        window.delete();
+    destroy(window) {
+        window.destroy();
         this.windows.splice(this.windows.indexOf(window), 1);
     }
 

@@ -369,12 +369,6 @@
     display: none;
 }
 
-.status-content .content {
-    background-color: rgba(0, 0, 0, .1);
-    padding: 10px;
-    border-radius: var(--window-border-radius);
-}
-
 #status-container {
     overflow-y: hidden;
     overflow-x: hidden;

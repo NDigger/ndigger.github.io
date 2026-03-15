@@ -1,8 +1,8 @@
 import { statuses } from "./windows.js";
-// import { AppWindow } from "./utils/appwindow.js";
-// import { windowManager } from "./windows.js";
-// import windows from "./windowscontent.js";
-// import { Size } from './utils/structures.js';
+import { AppWindow } from "./utils/appwindow.js";
+import { windowManager } from "./windows.js";
+import { AppWindowHTMLContent } from "./windowscontent.js";
+import { Size } from './utils/structures.js';
 
 const backendHost = 'https://backend-statuses.vercel.app'
 // const backendHost = 'http://localhost:3000'
@@ -85,6 +85,15 @@ const pushNewStatusesList = () => {
     }, 1000)
 }
 
+const escapeHTML = str => {
+    return str
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+}
+
 const replaceContentURLs = async str => {
     const regex = /(?:^|\s)(https?:\/\/|data:image\/)\S+/g;
     const matches = Array.from(str.matchAll(regex));
@@ -118,6 +127,29 @@ let unreadStatuses = 0
 const pushStatuses = async data => {
     const statusContainer = document.getElementById('status-container');
     const statusCreatedElements = [];
+
+    const onClick = e => {
+        const mainElement = e.currentTarget
+        const id = Number(mainElement.id.match(/(\d+)$/)[1])
+        let visibleWindow = null
+        for (const window of windowManager.windows) {
+            if (window.id === `status-${id}`) {
+                visibleWindow = window;
+                continue;
+            }
+        }
+        if (visibleWindow == null) {
+            const d = data.find(v => v.id === id)
+            const w = new AppWindow(AppWindowHTMLContent.status(d));
+            w.setClampedSize(new Size(600, 500));
+            w.onClose = () => setTimeout(() => windowManager.destroy(w), 400);
+            windowManager.add(w);
+            w.show();
+        } else {
+            visibleWindow.destroy()
+        }
+    }
+    
     for (const status of data) {
         if (status.id > lastStatusSeenId) unreadStatuses++
         const date = new Date(status.created_at);
@@ -129,7 +161,7 @@ const pushStatuses = async data => {
             const format = val => val < 10 ? `0${val}` : val;
             return `${format(day)}.${format(month)}.${year}`
         })()
-        const content = await replaceContentURLs(status.content)
+        const content = await replaceContentURLs(escapeHTML(status.content))
         const htmlContent = 
         `<div id="container-status-${status.id}" class="status ${status.id > lastStatusSeenId ? 'new' : ''}">
             <div class="header">
@@ -142,39 +174,14 @@ const pushStatuses = async data => {
     }
     statusCreatedElements.forEach((html, i) => {
         setTimeout(
-            () => statusContainer.insertAdjacentHTML('beforeend', html)
+            () => {
+                statusContainer.insertAdjacentHTML('beforeend', html)
+                statusContainer.lastElementChild.addEventListener('click', onClick)
+            }
         , i * 50);
     })
-    setTimeout(() => loadingStatuses = false, statusCreatedElements.length * 50)
     statuses.setTitleContent(unreadStatuses !== 0 ? `Statuses ( ${unreadStatuses} )` : 'Statuses') 
-    // statusContainer.insertAdjacentHTML('beforeend', html)
-
-    // statusCreatedElements.forEach(status => {
-    //     status.title = "Click to open"
-    //     status.addEventListener('click', e => {
-    //         const mainElement = e.currentTarget
-    //         const id = Number(mainElement.id.match(/(\d+)$/)[1])
-    //         let visibleWindow = null
-    //         for (const window of windowManager.windows) {
-    //             if (window.id === `status-${id}`) {
-    //                 visibleWindow = window;
-    //                 continue;
-    //             }
-    //         }
-    //         if (visibleWindow == null) {
-    //             const d = data.find(v => v.id === id)
-    //             const w = new AppWindow(windows.status(d));
-    //             w.setClampedSize(new Size(600, 500));
-    //             w.onClose = () => setTimeout(() => windowManager.delete(w), 400);
-    //             windowManager.add(w);
-    //             w.show();
-    //         } else {
-    //             if (visibleWindow.animationRunning) return
-    //             visibleWindow.hide()
-    //             setTimeout(() => windowManager.delete(visibleWindow), 400);
-    //         }
-    //     })
-    // })
+    setTimeout(() => loadingStatuses = false, statusCreatedElements.length * 50)
 } 
 
 window.addEventListener('DOMContentLoaded', () => {

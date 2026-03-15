@@ -54,6 +54,15 @@
     margin: 20px 0;
 }
 
+.window > .content p:first-child {
+    margin-top: 0px;
+}
+
+
+.window > .content p:last-child {
+    margin-bottom: 0px;
+}
+
 .window > .content h1:not(:first-child),
 .window > .content h2:not(:first-child),
 .window > .content h3:not(:first-child),

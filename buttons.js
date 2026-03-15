@@ -1,7 +1,7 @@
 import { ParticleEmitter } from './utils/particles.js';
 import { Vector2, restartCssAnimation, Color } from './utils/structures.js';
 import audioManager from './audioManager.js';
-import { RootColorChanger, CanvasColorChanger } from './utils/colorChangers.js';
+import { CanvasColorChanger } from './utils/colorChangers.js';
 
 // Music buttons adjustments
 const musicParticlesEmitter = new ParticleEmitter();
@@ -111,18 +111,6 @@ discordBtn.addEventListener('click', () => {
 })
 
 const colorChangers = [
-    // new RootColorChanger('--main-color', new Color(40, 40, 45)),
-    // new RootColorChanger('--font-color', new Color(165, 165, 165)),
-    // new RootColorChanger('--gray-color', new Color(75, 75, 75)),
-    // new RootColorChanger('--bright-gray-color', new Color(110, 110, 110)),
-    // new RootColorChanger('--window-panel-color', new Color(0, 0, 0)),
-    // new RootColorChanger('--buttons-mobile-color', new Color(0, 0, 0, 0.5)),
-    // new RootColorChanger('--weak-font-color', new Color(255, 255, 255, 0.2)),
-    // new RootColorChanger('--weak-inverse-main-color', new Color(255, 255, 255, 0.03)),
-    // new RootColorChanger('--window-background-color', new Color(255, 255, 255, 0)),
-    // new RootColorChanger('--title-author-text-shadow-color', new Color(255, 98, 0, 0.8)),
-    // new RootColorChanger('--main-window-button-hover-color', new Color(255, 200, 0)),
-    // new RootColorChanger('--main-window-button-hover-text-shadow-color', new Color(255, 98, 0, .8)),
     new CanvasColorChanger('u_backgroundColor', new Color(1, 1, 1), new Color(0.1, 0.1, 0.12)),
     new CanvasColorChanger('u_wavesColor', new Color(0.9, 0.9, 1), new Color (0, 0, 0)),
     new CanvasColorChanger('u_secondaryWavesColor', new Color(1., 0.9, 0.9), new Color (.3, .3, .4)),

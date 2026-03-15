@@ -121,7 +121,7 @@ const replaceContentURLs = async str => {
         try {
             if (['https://www.youtube.com/watch', 'https://youtu.be/'].some(v => url.startsWith(v))) {
                 var videoId = url.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
-                replace(url, `<iframe width="560" height="315" 
+                replace(url, `<a href="${url}">${url}</a><iframe width="560" height="315" 
                     src="https://www.youtube.com/embed/${videoId[1]}" 
                     class="embed"
                     title="YouTube video player" 

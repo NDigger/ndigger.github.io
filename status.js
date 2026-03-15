@@ -219,8 +219,8 @@ const pushStatus = async status => {
         openWindowOnImageClick(img)
     })
     // statusCreatedElements.push(htmlContent)
-    const author = statusContainer.lastElementChild.querySelector('.header .author')
-    author.addEventListener('click', () => onClick(statusContainer.lastElementChild))
+    // const author = statusContainer.lastElementChild.querySelector('.header .author')
+    // author.addEventListener('click', () => onClick(statusContainer.lastElementChild))
     document.querySelector('#statuses .title').textContent = `Statuses ( ${unreadStatuses}/${statusContainer.childElementCount} )`
 } 
 

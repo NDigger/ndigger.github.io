@@ -7,6 +7,7 @@ import { Size } from './utils/structures.js';
 const backendHost = 'https://backend-statuses.vercel.app'
 // const backendHost = 'http://localhost:3000'
 
+const statusContainer = document.getElementById('status-container');
 const getTimePassed = since => {
     const ms = new Date().getTime() - since
     const seconds = Math.floor(ms / 1000);
@@ -160,7 +161,6 @@ document.getElementById('status-btn').addEventListener('click', () => {
 const lastStatusSeenId = config.lastStatusSeenId
 let unreadStatuses = 0
 const pushStatus = async status => {
-    const statusContainer = document.getElementById('status-container');
     // const onClick = e => {
     //     const mainElement = e.currentTarget
     //     const id = Number(mainElement.id.match(/(\d+)$/)[1]);

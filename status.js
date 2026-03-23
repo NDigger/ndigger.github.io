@@ -137,18 +137,18 @@ const replaceContentURLs = async str => {
     }
     for (const url of urlList) {
         try {
-            if (['https://www.youtube.com/watch', 'https://youtu.be/'].some(v => url.startsWith(v))) {
-                var videoId = url.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
-                replace(url, `<a href="${url}" target="_blank">${url}</a><iframe width="560" height="315" 
-                    src="https://www.youtube.com/embed/${videoId[1]}" 
-                    class="embed"
-                    title="YouTube video player" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-                </iframe>`)
-                continue;
-            }
+            // if (['https://www.youtube.com/watch', 'https://youtu.be/'].some(v => url.startsWith(v))) {
+            //     var videoId = url.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
+            //     replace(url, `<a href="${url}" target="_blank">${url}</a><iframe width="560" height="315" 
+            //         src="https://www.youtube.com/embed/${videoId[1]}" 
+            //         class="embed"
+            //         title="YouTube video player" 
+            //         frameborder="0" 
+            //         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            //         allowfullscreen>
+            //     </iframe>`)
+            //     continue;
+            // }
             const res = await fetch(url);
             // const res = await fetch(url);
             const contentType = res.headers.get('Content-Type')

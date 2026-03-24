@@ -111,10 +111,12 @@ export class AppWindowHTMLContent {
                             <i class="bi bi-check2"></i>
                         </div>
                     </div>
+                    <!--
                     <div id="visitor-counter-content">
                         <p>Visits</p>
                         <img src="https://counter1.freecounterstat.com/private/counter.php?c=z8rbyqtq3t95xmchbg1gquxdf9t3dbee&init=1772888517146&init_freecounterstat=1&library=library_counters&coef=1.5&type=1155&lenght=1&pv=0" alt="">
                     </div>
+                    -->
                 </div>
             </article>
         </section>

@@ -149,10 +149,10 @@ const replaceContentURLs = async str => {
             //     </iframe>`)
             //     continue;
             // }
-            const res = await fetch(url);
             // const res = await fetch(url);
-            const contentType = res.headers.get('Content-Type')
-            if (contentType.startsWith('image/')) {
+            // const contentType = res.headers.get('Content-Type')
+            const cleanUrl = url.split('?')[0].toLowerCase();
+            if (['.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg', '.avif'].some(ext => cleanUrl.endsWith(ext))) {
                 replace(url, `<img class="embed open-in-window" src="${url}">`)
                 continue;
             }

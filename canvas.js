@@ -104,20 +104,21 @@ body.addEventListener('mouseup', () => {
 	isDragging = false;
 });
 
-function animate() {
-	if (!isDragging) {
-		velocityX *= 0.98;
-		targetPosX += velocityX * 0.016;
-	}
+// function animate() {
+// 	if (!isDragging) {
+// 		velocityX *= 0.98;
+// 		targetPosX += velocityX * 0.016;
+// 	}
 
-	scrollPosX += (targetPosX - scrollPosX) * 0.1;
-	requestAnimationFrame(animate);
-}
+// 	scrollPosX += (targetPosX - scrollPosX) * 0.1;
+// 	requestAnimationFrame(animate);
+// }
 
-animate();
-//
+// animate();
+// //
 
 const u_zoom = gl.getUniformLocation(program, "u_zoom");
+const u_scrollOffset = gl.getUniformLocation(program, "u_scrollOffset");
 let offsetX = 0;
 let lasttime = performance.now();
 function render(time) {
@@ -132,7 +133,7 @@ function render(time) {
 	offsetX += dt/10000 * config.shaderMovementDir;
 	offsetY += (offsetYTarget - offsetY)/300
 	gl.uniform2f(u_offset, offsetX, offsetY);
-	gl.uniform2f(gl.getUniformLocation(program, "u_scrollOffset"), -scrollPosX/3000*zoom, 0);
+	gl.uniform2f(u_scrollOffset, -scrollPosX/3000*zoom, 0);
 
 	gl.drawArrays(gl.TRIANGLES, 0, 6);
 	requestAnimationFrame(render);

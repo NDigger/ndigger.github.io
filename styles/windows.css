@@ -1,5 +1,5 @@
 .window {
-    --animation-time: .25s;
+    --animation-time: .2s;
     --width: 800px;
     --height: 500px;
     --border-radius: var(--window-border-radius);
@@ -14,6 +14,7 @@
     flex-direction: column;
     z-index: 0;
     box-shadow: var(--window-box-shadow);
+    border: var(--window-border);
     max-width: 100vw;
     max-height: var(--svh100);
 }
@@ -184,7 +185,7 @@
     border: none;
     width: var(--height);
     height: 100%;
-    transition: background-color 0.05s linear, font-size 0.1s linear;
+    transition: background-color 0s linear, font-size 0.05s linear;
 }
 
 .window-panel > .buttons > button > i {

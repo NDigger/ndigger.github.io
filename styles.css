@@ -28,7 +28,8 @@
 
     --window-panel-color: rgb(67, 67, 67);
     --gray-color: rgb(67, 67, 67);
-    --window-box-shadow: 0px 0px 20px rgba(0, 0, 0, .2);
+    --window-box-shadow: 0px 0px 5px rgba(0, 0, 0, .3);
+    --window-border: 1px solid var(--window-panel-color);
     --weak-box-shadow: 0px 0px 3px gray;
     --buttons-mobile-color: rgba(255, 255, 255, 0.5);
     --window-background-color: rgba(255, 255, 255, 1);
@@ -224,6 +225,10 @@ meta[name="theme-color"] {
     transition: font-size 0.2s linear;
 }
 
+#music-btn, #sound-btn, #night-mode-btn {
+    transition: all .1s ease;
+}
+
 #music-btn, #sound-btn {
     position: relative;
 }
@@ -261,7 +266,6 @@ meta[name="theme-color"] {
     top: var(--distance-from-corners);
     left: var(--distance-from-corners);
     font-size: 1.7rem;
-    transition: all .3s ease;
 }
 
 .desktop #night-mode-btn:hover,
@@ -270,8 +274,8 @@ meta[name="theme-color"] {
 .screen #music-btn:active, 
 .desktop #sound-btn:hover,
 .screen #sound-btn:active {
-    scale: 1.1;
-    font-size: 2rem;
+    scale: 1.3;
+    /* font-size: 2rem; */
 }
 
 .btn-animation {

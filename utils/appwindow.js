@@ -153,7 +153,7 @@ class WindowDragger {
         this.#lastTime = time  
         this.#windowSkew.x *= .75;
         this.#windowSkew.y *= .75;
-        this.element.style.transform = `skewX(${this.#windowSkew.x}deg) skewY(${(Math.abs(this.#windowSkew.y) * this.#windowSkew.x)/13}deg)`
+        // this.element.style.transform = `skewX(${this.#windowSkew.x}deg) skewY(${(Math.abs(this.#windowSkew.y) * this.#windowSkew.x)/13}deg)`
 
         requestAnimationFrame(t => this.#update(t))
     }

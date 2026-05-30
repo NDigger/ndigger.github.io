@@ -60,8 +60,7 @@ const loadStatuses = () => {
     fetch(`${backendHost}/api/status?${params.toString()}`)
     .then(res => res.json())
     .then(async statuses => {
-        document.querySelector('#statuses .title').textContent = `Statuses ( ${unreadStatuses}/${statusContainer.childElementCount} )`
-        
+        const statusesTitle = document.querySelector('#statuses .title');
         const recentStatusId = statuses[0]?.id;
         const recentStatusSeenId = config.lastStatusSeenId;
         if (recentStatusId > recentStatusSeenId && page === 0) {
@@ -69,6 +68,7 @@ const loadStatuses = () => {
             localStorage.setItem('portfolio-config', JSON.stringify(config))
         }
         clearInterval(intervalId);
+        statusTitle.textContent = 'Statuses'
         const setProgress = p => {
             statusLoadingProgressBar.style.setProperty('--progress', p)
         }
@@ -84,7 +84,7 @@ const loadStatuses = () => {
     .catch(err => {
         loadingStatuses = false;
         console.error(err)
-        document.querySelector('#statuses .title').textContent = err
+        statusesTitle.textContent = err
         clearInterval(intervalId)
     })
 
@@ -137,20 +137,6 @@ const replaceContentURLs = async str => {
     }
     for (const url of urlList) {
         try {
-            // if (['https://www.youtube.com/watch', 'https://youtu.be/'].some(v => url.startsWith(v))) {
-            //     var videoId = url.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
-            //     replace(url, `<a href="${url}" target="_blank">${url}</a><iframe width="560" height="315" 
-            //         src="https://www.youtube.com/embed/${videoId[1]}" 
-            //         class="embed"
-            //         title="YouTube video player" 
-            //         frameborder="0" 
-            //         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            //         allowfullscreen>
-            //     </iframe>`)
-            //     continue;
-            // }
-            // const res = await fetch(url);
-            // const contentType = res.headers.get('Content-Type')
             const cleanUrl = url.split('?')[0].toLowerCase();
             if (['.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg', '.avif'].some(ext => cleanUrl.endsWith(ext))) {
                 replace(url, `<img class="embed open-in-window" src="${url}">`)
@@ -183,7 +169,6 @@ const pushStatus = async status => {
             const localStatus = status
             // status.content = await replaceContentURLs(escapeHTML(localStatus.content));
             const html = AppWindowHTMLContent.status(status)
-            console.log(html)
             const w = new AppWindow(html);
             Array.from(w.element.querySelectorAll('.content .status-content img')).forEach(img => {
                 openWindowOnImageClick(img)
@@ -209,7 +194,7 @@ const pushStatus = async status => {
     const htmlContent = 
     `<div id="container-status-${status.id}" class="status ${isNew ? 'new' : ''}">
         <div class="header">
-            <button class="author" translate="no">NDagger</button>
+            <p class="author" translate="no">NDagger</p>
             <p class="time-passed" data-date="${getDateStr(date)}">${timePassed} ago</p>
         </div>
         <p class="status-content">${content}</p>
@@ -221,7 +206,8 @@ const pushStatus = async status => {
     // statusCreatedElements.push(htmlContent)
     // const author = statusContainer.lastElementChild.querySelector('.header .author')
     // author.addEventListener('click', () => onClick(statusContainer.lastElementChild))
-    document.querySelector('#statuses .title').textContent = `Statuses ( ${unreadStatuses}/${statusContainer.childElementCount} )`
+    // document.querySelector('#statuses .title').textContent = 
+        // unreadStatuses !== 0 ? `Statuses ( ${unreadStatuses} )` : 'Statuses'
 } 
 
 window.addEventListener('DOMContentLoaded', () => {

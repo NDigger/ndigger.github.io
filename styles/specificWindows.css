@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 /* MAIN WINDOW */
 
 #main-window {
@@ -11,6 +12,8 @@
     transition: background-color var(--mode-transition-time);
     background-color: var(--window-background-color);
     backdrop-filter: blur(120px);
+    border: var(--window-border);
+    border-top: unset;
     animation: main-window-appearance 3s ease-out forwards;
 }
 
@@ -72,14 +75,6 @@
     transition: all 0.1s linear;
     opacity: .5;
 }
-/* 
-.gold-btn:hover {
-    color: var(--main-window-button-hover-color);
-    opacity: 1;
-    text-shadow: 0px 0px 5px var(--main-window-button-hover-text-shadow-color),
-                 0px 0px 50px var(--main-window-button-hover-text-shadow-color);
-    scale: 1.06;
-} */
 
 .desktop .gold-btn:hover, .screen .gold-btn:active {
     color: var(--main-window-button-hover-color);
@@ -409,10 +404,10 @@
     border-left: 3px dashed var(--status-font-color);
     background: linear-gradient(45deg, transparent, var(--weak-inverse-main-color));
     padding: 5px 20px;
-    opacity: .75;
+    opacity: 1;
     position: relative;
     /* transform-origin: left; */
-    animation: status-anim .6s ease-out forwards;
+    /* animation: status-anim .2s ease-out forwards; */
 }
 
 :root.dark .status {
@@ -421,14 +416,14 @@
 
 @keyframes status-anim {
     from {
-        /* transform: skewX(5deg); */
-        scale: .95;
-        opacity: 0;
+        transform: scaleX(.95);
+        /* scale: .95; */
+        /* opacity: 0; */
         left: -20px;
     } to {
-        transform: unset;
+        transform: scaleX(1);
         scale: 1;
-        opacity: 1;
+        /* opacity: 1; */
         left: 0px;
     }
 }
@@ -492,6 +487,13 @@
 .screen .status > .header > .time-passed:active::before {
     opacity: 0.5;
     transform: translateX(calc(-100% - 10px));
+}
+
+.status .status-content {
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .status .status-content .embed,

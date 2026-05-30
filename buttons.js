@@ -112,8 +112,8 @@ discordBtn.addEventListener('click', () => {
 
 const colorChangers = [
     new CanvasColorChanger('u_backgroundColor', new Color(1, 1, 1), new Color(0.1, 0.1, 0.12)),
-    new CanvasColorChanger('u_wavesColor', new Color(0.9, 0.9, 1), new Color (0, 0, 0)),
-    new CanvasColorChanger('u_secondaryWavesColor', new Color(1., 0.9, 0.9), new Color (.3, .3, .4)),
+    new CanvasColorChanger('u_wavesColor', new Color(0.92, 0.92, 1), new Color (0, 0, 0)),
+    new CanvasColorChanger('u_secondaryWavesColor', new Color(1., 1., 1.), new Color (.3, .3, .4)),
 ]
 
 const sunIcon = '<i class="bi bi-sun-fill"></i>';

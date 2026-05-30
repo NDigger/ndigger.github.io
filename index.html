@@ -49,7 +49,7 @@
 
         #define PI 3.14159265
 
-        const float starLayers = 6.;
+        const float starLayers = 2.;
 
         uniform vec2 u_resolution;
         uniform vec3 u_backgroundColor;
@@ -123,7 +123,7 @@
             ast.y += startDistance;
             ast.y -= easeOut(pow(u_time, .5) / 5.) * startDistance;
             st += u_offset;
-            for (int i = 1; i < int(starLayers); i++) {
+            for (int i = 1; i < int(starLayers + 1.); i++) {
                 color += vec3(drawStars(st, (ast + vec2(0., 1.)) * u_zoom, float(i)));
             }
 

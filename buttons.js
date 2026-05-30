@@ -48,8 +48,8 @@ const updateState = () => {
     document.querySelector('body').classList.toggle('dark', config.nightModeEnabled);
     document.querySelector('html').classList.toggle('dark', config.nightModeEnabled);
     localStorage.setItem('portfolio-config', JSON.stringify(config))
-    nightModeBtn.innerHTML = config.nightModeEnabled ? sunIcon : moonIcon
-    if (darkMode) {
+    nightModeBtn.innerHTML = config.nightModeEnabled ? moonIcon : sunIcon
+    if (!darkMode) {
         nightModeBtn.innerHTML = sunIcon
     } else {
         nightModeBtn.innerHTML = moonIcon

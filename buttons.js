@@ -3,9 +3,7 @@ import audioManager from './audioManager.js';
 import { CanvasColorChanger } from './utils/colorChangers.js';
 
 const soundBtn = document.getElementById('sound-btn');
-const changeSoundState = () => {
-    config.soundEnabled = !config.soundEnabled;
-    localStorage.setItem('portfolio-config', JSON.stringify(config))
+const updateMasterVolume = () => {
     if (!config.soundEnabled) {
         soundBtn.innerHTML = '<i class="bi bi-volume-mute-fill"></i>';
         audioManager.setMasterVolume(0)
@@ -14,10 +12,13 @@ const changeSoundState = () => {
         audioManager.setMasterVolume(1)
     }
 }
-soundBtn.addEventListener('click', changeSoundState)
-if (!config.soundEnabled) {
-    soundBtn.innerHTML = '<i class="bi bi-volume-mute-fill"></i>';
+const changeSoundState = () => {
+    config.soundEnabled = !config.soundEnabled;
+    localStorage.setItem('portfolio-config', JSON.stringify(config))
+    updateMasterVolume()
 }
+soundBtn.addEventListener('click', changeSoundState)
+document.addEventListener('DOMContentLoaded', updateMasterVolume)
 
 // Copy text when clicked
 const discordBtn = document.getElementById('copy-discord');

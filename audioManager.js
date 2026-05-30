@@ -18,8 +18,6 @@ export const setMasterVolume = value => {
     sounds.shine2.volume = 1 * value;
 }
 
-setMasterVolume(!config.soundEnabled ? 0 : 1)
-
 export const music = new Audio('./audio/musicSmooth.mp3');
 music.loop = true;
 document.addEventListener('click', () => {

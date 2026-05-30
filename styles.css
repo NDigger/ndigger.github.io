@@ -255,7 +255,7 @@ meta[name="theme-color"] {
 
 @media (max-width: 932px) {
     #links {
-        padding-bottom: 45px;
+        padding-bottom: 50px;
     }
 
     .config-buttons {
@@ -263,6 +263,11 @@ meta[name="theme-color"] {
         transform: translateX(-50%);
         width: calc(100%);
         border-radius: 0px;
+    }
+
+    .config-buttons > * {
+        height: 3rem;
+        font-size: 2rem;
     }
 
     html {

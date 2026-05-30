@@ -119,6 +119,10 @@ export class AppWindowHTMLContent {
                     -->
                 </div>
             </article>
+            <div class="config-buttons">
+                <button id="night-mode-btn"><i class="bi bi-moon-fill"></i></button>
+                <button id="sound-btn"><i class="bi bi-music-note"></i></button>
+            </div>
         </section>
     `
 

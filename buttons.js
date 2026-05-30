@@ -1,44 +1,6 @@
-import { ParticleEmitter } from './utils/particles.js';
 import { Vector2, restartCssAnimation, Color } from './utils/structures.js';
 import audioManager from './audioManager.js';
 import { CanvasColorChanger } from './utils/colorChangers.js';
-
-// Music buttons adjustments
-const musicParticlesEmitter = new ParticleEmitter();
-let temp = document.createElement("i");
-temp.classList.add('bi', 'bi-music-note-beamed', 'main-window-music-particle');
-musicParticlesEmitter.element = temp;
-musicParticlesEmitter.container = document.getElementById('main-window');
-musicParticlesEmitter.angle = -Math.PI/4
-musicParticlesEmitter.angleVariation = Math.PI * 1.5;
-musicParticlesEmitter.speed = 0.2;
-musicParticlesEmitter.emission = 2;
-musicParticlesEmitter.lifetime = 9;
-musicParticlesEmitter.offset = new Vector2(60, -110)
-musicParticlesEmitter.emissionEnabled = false
-
-const musicBtn = document.getElementById('music-btn');
-const changeMusicState = () => {
-    restartCssAnimation(musicBtn, 'btn-animation');
-    config.musicEnabled = !config.musicEnabled
-    localStorage.setItem('portfolio-config', JSON.stringify(config))
-    if (config.musicEnabled) {
-        audioManager.music.currentTime = 0;
-        audioManager.music.play();
-        musicBtn.classList.remove('disabled');
-    } else {
-        audioManager.music.pause();
-        musicBtn.classList.add('disabled');
-    }
-}
-
-if (!config.musicEnabled) {
-    musicBtn.classList.add('disabled');
-}
-    
-document.addEventListener('click', () => {
-    musicBtn.addEventListener('click', changeMusicState);
-}, {once: true});
 
 const soundBtn = document.getElementById('sound-btn');
 const changeSoundState = () => {

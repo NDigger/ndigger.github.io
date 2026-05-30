@@ -143,90 +143,37 @@ meta[name="theme-color"] {
     pointer-events: initial;
 }
 
-#music-illustration-btn {
-    background-color: transparent;
-    border: none;
-    -webkit-user-drag: none;
-    position: absolute;
-    width: 150px;
-    right: 20px;
-    top: -110px;
-    filter: brightness(70%);
-    transition: filter 0.1s linear;
-}
-
-#music-illustration-btn img {
-    width: inherit;
-    -webkit-user-drag: none;
-}
-
-.desktop #music-illustration-btn:hover,
-.screen #music-illustration-btn:active {
-    filter: brightness(100%);
-    cursor: pointer;
-}
-
-.desktop #music-illustration-btn:hover::before,
-.screen #music-illustration-btn:active:before {
-    content: '';
-    user-select: none;
-    background: radial-gradient(rgba(255, 255, 255, .08), transparent 50%);
-    position: absolute;
-    inset: -30px;
-    filter: brightness(70%);
-}
-
-
-.main-window-music-particle {
-    position: absolute;
-    color: var(--weak-font-color);
-    z-index: -1;
-    animation: music-particle-disappear 3s linear forwards;
-}
-
-@keyframes music-particle-disappear {
-    0% {
-        font-size: 2rem;
-        opacity: 1;
-    }
-    100% {
-        font-size: 1rem;
-        opacity: 0;
-    }
-}
-
-#music-illustration-btn img.music-illustration-animation {
-    animation: music-illustration-anim 0.2s ease-out;
-}
-
-@keyframes music-illustration-anim {
-    0% {
-        transform: scaleY(1.1);
-    }
-    100% {
-        transform: scaleY(1);
-    }
-}
-
-.top-right {
-    position: absolute;
+.config-buttons {
     display: flex;
-    flex-direction: column;
-    top: var(--distance-from-corners);
-    right: var(--distance-from-corners);
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%) translateY(50%);
+    border-radius: var(--window-border-radius);
+    background-color: var(--window-panel-color);
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, .3);
+    padding: 4px;
+    gap: 4px;
 }
 
-.ui-btn {
-    width: 60px;
-    height: 60px;
+.config-buttons > * {
+    width: 40px;
+    height: 40px;
     border: none;
-    background-color: transparent;
-    font-size: 1.7rem;
+    font-size: 1.2rem;
     transition: font-size 0.2s linear;
+    flex: 1;
+    background-color: var(--window-background-color);
+    border-radius: var(--window-border-radius);
+}
+
+.config-buttons > *:hover {
+    opacity: 1;
 }
 
 #music-btn, #sound-btn, #night-mode-btn {
     transition: all .1s ease;
+    opacity: .5;
 }
 
 #music-btn, #sound-btn {
@@ -257,20 +204,13 @@ meta[name="theme-color"] {
     color: var(--gray-color)
 }
 
-#night-mode-btn {
-    position: absolute;
-    top: var(--distance-from-corners);
-    left: var(--distance-from-corners);
-    font-size: 1.7rem;
-}
-
 .desktop #night-mode-btn:hover,
 .screen #night-mode-btn:active, 
 .desktop #music-btn:hover,
 .screen #music-btn:active, 
 .desktop #sound-btn:hover,
 .screen #sound-btn:active {
-    font-size: 2rem;
+    opacity: 1
 }
 
 .btn-animation {
@@ -318,6 +258,12 @@ meta[name="theme-color"] {
 }
 
 @media (max-width: 932px) {
+    .config-buttons {
+        bottom: 10px;
+        transform: translateX(-50%);
+        /* width: calc(100% - 10px); */
+    }
+
     html {
         font-size: 1.15rem;
     }

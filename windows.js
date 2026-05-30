@@ -13,7 +13,7 @@ export const statusesWindow = new AppWindow(AppWindowHTMLContent.STATUSES);
 
 aboutMeWindow.setSize(new Size(900, 500));
 skillsWindow.setSize(new Size(1170, 550));
-linksWindow.setSize(new Size(500, 340));
+linksWindow.setSize(new Size(500, 360));
 statusesWindow.setSize(new Size(1350, 650));
 // statuses.setFullscreenEnabled(true);
 // windowManager.windows.forEach(w => w.setCenteredPosition())

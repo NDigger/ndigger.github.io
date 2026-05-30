@@ -108,3 +108,5 @@ nightModeBtn.addEventListener('click', () => {
     }
     updateState()
 })
+
+updateState()

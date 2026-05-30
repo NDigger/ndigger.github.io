@@ -200,6 +200,12 @@ export class AppWindow {
         this.setCenteredPosition();
     }
 
+    setTitle(content) {
+        const titleElement = this.element.querySelector('.title');
+        titleElement.textContent = content;
+        titleElement.title = content;
+    }
+
     #fullscreenResizeListener = () => this.setSize(getDocumentSize())
 
     setFullscreenEnabled(enabled) {

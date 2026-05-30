@@ -6,7 +6,7 @@
     border-radius: var(--border-radius);
     transition: background-color var(--mode-transition-time);
     background-color: var(--window-background-color);
-    backdrop-filter: blur(120px) brightness(90%);
+    backdrop-filter: blur(120px) brightness(80%);
     position: fixed;
     width: var(--width);
     height: var(--height);

@@ -11,9 +11,9 @@ musicParticlesEmitter.element = temp;
 musicParticlesEmitter.container = document.getElementById('main-window');
 musicParticlesEmitter.angle = -Math.PI/4
 musicParticlesEmitter.angleVariation = Math.PI * 1.5;
-musicParticlesEmitter.speed = 0.5;
+musicParticlesEmitter.speed = 0.2;
 musicParticlesEmitter.emission = 2;
-musicParticlesEmitter.lifetime = 3;
+musicParticlesEmitter.lifetime = 9;
 musicParticlesEmitter.offset = new Vector2(60, -110)
 musicParticlesEmitter.emissionEnabled = false
 
@@ -112,7 +112,7 @@ discordBtn.addEventListener('click', () => {
 
 const colorChangers = [
     new CanvasColorChanger('u_backgroundColor', new Color(1, 1, 1), new Color(0.1, 0.1, 0.12)),
-    new CanvasColorChanger('u_wavesColor', new Color(0.92, 0.92, 1), new Color (0, 0, 0)),
+    new CanvasColorChanger('u_wavesColor', new Color(0.9, 0.9, 1), new Color (0, 0, 0)),
     new CanvasColorChanger('u_secondaryWavesColor', new Color(1., 1., 1.), new Color (.3, .3, .4)),
 ]
 

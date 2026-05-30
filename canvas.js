@@ -66,74 +66,38 @@ const bonus = nav.type === "reload" ? 5 : 0;
 const u_seed = gl.getUniformLocation(program, "u_seed");
 gl.uniform1f(u_seed, Math.random())
 
-// catgpt
-let scrollPosX = 0;
-let targetPosX = 0;
-let velocityX = 0;
-let isDragging = false;
-let lastMouseX = 0;
-let lastTime = 0;
-
-const body = document.querySelector('body');
-body.addEventListener('mousedown', (e) => {
-if (e.target !== body) return
-isDragging = true;
-lastMouseX = e.clientX;
-lastTime = performance.now();
-});
-
-body.addEventListener('mousemove', (e) => {
-if (isDragging) {
-	let now = performance.now();
-	let deltaX = e.clientX - lastMouseX;
-	let deltaTime = (now - lastTime) / 1000;
-	velocityX = deltaX / deltaTime;
-	const velDir = velocityX < 0 ? 1 : -1;
-	if (config.shaderMovementDir !== velDir) {
-		config.shaderMovementDir = velDir;
-		localStorage.setItem('portfolio-config', JSON.stringify(config));
-	}
-
-	targetPosX += deltaX;
-	lastMouseX = e.clientX;
-	lastTime = now;
-}
-});
-
-body.addEventListener('mouseup', () => {
-	isDragging = false;
-});
-
-// function animate() {
-// 	if (!isDragging) {
-// 		velocityX *= 0.98;
-// 		targetPosX += velocityX * 0.016;
-// 	}
-
-// 	scrollPosX += (targetPosX - scrollPosX) * 0.1;
-// 	requestAnimationFrame(animate);
-// }
-
-// animate();
-// //
-
 const u_zoom = gl.getUniformLocation(program, "u_zoom");
 const u_scrollOffset = gl.getUniformLocation(program, "u_scrollOffset");
 let offsetX = 0;
 let lasttime = performance.now();
+let last = 0;
+
+function getShaderZoom() {
+	return 1./(Math.round((window.outerWidth / window.innerWidth) * 100) / 100);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+	gl.uniform1f(u_zoom, getShaderZoom())
+});
+window.addEventListener('resize', () => {
+	gl.uniform1f(u_zoom, getShaderZoom())
+})
+
 function render(time) {
+    if (time - last < 33) {
+        requestAnimationFrame(render);
+        return;
+    }
+
+    last = time;
 	gl.uniform1f(u_time, time/1000 + bonus);
 
 	const dt = time - lasttime;
 	lasttime = time;
 
-	const zoom = Math.round((window.outerWidth / window.innerWidth) * 100) / 100;
-	gl.uniform1f(u_zoom, 1/zoom);
-
 	offsetX += dt/10000 * config.shaderMovementDir;
 	offsetY += (offsetYTarget - offsetY)/300
 	gl.uniform2f(u_offset, offsetX, offsetY);
-	gl.uniform2f(u_scrollOffset, -scrollPosX/3000*zoom, 0);
 
 	gl.drawArrays(gl.TRIANGLES, 0, 6);
 	requestAnimationFrame(render);

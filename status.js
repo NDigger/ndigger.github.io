@@ -1,4 +1,4 @@
-import { statuses } from "./windows.js";
+import { statusesWindow } from "./windows.js";
 import { AppWindow } from "./utils/appwindow.js";
 import { windowManager } from "./windows.js";
 import { AppWindowHTMLContent } from "./windowscontent.js";
@@ -51,7 +51,7 @@ const loadStatuses = () => {
     const intervalId = setInterval(() => {
         loadingState = (loadingState + 1) % 5
         const content = `Loading${".".repeat(Math.max(loadingState-1, 0))}`
-        statusTitle.textContent = content
+        statusesWindow.setTitle(content)
     }, 200)
     const params = new URLSearchParams({ 
         page: page,
@@ -60,7 +60,6 @@ const loadStatuses = () => {
     fetch(`${backendHost}/api/status?${params.toString()}`)
     .then(res => res.json())
     .then(async statuses => {
-        const statusesTitle = document.querySelector('#statuses .title');
         const recentStatusId = statuses[0]?.id;
         const recentStatusSeenId = config.lastStatusSeenId;
         if (recentStatusId > recentStatusSeenId && page === 0) {
@@ -68,24 +67,33 @@ const loadStatuses = () => {
             localStorage.setItem('portfolio-config', JSON.stringify(config))
         }
         clearInterval(intervalId);
-        statusTitle.textContent = 'Statuses'
+        statusesWindow.setTitle('Statuses')
         const setProgress = p => {
             statusLoadingProgressBar.style.setProperty('--progress', p)
         }
         for (let i = 0; i < statuses.length; i++) {
             const status = statuses[i]
             setProgress((i+1)/statuses.length)
-            await pushStatus(status)
+            pushStatus(status)
         }
         setProgress(0)
         loadingStatuses = false;
         page++;
+        // statusContainer.insertAdjacentHTML('beforeend', `
+        //     <div class="status-bottom-buttons-container">
+        //         <button><</button>
+        //         <div class="page-container">
+        //             <p>1</p>
+        //         </div>
+        //         <button>></button>
+        //     </div>
+        //     `)
     })
     .catch(err => {
         loadingStatuses = false;
-        console.error(err)
-        statusesTitle.textContent = err
-        clearInterval(intervalId)
+        console.error(err);
+        statusesWindow.setTitle(err);
+        clearInterval(intervalId);
     })
 
     // setTimeout(async () => {
@@ -126,7 +134,7 @@ const escapeHTML = str => {
         .replace(/'/g, "&#39;");
 }
 
-const replaceContentURLs = async str => {
+const replaceContentURLs = str => {
     const regex = /(https?:\/\/\S+|data:image\/\S+)/g;
     const matches = Array.from(str.matchAll(regex));
     const urlList = matches.map(v => v[0].trim());
@@ -161,13 +169,12 @@ document.getElementById('status-btn').addEventListener('click', () => {
 
 const lastStatusSeenId = config.lastStatusSeenId
 let unreadStatuses = 0
-const pushStatus = async status => {
-    const onClick = async (element) => {
+const pushStatus = status => {
+    const onClick = element => {
         const id = Number(element.id.match(/(\d+)$/)[1]);
         let visibleWindow = windowManager.getWindow(`status-info-${id}`);
         if (visibleWindow == null) {
             const localStatus = status
-            // status.content = await replaceContentURLs(escapeHTML(localStatus.content));
             const html = AppWindowHTMLContent.status(status)
             const w = new AppWindow(html);
             Array.from(w.element.querySelectorAll('.content .status-content img')).forEach(img => {
@@ -186,7 +193,7 @@ const pushStatus = async status => {
     
     const date = new Date(status.created_at);
     const timePassed = getTimePassed(date.getTime());
-    const content = await replaceContentURLs(escapeHTML(status.content));
+    const content = replaceContentURLs(escapeHTML(status.content));
     const isNew = status.id > lastStatusSeenId;
     if (isNew) {
         unreadStatuses++

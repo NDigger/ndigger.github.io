@@ -5,16 +5,16 @@ import { Size } from './utils/structures.js';
 export const windowManager = new WindowManager();
 
 // Preload windows
-export const aboutMe = new AppWindow(AppWindowHTMLContent.ABOUT_ME);
-export const links = new AppWindow(AppWindowHTMLContent.LINKS);
-export const skills = new AppWindow(AppWindowHTMLContent.SKILLS);
-export const statuses = new AppWindow(AppWindowHTMLContent.STATUSES);
-[aboutMe, links, skills, statuses].forEach(el => windowManager.add(el));
+export const aboutMeWindow = new AppWindow(AppWindowHTMLContent.ABOUT_ME);
+export const linksWindow = new AppWindow(AppWindowHTMLContent.LINKS);
+export const skillsWindow = new AppWindow(AppWindowHTMLContent.SKILLS);
+export const statusesWindow = new AppWindow(AppWindowHTMLContent.STATUSES);
+[aboutMeWindow, linksWindow, skillsWindow, statusesWindow].forEach(el => windowManager.add(el));
 
-aboutMe.setSize(new Size(900, 500));
-skills.setSize(new Size(1170, 550));
-links.setSize(new Size(500, 340));
-statuses.setSize(new Size(1350, 650));
+aboutMeWindow.setSize(new Size(900, 500));
+skillsWindow.setSize(new Size(1170, 550));
+linksWindow.setSize(new Size(500, 340));
+statusesWindow.setSize(new Size(1350, 650));
 // statuses.setFullscreenEnabled(true);
 // windowManager.windows.forEach(w => w.setCenteredPosition())
 
@@ -25,10 +25,10 @@ const bindWindowListeners = (button, window) => {
     })
 }
 
-bindWindowListeners(document.getElementById('about-me-btn'), aboutMe);
-bindWindowListeners(document.getElementById('skills-btn'), skills);
-bindWindowListeners(document.getElementById('links-btn'), links);
-bindWindowListeners(document.getElementById('status-btn'), statuses);
+bindWindowListeners(document.getElementById('about-me-btn'), aboutMeWindow);
+bindWindowListeners(document.getElementById('skills-btn'), skillsWindow);
+bindWindowListeners(document.getElementById('links-btn'), linksWindow);
+bindWindowListeners(document.getElementById('status-btn'), statusesWindow);
 
 window.addEventListener('DOMContentLoaded', () => {
     const openInWindowImages = Array.from(document.querySelectorAll('.open-in-window-img'));

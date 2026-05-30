@@ -407,7 +407,7 @@
     opacity: 1;
     position: relative;
     /* transform-origin: left; */
-    /* animation: status-anim .2s ease-out forwards; */
+    animation: status-anim .2s ease-out forwards;
 }
 
 :root.dark .status {
@@ -475,6 +475,8 @@
     content: attr(data-date);
     width: max-content;
     opacity: 0;
+    user-select: none;
+    pointer-events: none;
     transition: all 0.3s ease-out;
 }
 
@@ -491,9 +493,7 @@
 
 .status .status-content {
   font-family: "Nunito", sans-serif;
-  font-optical-sizing: auto;
   font-weight: 400;
-  font-style: normal;
 }
 
 .status .status-content .embed,
@@ -519,6 +519,28 @@
     width: min(100%, 1920px);
     height: min(52vw, 1080px, calc(var(--height) - 100px));
 }
+
+/* .status-bottom-buttons-container {
+    display: flex;
+    gap: 10px;
+    width: min(100%, 600px);
+    margin: 0 auto;
+}
+
+.status-bottom-buttons-container > * {
+    display: block;
+    flex: 1;
+    height: 40px;
+    background-color: var(--window-background-color);
+    font-size: 1rem;
+    border: dashed 3px var(--font-color);
+}
+
+.status-bottom-buttons-container > .page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
 
 @media (max-width: 500px) {
     #skills .tools-categories {

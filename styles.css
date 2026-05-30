@@ -254,10 +254,15 @@ meta[name="theme-color"] {
 }
 
 @media (max-width: 932px) {
+    #links {
+        padding-bottom: 45px;
+    }
+
     .config-buttons {
-        bottom: 10px;
+        bottom: 0px;
         transform: translateX(-50%);
-        /* width: calc(100% - 10px); */
+        width: calc(100%);
+        border-radius: 0px;
     }
 
     html {

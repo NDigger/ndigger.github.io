@@ -732,6 +732,14 @@ body.dark #visitor-counter-content img {
         gap: 20px;
     }
 
+    #links .flex-links p {
+        margin: 0;
+    }
+
+    #links {
+        padding-bottom: 100px;
+    }
+
     #links p {
         font-size: 1.2rem;
     }

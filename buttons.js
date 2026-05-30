@@ -1,23 +1,22 @@
-import { Vector2, restartCssAnimation, Color } from './utils/structures.js';
+import { Vector2, Color } from './utils/structures.js';
 import audioManager from './audioManager.js';
 import { CanvasColorChanger } from './utils/colorChangers.js';
 
 const soundBtn = document.getElementById('sound-btn');
 const changeSoundState = () => {
-    restartCssAnimation(soundBtn, 'btn-animation');
     config.soundEnabled = !config.soundEnabled;
     localStorage.setItem('portfolio-config', JSON.stringify(config))
     if (!config.soundEnabled) {
-        soundBtn.classList.add('disabled');
+        soundBtn.innerHTML = '<i class="bi bi-volume-mute-fill"></i>';
         audioManager.setMasterVolume(0)
     } else {
-        soundBtn.classList.remove('disabled');
+        soundBtn.innerHTML = '<i class="bi bi-volume-up-fill"></i>';
         audioManager.setMasterVolume(1)
     }
 }
 soundBtn.addEventListener('click', changeSoundState)
 if (!config.soundEnabled) {
-    soundBtn.classList.add('disabled');
+    soundBtn.innerHTML = '<i class="bi bi-volume-mute-fill"></i>';
 }
 
 // Copy text when clicked
@@ -55,7 +54,6 @@ const updateState = () => {
     } else {
         nightModeBtn.innerHTML = moonIcon
     }
-    restartCssAnimation(nightModeBtn.querySelector('i'), 'btn-animation');
     colorChangers.map(colorChanger => colorChanger.run())
 }
 

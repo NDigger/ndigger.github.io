@@ -167,13 +167,9 @@ meta[name="theme-color"] {
     border-radius: var(--window-border-radius);
 }
 
-.config-buttons > *:hover {
-    opacity: 1;
-}
-
 #music-btn, #sound-btn, #night-mode-btn {
     transition: all .1s ease;
-    opacity: .5;
+    opacity: .9;
 }
 
 #music-btn, #sound-btn {
@@ -210,7 +206,7 @@ meta[name="theme-color"] {
 .screen #music-btn:active, 
 .desktop #sound-btn:hover,
 .screen #sound-btn:active {
-    opacity: 1
+    opacity: 1;
 }
 
 .btn-animation {

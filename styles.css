@@ -255,7 +255,7 @@ meta[name="theme-color"] {
 
 @media (max-width: 932px) {
     #links {
-        padding-bottom: 50px;
+        padding-bottom: 3rem;
     }
 
     .config-buttons {

@@ -233,10 +233,6 @@ meta[name="theme-color"] {
     position: relative;
 }
 
-#music-btn {
-    display: none;
-}
-
 #music-btn.disabled::before, #sound-btn.disabled::before {
     content: '';
     position: absolute;
@@ -333,10 +329,6 @@ meta[name="theme-color"] {
     #discord-btn::after {
         font-size: 1rem !important;
         transform: translateX(calc(-50% + 25px)) translateY(100px) !important;
-    }
-
-    #music-btn {
-        display: block;
     }
 
     #music-illustration-btn {

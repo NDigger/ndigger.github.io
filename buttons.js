@@ -18,64 +18,26 @@ musicParticlesEmitter.offset = new Vector2(60, -110)
 musicParticlesEmitter.emissionEnabled = false
 
 const musicBtn = document.getElementById('music-btn');
-const musicIllustrationBtn = document.querySelector('#music-illustration-btn');
-const musicIllustrationBtnImg = document.querySelector('#music-illustration-btn img');
 const changeMusicState = () => {
     restartCssAnimation(musicBtn, 'btn-animation');
-    restartCssAnimation(musicIllustrationBtnImg, 'music-illustration-animation');
     config.musicEnabled = !config.musicEnabled
     localStorage.setItem('portfolio-config', JSON.stringify(config))
     if (config.musicEnabled) {
         audioManager.music.currentTime = 0;
         audioManager.music.play();
         musicBtn.classList.remove('disabled');
-        musicIllustrationBtnImg.src = './images/musicIllustrationActive.png'
-        musicParticlesEmitter.emissionEnabled = true
     } else {
         audioManager.music.pause();
         musicBtn.classList.add('disabled');
-        musicIllustrationBtnImg.src = './images/musicIllustrationInactive.png'
-        musicParticlesEmitter.emissionEnabled = false;
     }
 }
 
 if (!config.musicEnabled) {
     musicBtn.classList.add('disabled');
 }
-
-if (!config.musicEnabled) {
-    musicIllustrationBtnImg.src = './images/musicIllustrationInactiveSleep.png'
-} else {
-    musicIllustrationBtnImg.src = './images/musicIllustrationActiveSleep.png'
-}
     
-
 document.addEventListener('click', () => {
-    if (config.musicEnabled) {
-        musicParticlesEmitter.emissionEnabled = true
-    }
-
-    restartCssAnimation(musicIllustrationBtnImg, 'music-illustration-animation');
-    if (!config.musicEnabled) {
-        musicIllustrationBtnImg.src = './images/musicIllustrationInactive.png'
-    } else {
-        musicIllustrationBtnImg.src = './images/musicIllustrationActive.png'
-    }
-        
-    // Blinking music button imitation
-    setInterval(() => {
-        setTimeout(() => {
-            if (config.musicEnabled) return
-            musicIllustrationBtnImg.src = 'images/musicIllustrationInactiveBlink.png'
-            setTimeout(() => {
-                if (config.musicEnabled) return
-                musicIllustrationBtnImg.src = 'images/musicIllustrationInactive.png'
-            }, 100)
-        }, Math.random() * 4500)
-    }, 5000)
-
     musicBtn.addEventListener('click', changeMusicState);
-    musicIllustrationBtn.addEventListener('click', changeMusicState);
 }, {once: true});
 
 const soundBtn = document.getElementById('sound-btn');
@@ -146,5 +108,3 @@ nightModeBtn.addEventListener('click', () => {
     }
     updateState()
 })
-
-updateState()

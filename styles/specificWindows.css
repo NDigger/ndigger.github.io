@@ -512,7 +512,7 @@
 .status-info .status-content img {
     height: auto;
     width: auto;
-    max-height: min(400px, calc(var(--height) - 200px));
+    max-height: min(300px, calc(var(--height) - 200px));
 }
 
 .status .status-content iframe,

@@ -17,19 +17,6 @@ export class Vector2 extends Struct {
     duplicate() { return new Vector2(this.x, this.y) };
 }
 
-export class Size extends Struct {
-    width;
-    height;
-
-    constructor(width, height) {
-        super()
-        this.width = width,
-        this.height = height;
-    }
-
-    duplicate() { return new Size(this.width, this.height) }
-}
-
 export class Color extends Struct {
     r = 0;
     g = 0;
@@ -52,7 +39,7 @@ export class Color extends Struct {
     duplicate() { return new Color(this.r, this.g, this.b, this.a) };
 }
 
-export const getDocumentSize = () => new Size(
+export const getDocumentSize = () => new Vector2(
     document.documentElement.clientWidth,
     document.documentElement.clientHeight
 );

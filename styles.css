@@ -1,7 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Ruda:wght@400..900&display=swap');
-
-@import url('./styles/windows.css');
-@import url('./styles/specificWindows.css');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 
 *,
 *::before,
@@ -97,10 +95,15 @@ img {
 html, body {
     width: 100vw;
     height: var(--svh100);
-    max-width: 100vw;
-    max-height: var(--svh100);
+    /* max-width: 100vw; */
+    /* max-height: var(--svh100); */
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+body::-webkit-scrollbar {
+    display: none;
 }
 
 html {
@@ -117,7 +120,7 @@ meta[name="theme-color"] {
     inset: 0;
     z-index: 99;
     background-color: black;
-    animation: override-disappear 1s ease-in forwards;
+    /* animation: override-disappear 1s ease-in forwards; */
     pointer-events: none;
 }
 
@@ -129,43 +132,43 @@ meta[name="theme-color"] {
     }
 }
 
-#centered {
+main {
     pointer-events: none;
-    width: 100%;
-    height: 100%;
+    /* width: min(1200px, 100vw); */
+    margin: 0 auto;
+    overflow-x: hidden;
+}
+
+main > header {
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-#centered > * {
+main .left-bar, main .right-bar {
+    /* background-color: black; */
+    position: fixed;
+    z-index: 9999;
+    height: 100%;
+    width: calc(50vw - 600px);
+    top: 0;
+
+}
+
+main .left-bar {
+    left: 0;
+}
+
+main .right-bar {
+    right: 0;
+}
+
+main > * {
     pointer-events: initial;
 }
 
-.config-buttons {
-    display: flex;
-    position: absolute;
-    bottom: 0px;
-    left: 50%;
-    transform: translateX(-50%) translateY(50%);
-    border-radius: var(--window-border-radius);
-    background-color: var(--window-panel-color);
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, .3);
-    padding: 4px;
-    gap: 4px;
-}
-
-.config-buttons > * {
-    width: 40px;
-    height: 40px;
-    border: none;
-    font-size: 1.2rem;
-    transition: font-size 0.2s linear;
-    flex: 1;
-    background-color: var(--window-background-color);
-    border-radius: var(--window-border-radius);
-}
 
 #music-btn, #sound-btn, #night-mode-btn {
     transition: all .1s ease;
@@ -286,10 +289,6 @@ meta[name="theme-color"] {
     #music-illustration-btn {
         display: none;
     }
-
-    .main-window-music-particle {
-        display: none;
-    }
 }
 
 @media (max-height: 500px) {
@@ -306,5 +305,169 @@ meta[name="theme-color"] {
     .ui-btn {
         width: 40px;
         height: 40px;
+    }
+}
+
+#statuses {
+    margin: 0 auto;
+    width: min(1200px, 100vw);
+    height: auto;
+    min-height: var(--svh100);
+    padding: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#bottom {
+    height: 3000px;
+    background: linear-gradient(transparent, black);
+}
+
+#statuses p {
+    margin: 10px 0;
+}
+
+.status.new {
+    opacity: 1;
+    position: relative;
+    border-left: 3px solid var(--font-color);
+    --font-color: rgb(0, 0, 0);
+}
+
+:root.dark .status.new {
+    --font-color: rgb(205, 205, 205);
+}
+
+.status {
+    --status-font-color: rgb(45, 45, 45);
+    color: var(--status-font-color);
+    border-left: 3px dashed var(--status-font-color);
+    background: linear-gradient(45deg, transparent, var(--weak-inverse-main-color));
+    padding: 5px 20px;
+    opacity: 1;
+    position: relative;
+    /* transform-origin: left; */
+    animation: status-anim .3s ease-out forwards;
+}
+
+:root.dark .status {
+    --status-font-color: var(--font-color);
+}
+
+@keyframes status-anim {
+    from {
+        transform: scaleX(.9);
+        opacity: 0;
+        left: -20px;
+    } to {
+        transform: scaleX(1);
+        scale: 1;
+        opacity: 1;
+        left: 0px;
+    }
+}
+
+.status.new {
+    --status-font-color: var(--font-color);
+    opacity: 1;
+    position: relative;
+    border-left: 3px solid var(--font-color);
+}
+
+:root.dark .status.new {
+    --status-font-color: rgb(205, 205, 205);
+}
+
+.status * {
+    color: inherit;
+}
+
+.status > .header {
+    font-size: .7rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.status > .header * {
+    margin: 0px;
+}
+
+.status > .header > .author {
+    user-select: none;
+    background-color: transparent;
+    border: none;
+    /* pointer-events: none; */
+    font-size: inherit;
+}
+
+.status > .header > .time-passed {
+    font-size: inherit;
+    color: var(--font-color);
+    text-align: right !important;
+    user-select: none;
+    position: relative;
+    transition: all 0.5s ease-out;
+}
+
+.status .header > .time-passed::before {
+    position: absolute;
+    content: attr(data-date);
+    width: max-content;
+    opacity: 0;
+    user-select: none;
+    pointer-events: none;
+    transition: all 0.3s ease-out;
+}
+
+.desktop .status > .header > .time-passed:hover,
+.screen .status > .header > .time-passed:active {
+    cursor: help;
+}
+
+.desktop .status > .header > .time-passed:hover::before,
+.screen .status > .header > .time-passed:active::before {
+    opacity: 0.5;
+    transform: translateX(calc(-100% - 10px));
+}
+
+.status .status-content {
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+  letter-spacing: -1px;
+}
+
+.status .status-content .embed,
+.status-info .status-content .embed {
+    display: block;
+    padding: 2px;
+    max-width: 100%;
+    --m: 10px;
+    margin-top: var(--m);
+    margin-bottom: var(--m);
+    border-radius: var(--window-border-radius);
+}
+
+.status .status-content img,
+.status-info .status-content img {
+    height: auto;
+    width: auto;
+    max-height: min(300px, calc(var(--height) - 200px));
+}
+
+.status .status-content iframe,
+.status-info .status-content iframe {
+    width: min(100%, 1920px);
+    height: min(52vw, 1080px, calc(var(--height) - 100px));
+}
+
+@media (max-width: 932px) {
+    #statuses > .content {
+        padding: 12px;
+    }
+    
+    .status {
+        padding: 2px 13px;
     }
 }

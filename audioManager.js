@@ -27,7 +27,7 @@ document.addEventListener('click', () => {
 })
 
 export const resetPlayHover = audio => {
-    if (getDocumentSize().width >= 768) {
+    if (getDocumentSize().x >= 768) {
         audio.pause();
         audio.currentTime = 0;
         audio.play();

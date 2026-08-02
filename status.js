@@ -210,6 +210,7 @@ const replaceContentURLs = str => {
         const lastStatusId = config.lastStatusSeenId
         await loadStatuses()
         document.getElementById('override').classList.add('disappear')
+        document.querySelector('#override .loading').style.display = 'none'
         if (lastStatusId === -1) return
         const element = document.querySelector("#statuses");
         element.scrollIntoView({
@@ -223,6 +224,7 @@ const replaceContentURLs = str => {
             <h2>${e}</h2>
         `
         document.getElementById('override').classList.add('disappear')
+        document.querySelector('#override .loading').style.display = 'none'
     }
 })()
 

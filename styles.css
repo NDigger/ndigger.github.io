@@ -140,6 +140,10 @@ meta[name="theme-color"] {
     }
 }
 
+#override .loading {
+    width: 50px;
+}
+
 main {
     pointer-events: none;
     /* width: min(1200px, 100vw); */

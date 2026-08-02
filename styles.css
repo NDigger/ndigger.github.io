@@ -59,18 +59,6 @@
     }
 }
 
-.window .content h1,
-.window .content h2,
-.window .content h3,
-.window .content h4,
-.window .content h5,
-.window .content h6 {
-  font-family: "Ruda", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-}
-
 button:focus, a:focus { outline: none; }
 a:hover { cursor: pointer; }
 
@@ -83,13 +71,25 @@ img {
     user-select: none;
 }
 
-#glcanvas {
+canvas {
     position: fixed;
     inset: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
+    z-index: -2;
     opacity: 1;
+}
+
+#canvas-override {
+    background-color: black;
+    position: fixed;
+    pointer-events: none;
+    inset: 0;
+    opacity: 0;
+}
+
+html {
+    background-color: black;
 }
 
 html, body {
@@ -100,6 +100,7 @@ html, body {
     position: relative;
     overflow-x: hidden;
     overflow-y: auto;
+    z-index: -2;
 }
 
 body::-webkit-scrollbar {
@@ -116,12 +117,19 @@ meta[name="theme-color"] {
 
 /* Override black screen on page opened */
 #override {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: fixed;
     inset: 0;
     z-index: 99;
+    opacity: 1;
     background-color: black;
-    /* animation: override-disappear 1s ease-in forwards; */
     pointer-events: none;
+}
+
+#override.disappear {
+    animation: override-disappear .2s forwards;
 }
 
 @keyframes override-disappear {
@@ -140,29 +148,125 @@ main {
 }
 
 main > header {
-    height: 100vh;
+    height: var(--svh100);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-main .left-bar, main .right-bar {
-    /* background-color: black; */
-    position: fixed;
-    z-index: 9999;
-    height: 100%;
-    width: calc(50vw - 600px);
+main > header .lamp {
+    max-width: 350px; 
+    display:block; 
+    position: absolute;
+    top: 80px;
+    height: auto;
+    filter: brightness(.75) contrast(1.5);
+}
+
+main > header .light { 
+    position: absolute; 
+    width: 500px; 
+    bottom: 300px; 
+    height: 500px; 
+    opacity: .15; 
+    filter: blur(80px);
+    background: radial-gradient(var(--title-author-text-shadow-color), transparent 50%);
+    animation: light-flicker 5s linear infinite;
+}
+
+@keyframes light-flicker {
+    12% { opacity: .15; }
+    13% { opacity: .18; }
+
+    37% { opacity: .18; }
+    38% { opacity: .19; }
+
+    72% { opacity: .19; }
+    73% { opacity: .16; }
+
+    88% { opacity: .16; }
+    89% { opacity: .18; }
+
+    89% { opacity: .18; }
+    100% { opacity: .15; }
+}
+
+main > header .grass {
+    display: none;
+    width: 100px;
+    height: auto;
+    position: absolute;
+    top: 230px;
+    rotate: 4deg;
+    filter: brightness(0);
+}
+
+main > header img {
+    user-select: none;
+    pointer-events: none;
+    position: absolute;
+    width: max(1920px, 100%);
+    height: max(1080px, 100%);
     top: 0;
-
+    left: 50%;
+    transform: translateX(-50%);
+    /* filter: blur(1px); */
 }
 
-main .left-bar {
-    left: 0;
+@keyframes bottom-header-btn-disappear {
+    from {
+        opacity: 1;
+        display: block;
+    } to {
+        opacity: 0;
+        display: none;
+    }
 }
 
-main .right-bar {
-    right: 0;
+main > header .bottom-btn {
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    bottom: 0;
+    font-size: 2rem;
+    transform: translateX(-50%);
+    opacity: .5;
+}
+
+main > header .bottom-btn.disappear {
+    animation: bottom-header-btn-disappear .25s linear forwards;
+}
+
+main > header h1 {
+    user-select: none;
+    text-align: center;
+    font-size: 2.4em;
+    width: 70vw;
+}
+
+main > header .main-message {
+    position: relative;
+}
+
+main > header h2 {
+    user-select: none;
+    width: 90vw;
+    transform: translateX(-10vw);
+    position: absolute;
+    top: 100%;
+    font-size: 1.5em;
+    text-align: center;
+    opacity: .2;
+}
+
+main > header .background {
+    position: absolute;
+    height: var(--svh100);
+    border-bottom: 5px solid var(--font-color);
+    opacity: .5;
+    width: 100vw;
+    z-index: -1;
 }
 
 main > * {
@@ -256,56 +360,67 @@ main > * {
     }
 }
 
-@media (max-width: 932px) {
-    #links {
-        padding-bottom: 3rem;
-    }
-
-    .config-buttons {
-        bottom: 0px;
-        transform: translateX(-50%);
-        width: calc(100%);
-        border-radius: 0px;
-    }
-
-    .config-buttons > * {
-        height: 3rem;
-        font-size: 2rem;
-    }
-
-    html {
-        font-size: 1.15rem;
-    }
-
-    #discord-btn::before {
-        display: none !important;
-    }
-    
-    #discord-btn::after {
-        font-size: 1rem !important;
-        transform: translateX(calc(-50% + 25px)) translateY(100px) !important;
-    }
-
-    #music-illustration-btn {
-        display: none;
-    }
+#title-author {
+    font-size: 1.3em;
+    text-shadow: 0px 0px 9px var(--title-author-text-shadow-color);
+    color: rgb(255, 200, 0);
+    font-weight: 400;
 }
 
-@media (max-height: 500px) {
-    .top-right {
-        flex-direction: row;
-    }
+.gold-btn *:not(button) {
+    pointer-events: none;
+    user-select: none;
+    color: inherit !important;
+    text-shadow: inherit !important;
 }
 
-@media (max-width: 500px) and (max-height: 450px) {
-    html {
-        font-size: 0.9rem;
-    }
+.gold-btn {
+    text-decoration: none;
+    color: var(--font-color);
+    background-color: transparent;
+    border: var(--button-border);
+    border-radius: 10px;
+    font-size: 2.5rem;
+    transition: all 0.1s linear;
+    opacity: .5;
+}
 
-    .ui-btn {
-        width: 40px;
-        height: 40px;
-    }
+.desktop .gold-btn:hover, .screen .gold-btn:active {
+    color: var(--main-window-button-hover-color);
+    opacity: 1;
+    text-shadow: 0 0 5px var(--main-window-button-hover-text-shadow-color),
+                 0 0 50px var(--main-window-button-hover-text-shadow-color);
+
+}
+
+.gold-btn i, .gold-btn svg {
+    font-size: .3em;
+    width: 1em;
+    height: 1em;
+    text-shadow: 0px 2px 0px rgba(0, 0, 0, 0.1);
+    transition: font-size 0.1s linear;
+}
+
+.gold-btn div {
+    position: relative;
+}
+
+.gold-btn .shadow {
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    filter: url('#text-shadow');
+    opacity: 0;
+}
+
+.gold-btn:hover svg.shadow {
+    opacity: 1;
+}
+
+.gold-btn p {
+    text-align: center;
+    font-size: 0.8rem;
 }
 
 #statuses {
@@ -314,15 +429,33 @@ main > * {
     height: auto;
     min-height: var(--svh100);
     padding: 10px;
-    overflow: hidden;
+    padding-top: 100px;
+    overflow: visible;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    padding-bottom: 150px;
+}
+
+#statuses > .month {
+    margin-top: 50px;
+    padding-left: 5px;
+    background: linear-gradient(to right, rgba(255, 255, 255, .02), transparent 50%);
 }
 
 #bottom {
-    height: 3000px;
+    display: none;
+    height: var(--svh100);
+    position: relative;
     background: linear-gradient(transparent, black);
+}
+
+#bottom img {
+    position: absolute;
+    bottom: 50px;
+    filter: brightness(.6) contrast(1.5);
+    right: 100px;
+    width: 300px;
 }
 
 #statuses p {
@@ -344,6 +477,7 @@ main > * {
     --status-font-color: rgb(45, 45, 45);
     color: var(--status-font-color);
     border-left: 3px dashed var(--status-font-color);
+    box-shadow: 0px 0px 2px rgba(255, 255, 255, .1);
     background: linear-gradient(45deg, transparent, var(--weak-inverse-main-color));
     padding: 5px 20px;
     opacity: 1;
@@ -385,7 +519,7 @@ main > * {
 }
 
 .status > .header {
-    font-size: .7rem;
+    font-size: .7em;
     display: flex;
     justify-content: space-between;
 }
@@ -418,6 +552,7 @@ main > * {
     opacity: 0;
     user-select: none;
     pointer-events: none;
+    right: 0;
     transition: all 0.3s ease-out;
 }
 
@@ -429,12 +564,13 @@ main > * {
 .desktop .status > .header > .time-passed:hover::before,
 .screen .status > .header > .time-passed:active::before {
     opacity: 0.5;
-    transform: translateX(calc(-100% - 10px));
+    right: calc(100% + 10px);
 }
 
 .status .status-content {
   font-family: "Nunito", sans-serif;
   font-weight: 400;
+  text-align: justify;
   letter-spacing: -1px;
 }
 
@@ -449,25 +585,313 @@ main > * {
     border-radius: var(--window-border-radius);
 }
 
-.status .status-content img,
-.status-info .status-content img {
+.status .status-content img {
     height: auto;
     width: auto;
-    max-height: min(300px, calc(var(--height) - 200px));
+    max-height: min(400px, calc(var(--svh100) - 100px));
 }
 
-.status .status-content iframe,
-.status-info .status-content iframe {
+.status .floating-right,
+.status .small-screen {
+    user-select: none;
+    position: relative;
+}
+
+.status .floating-right {
+    float: right;
+    width: 225px;
+}
+
+.status .floating-right img,
+.status .small-screen img {
+    border-radius: 10px;
+}
+
+.status .floating-right img {
+    margin: 0 0 0 25px;
+    width: 200px;
+}
+
+.status .small-screen {
+    display: none;
+}
+
+.status .small-screen img {
+    width: 100%;
+}
+
+.status .floating-right span,
+.status .small-screen span {
+    background-color: rgba(0, 0, 0, .5);
+    backdrop-filter: blur(3px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    position: absolute;
+    right: 0;
+    width: 40%;
+    height: calc(100% - 5px);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.status .status-content iframe {
     width: min(100%, 1920px);
-    height: min(52vw, 1080px, calc(var(--height) - 100px));
+    height: min(52vw, 1080px, calc(var(--svh100) - 100px));
 }
 
 @media (max-width: 932px) {
-    #statuses > .content {
-        padding: 12px;
+    #leaves-img {
+        display: none;
     }
-    
+
+    .floating-right {
+        display: none;
+    }
     .status {
         padding: 2px 13px;
+    }
+
+    .flex-links {
+        gap: 0px;
+    }
+
+    .flex-links a p {
+        display: none;
+    }
+}
+
+.flex-links {
+    position: absolute;
+    top: 0;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    height: 50px;
+    padding: 0 10px;
+    align-items: top;
+    justify-content: center;
+}
+
+.flex-links a {
+    user-select: none;
+    display: flex;
+    padding: 2px 10px;
+    padding-top: 2px;
+    top: -5px;
+    height: 40px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, .4);
+    gap: 10px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    background-color: black;
+    backdrop-filter: blur(50px);
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+body.desktop .flex-links a:hover,
+body.screen .flex-links a:active {
+    top: 0px;
+}
+.open-image:hover {
+    cursor: pointer;
+}
+
+#fullscreen-images-override {
+    position: fixed;
+    user-select: none;
+    width: 100vw;
+    height: var(--svh100);
+    background-color: rgba(0, 0, 0, .8);
+    z-index: 2;
+    display: none;
+}
+
+#fullscreen-images-override.disappear img {
+    animation: fullscreen-images-override-disappear .05s linear forwards;
+}
+
+#fullscreen-images-override .images {
+    position: fixed;
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+#fullscreen-images-override .arrows {
+    width: 100%;
+    height: 100%;
+    font-size: 4rem;
+}
+
+#fullscreen-images-override .images::-webkit-scrollbar {
+    display: none;
+}
+
+#fullscreen-images-override .image-container {
+    display: flex;
+    flex: 0 0 100%;
+    height: 100%;
+
+    justify-content: center;
+    align-items: center;
+
+    scroll-snap-align: center;
+    pointer-events: none;
+}
+
+@keyframes hide-override-images {
+    from {
+        display: block;
+        opacity: 1;
+    } to {
+        opacity: .5;
+        display: none;
+    }
+}
+
+@keyframes hide-image {
+    from {
+        scale: 1;
+        opacity: 1;
+    } to {
+        scale: .9;
+        opacity: .8;
+    }
+}
+
+#fullscreen-images-override.disappear .image-container img {
+    animation: hide-image .05s linear forwards
+}
+
+#fullscreen-images-override.disappear {
+    animation: hide-override-images .05s linear forwards
+}
+
+#fullscreen-images-override .image-container img {
+    pointer-events: all;
+    border-radius: 10px;
+    animation: image-animation .2s ease-out;
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+}
+
+body.desktop #fullscreen-images-override .left-btn:hover,
+body.desktop #fullscreen-images-override .right-btn:hover,
+body.screen #fullscreen-images-override .left-btn:active,
+body.screen #fullscreen-images-override .right-btn:active {
+    opacity: 1;
+}
+
+#fullscreen-images-override .left-btn,
+#fullscreen-images-override .right-btn {
+    pointer-events: all;
+    opacity: .5;
+    z-index: 3;
+    width: 100px;
+    height: var(--svh100);
+    font-size: 1em;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    background-color: transparent;
+    border: none;
+    transition: all .08s linear;
+}
+
+#fullscreen-images-override .left-btn {
+    left: 40px;
+}
+
+#fullscreen-images-override .right-btn {
+    right: -60px;
+}
+
+@keyframes image-animation {
+    from {
+        opacity: .2;
+        scale: .8;
+    } to {
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+@media (max-width: 932px) {
+    .status .small-screen {
+        display: block;
+    }
+
+    #links {
+        padding-bottom: 3rem;
+    }
+
+    .config-buttons {
+        bottom: 0px;
+        transform: translateX(-50%);
+        width: calc(100%);
+        border-radius: 0px;
+    }
+
+    .config-buttons > * {
+        height: 3rem;
+        font-size: 2rem;
+    }
+
+    html {
+        font-size: 1.15rem;
+    }
+
+    #discord-btn::before {
+        display: none !important;
+    }
+    
+    #discord-btn::after {
+        font-size: 1rem !important;
+        transform: translateX(calc(-50% + 25px)) translateY(100px) !important;
+    }
+
+    #music-illustration-btn {
+        display: none;
+    }
+}
+
+#statuses-loading {
+    width: 80px;
+    opacity: .7;
+    margin: 0 auto;
+    display: block;
+    margin-bottom: 100px;
+}
+
+@media (max-height: 500px) {
+    .top-right {
+        flex-direction: row;
+    }
+}
+
+@media (max-width: 500px) and (max-height: 450px) {
+    html {
+        font-size: 0.7rem;
+    }
+
+    .ui-btn {
+        width: 40px;
+        height: 40px;
     }
 }

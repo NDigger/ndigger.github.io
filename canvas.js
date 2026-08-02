@@ -20,15 +20,15 @@ uniform float u_time;
 
 #define PI 3.14159265
 
-const float starLayers = 4.;
+const float starLayers = 8.;
 
 uniform vec2 u_resolution;
-uniform vec3 u_backgroundColor;
 uniform vec2 u_offset;
 uniform float u_zoom;
 uniform float u_seed;
 
 const float t = 0.25;
+const vec3 backgroundColorNight = vec3(0.12, 0.15, 0.18);
 
 float random (in vec2 st) {
     return fract(sin(dot(st.xy,
@@ -52,14 +52,14 @@ float drawStars(in vec2 st, in vec2 ast, in float layer) {
         return 0.;
     } else {
         float size = 30. * (rnd + .4) * (1. - sin1(time * (rnd * 10. + 5.) + rnd) * .2);
-        vec2 pos = vec2(.5) + vec2(random(ist.xy + layer), random(ist)) * .3 +
-                   vec2(sin(time * rnd * 5.), cos(time * rnd * 10.)) * .1;
+        vec2 pos = vec2(.5) + vec2(random(ist.xy + layer), random(ist)) * .1 +
+                   vec2(sin(time * rnd * 2.), cos(time * rnd * 3.)) * .1;
 
         float circle = 1.-smoothstep(distance(fst, pos) * size, .0, .15);
-        float star = circle / starLayers / float(layer * .5);
-        float disap = clamp(sin1(time * 2. + rnd * 100.) * 20. - 10., 0., 1.);
+        float star = circle / starLayers / float(layer * .1);
+        float disap = clamp(sin1(time * 2. + rnd * 50.) * 10. - 5., 0., 1.);
 
-        return clamp(star * disap, 0., .3);
+        return clamp(star * disap * .3, 0., .3);
     }
 }
 
@@ -82,7 +82,7 @@ float easeOut(float t) {
     return 1.0 - pow((1.0 - v), 3.);
 }
 
-const float startDistance = 1.2;
+const float startDistance = 1.;
 
 void main() {
 
@@ -95,15 +95,15 @@ void main() {
     st *= u_zoom;
     st.x += u_seed * 500.;
 
-    vec3 color = vec3(u_backgroundColor);
+    vec3 color = vec3(backgroundColorNight);
 
     float time = u_time * .2;
 
     st.y += startDistance;
-    st.y -= easeOut(pow(u_time, .5) / 5.) * startDistance;
+    st.y -= easeOut(pow(u_time, .5) / 2.) * startDistance;
 
     ast.y += startDistance;
-    ast.y -= easeOut(pow(u_time, .5) / 5.) * startDistance;
+    ast.y -= easeOut(pow(u_time, .5) / 2.) * startDistance;
 
     st += u_offset;
 
@@ -116,15 +116,15 @@ void main() {
     ast *= clamp(u_zoom, 1., 2.);
 
     float distanceNightCircle =
-        clamp(1.35-length(ast) * 0.9, 0., 1.) +
-        u_backgroundColor.r;
+        clamp(1.65-length(ast) * 0.9, 0., 1.) +
+        backgroundColorNight.r;
 
     distanceNightCircle -= random(ast) * .03;
 
     color = clamp(color, vec3(0.), vec3(1.));
     color *= clamp(distanceNightCircle, 0., 1.);
 
-    color = mix(color, vec3(u_backgroundColor), clamp(st.y/50., 0., 1.));
+    color = mix(color, vec3(backgroundColorNight), clamp(st.y/50., 0., 1.));
 
     gl_FragColor = vec4(color,1.0);
 }
@@ -191,20 +191,12 @@ function setUniformRes() {
     gl.uniform2f(u_resolution, window.innerWidth, window.innerHeight);
 }
 
-setUniformRes();
 window.addEventListener("resize", setUniformRes);
 
 const u_offset = gl.getUniformLocation(program, "u_offset");
-gl.uniform2f(u_offset, 0, 0);
-
 const u_time = gl.getUniformLocation(program, "u_time");
 const u_seed = gl.getUniformLocation(program, "u_seed");
 const u_zoom = gl.getUniformLocation(program, "u_zoom");
-
-gl.uniform1f(u_seed, Math.random());
-
-const nav = performance.getEntriesByType("navigation")[0];
-const bonus = nav.type === "reload" ? 5 : 0;
 
 // ===================== CAMERA =====================
 
@@ -216,18 +208,23 @@ function getShaderZoom() {
     );
 }
 
-gl.uniform1f(u_zoom, getShaderZoom());
-
 window.addEventListener("resize", () => {
     gl.uniform1f(u_zoom, getShaderZoom());
 });
+
+window.addEventListener('load', () => {
+    gl.uniform1f(u_zoom, getShaderZoom());
+    setUniformRes();
+    gl.uniform2f(u_offset, 0, 0);
+    gl.uniform1f(u_seed, Math.random());
+})
 
 // ===================== RENDER =====================
 
 const body = document.querySelector('body');
 function render(time) {
-    gl.uniform1f(u_time, time / 1000 + bonus);
-    gl.uniform2f(u_offset, 0, body.scrollTop * -0.002);
+    gl.uniform1f(u_time, time / 1000);
+    gl.uniform2f(u_offset, performance.now() * 0.00003,  body.scrollTop * -0.002);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
 
     requestAnimationFrame(render);

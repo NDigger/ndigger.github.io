@@ -1,6 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
+    <style>
+        #override {
+            background-color: #000;
+        }
+        
+        html, body {
+            background-color: #000;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta name="theme-color" content="#000000">
@@ -32,16 +44,53 @@
 </head>
 <body>
     <div id="override"></div>
+    <div id="canvas-override"></div>
     <div id="cursor-glow"></div>
-    <canvas id="glcanvas" width="800" height="540"></canvas>
+    <canvas id="glcanvas" width="400" height="270"></canvas>
+    <div id="fullscreen-images-override" data-index="0">
+        <div class="buttons">
+            <div class="arrows">
+                <button class="left-btn"><i class="bi bi-chevron-compact-left"></i></button>
+                <button class="right-btn"><i class="bi bi-chevron-compact-right"></i></button>
+            </div>
+        </div>
+        <div class="images"></div>
+    </div>
     <main>
         <header>
-            <h1>hi, i'm <span>NDagger</span></h1>
+            <img class="lamp" src="./images/lamp.png" alt="lamp">
+            <div class="light"></div>
+            <img id="leaves-img" src="./images/background.png" alt="leaves">
+            <img class="grass" src="./images/grass.png" alt="grass">
+            <div class="main-message">
+                <h1>hi, i'm <span id="title-author">NDagger</span></h1>
+                <h2>the low tier progarmer</h2>
+            </div>
+            <div class="centered">
+            <div class="flex-links">
+                <a title="Youtube" class="gold-btn hover-sound" href="https://www.youtube.com/@scout1495" target="_blank">
+                    <i class="bi bi-youtube"></i>
+                    <p translate="no">Youtube</p>
+                </a>
+                <a title="Github" class="gold-btn hover-sound" href="https://github.com/NDigger" target="_blank">
+                    <i class="bi bi-github"></i>
+                    <p translate="no">Github</p>
+                </a>
+                <a title="Itch.io" class="gold-btn hover-sound" href="https://ndagger1.itch.io/" target="_blank">
+                    <i class="bi bi-shop-window"></i>
+                    <p translate="no">Itch.io</p>
+                </a>
+                <a title="Discord" class="gold-btn hover-sound" href="https://discord.com/users/308915858753716225" target="_blank">
+                    <i class="bi bi-discord" title="Discord"></i>
+                    <p translate="no">Discord</p>
+                </a>
+            </div>
+            <button class="bottom-btn"><i class="bi bi-chevron-compact-down"></i></button>
         </header>
         <div id="statuses"></div>
-        <div id="bottom"></div>
-        <div class="left-bar"></div>
-        <div class="right-bar"></div>
+        <div id="bottom">
+            <img src="./images/bottom.png" alt="">
+        </div>
     </main>
     <script src="globals.js"></script>
     <script src="script.js" type="module"></script>

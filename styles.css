@@ -491,6 +491,10 @@ main > * {
     animation: status-anim .3s ease-out forwards;
 }
 
+.status p {
+    text-align: justify;
+}
+
 :root.dark .status {
     --status-font-color: var(--font-color);
 }
@@ -662,6 +666,11 @@ main > * {
     main > header .lamp {
         max-width: 275px; 
         top: -170px;
+    }
+
+    #statuses {
+        padding-bottom: 20px;
+        padding-top: 20px;
     }
 }
 

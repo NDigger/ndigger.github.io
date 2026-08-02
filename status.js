@@ -196,7 +196,7 @@ const replaceContentURLs = str => {
             ${imageURLs.length > 1 ? `<span>+${imageURLs.length - 1}</span>` : ''}
             <img class="embed" src="${imageURLs[0]}" alt="${imageURLs[0]}">
         </p>
-            ` + str +
+            ` + `<p>${str}</p>` +
         `<p class="small-screen open-image" data-image-urls="${imageURLs.join(" ")}">
             ${imageURLs.length > 1 ? `<span>+${imageURLs.length - 1}</span>` : ''}
             <img class="embed" src="${imageURLs[0]}" alt="${imageURLs[0]}">

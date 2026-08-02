@@ -157,9 +157,10 @@ main > header {
 
 main > header .lamp {
     max-width: 350px; 
-    display:block; 
+    display: block; 
     position: absolute;
-    top: 80px;
+    left: 50%;
+    top: -220px;
     height: auto;
     filter: brightness(.75) contrast(1.5);
 }
@@ -167,7 +168,9 @@ main > header .lamp {
 main > header .light { 
     position: absolute; 
     width: 500px; 
-    bottom: 300px; 
+    left: 50%;
+    transform: translateX(-50%);
+    top: -350px; 
     height: 500px; 
     opacity: .15; 
     filter: blur(80px);
@@ -438,9 +441,15 @@ main > * {
 }
 
 #statuses > .month {
+    opacity: .5;
     margin-top: 50px;
     padding-left: 5px;
+    font-size: 1em;
     background: linear-gradient(to right, rgba(255, 255, 255, .02), transparent 50%);
+}
+
+#statuses > .month:first-of-type {
+    margin-top: 100px;
 }
 
 #bottom {

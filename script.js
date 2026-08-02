@@ -32,7 +32,7 @@ window.addEventListener("load", () => {
 });
 
 const fullscreenImagesOverride = document.getElementById('fullscreen-images-override');
-document.getElementById('fullscreen-images-override').addEventListener('pointerdown', e => {
+document.getElementById('fullscreen-images-override').addEventListener('pointerup', e => {
   if (e.currentTarget === e.target) {
     fullscreenImagesOverride.classList.add('disappear')
   }
@@ -54,8 +54,8 @@ const shiftImage = (shift) => {
   fullscreenImagesOverride.setAttribute('data-index', fullscreenImageIndex)
 }
 
-fullscreenImagesLeftBtn.addEventListener('pointerdown', () => shiftImage(-1))
-fullscreenImagesRightBtn.addEventListener('pointerdown', () => shiftImage(1))
+fullscreenImagesLeftBtn.addEventListener('pointerup', () => shiftImage(-1))
+fullscreenImagesRightBtn.addEventListener('pointerup', () => shiftImage(1))
 document.addEventListener('keydown', e => {
   if (fullscreenImagesOverride.style.display !== 'block') return
   if (e.code === 'ArrowLeft' || e.code === 'KeyA') {
@@ -72,7 +72,7 @@ window.addEventListener('resize', () => {
   });
 })
 
-bottomHeaderBtn.addEventListener('pointerdown', () => {
+bottomHeaderBtn.addEventListener('pointerup', () => {
   bottomHeaderBtn.classList.add('disappear');
   const element = document.querySelector("#statuses");
   element.scrollIntoView({

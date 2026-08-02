@@ -10,6 +10,15 @@ function formatMonthYearShort(date) {
   }).format(date);
 }
 
+function isDateInCurrentMonth(date) {
+  const now = new Date();
+
+  return (
+    date.getFullYear() === now.getFullYear() &&
+    date.getMonth() === now.getMonth()
+  );
+}
+
 export const getDateStr = (date) => {
     const pad = (n) => n.toString().padStart(2, '0');
 
@@ -63,7 +72,7 @@ const pushStatus = status => {
     const content = replaceContentURLs(escapeHTML(status.content));
     const month = formatMonthYearShort(date);
     const isNew = status.id > lastStatusSeenId;
-    if (!isNew) {
+    if (!isDateInCurrentMonth(date)) {
         const container = statusContainer.querySelector(`[data-month='${month}']`);
         if (container == null) {
             const title = document.createElement('h1');
@@ -86,7 +95,7 @@ const pushStatus = status => {
     </div>`
     statusContainer.insertAdjacentHTML('beforeend', htmlContent)
     Array.from(statusContainer.lastElementChild.querySelectorAll('.open-image')).forEach(img => {
-        img.addEventListener('pointerdown', () => {
+        img.addEventListener('pointerup', () => {
             fullscreenImagesOverride.classList.remove('disappear')
             fullscreenImagesOverride.style.display = 'block'
             fullscreenImagesOverride.setAttribute('data-index', 0);

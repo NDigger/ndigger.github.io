@@ -20,17 +20,6 @@ document.addEventListener('mousemove', (e) => {
   box.style.top = e.clientY + 'px';
 });
 
-window.addEventListener("load", () => {
-  const element = document.querySelector("#target");
-
-  if (element) {
-    window.scrollTo({
-      top: getDocumentSize().y,
-      behavior: "smooth",
-    });
-  }
-});
-
 const fullscreenImagesOverride = document.getElementById('fullscreen-images-override');
 document.getElementById('fullscreen-images-override').addEventListener('pointerup', e => {
   if (e.currentTarget === e.target) {

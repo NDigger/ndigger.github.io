@@ -238,7 +238,7 @@ main > header .bottom-btn {
     bottom: 0;
     font-size: 2rem;
     transform: translateX(-50%);
-    opacity: .5;
+    opacity: .2;
 }
 
 main > header .bottom-btn.disappear {

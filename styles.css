@@ -851,6 +851,15 @@ body.screen #fullscreen-images-override .right-btn:active {
 @media (max-width: 932px) {
     .status .small-screen {
         display: block;
+        max-height: 400px;
+        max-width: 100%;
+        width: fit-content;
+    }
+
+    .status .small-screen img {
+        max-width: 100%;
+        max-height: calc(400px - 10px);
+        width: auto;
     }
 
     #links {

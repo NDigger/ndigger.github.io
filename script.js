@@ -27,20 +27,24 @@ document.getElementById('fullscreen-images-override').addEventListener('pointeru
   }
 })
 
-let fullscreenImageIndex = Number(fullscreenImagesOverride.getAttribute('data-index'));
+const setImageIndex = (index) => {
+  const imageUrls = fullscreenImagesOverride.getAttribute('data-image-urls').split(' ')
+  fullscreenImagesLeftBtn.style.display = index <= 0 ? 'none' : 'block';
+  fullscreenImagesRightBtn.style.display = index >= imageUrls.length - 1 ? 'none' : 'block';
+  fullscreenImagesOverride.setAttribute('data-index', index)
+}
+
 const fullscreenImagesLeftBtn = fullscreenImagesOverride.querySelector('.left-btn')
 const fullscreenImagesRightBtn = fullscreenImagesOverride.querySelector('.right-btn')
 const shiftImage = (shift) => {
-  fullscreenImageIndex = Number(fullscreenImagesOverride.getAttribute('data-index'));
+  let index = Number(fullscreenImagesOverride.getAttribute('data-index'));
   const imageUrls = fullscreenImagesOverride.getAttribute('data-image-urls').split(' ')
-  fullscreenImageIndex = Math.min(imageUrls.length - 1, Math.max(0, fullscreenImageIndex + shift));
-  fullscreenImagesLeftBtn.style.display = fullscreenImageIndex <= 0 ? 'none' : 'block';
-  fullscreenImagesRightBtn.style.display = fullscreenImageIndex >= imageUrls.length - 1 ? 'none' : 'block';
+  index = Math.min(imageUrls.length - 1, Math.max(0, index + shift));
+  setImageIndex(index)
   fullscreenImagesOverride.querySelector('.images').scrollTo({
-    left: fullscreenImageIndex * window.innerWidth,
+    left: index * window.innerWidth,
     behavior: 'smooth'
   });
-  fullscreenImagesOverride.setAttribute('data-index', fullscreenImageIndex)
 }
 
 fullscreenImagesLeftBtn.addEventListener('pointerup', () => shiftImage(-1))
@@ -55,10 +59,16 @@ document.addEventListener('keydown', e => {
   }
 })
 window.addEventListener('resize', () => {
+  let index = Number(fullscreenImagesOverride.getAttribute('data-index'));
   fullscreenImagesOverride.querySelector('.images').scrollTo({
-    left: fullscreenImageIndex * window.innerWidth,
+    left: index * window.innerWidth,
     behavior: 'instant'
   });
+})
+
+fullscreenImagesOverride.querySelector('.images').addEventListener('scroll', e => {
+  const index = Math.round(e.target.scrollLeft / window.innerWidth);
+  setImageIndex(index);
 })
 
 bottomHeaderBtn.addEventListener('pointerup', () => {

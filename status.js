@@ -110,8 +110,6 @@ const pushStatus = status => {
                 `).join('')
             fullscreenImages.innerHTML = a;
             fullscreenButtons.style.display = imageUrls.length > 1 ? 'block' : 'none';
-            fullscreenButtons.querySelector('.right-btn').style.display = imageUrls.length > 1 ? 'block' : 'none';
-            fullscreenButtons.querySelector('.left-btn').style.display = 'none';
             fullscreenImagesOverride.setAttribute('data-image-urls', imageUrls.join(' '));
             fullscreenImages.scrollTo({
                 left: 0,

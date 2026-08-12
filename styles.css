@@ -808,13 +808,18 @@ body.desktop #fullscreen-images-override .left-btn:hover,
 body.desktop #fullscreen-images-override .right-btn:hover,
 body.screen #fullscreen-images-override .left-btn:active,
 body.screen #fullscreen-images-override .right-btn:active {
-    opacity: 1;
+    opacity: .7;
+}
+
+#fullscreen-images-override .left-btn *,
+#fullscreen-images-override .right-btn * {
+    color: white;
 }
 
 #fullscreen-images-override .left-btn,
 #fullscreen-images-override .right-btn {
     pointer-events: all;
-    opacity: .5;
+    opacity: .1;
     z-index: 3;
     width: 100px;
     height: var(--svh100);
@@ -827,8 +832,10 @@ body.screen #fullscreen-images-override .right-btn:active {
     transform: translateY(-50%) translateX(-50%);
     background-color: transparent;
     border: none;
-    transition: all .08s linear;
+    transition: all .1s linear;
 }
+
+
 
 #fullscreen-images-override .left-btn {
     left: 40px;

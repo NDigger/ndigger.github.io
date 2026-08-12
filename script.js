@@ -27,11 +27,13 @@ document.getElementById('fullscreen-images-override').addEventListener('pointeru
   }
 })
 
+const fullscreenImages = fullscreenImagesOverride.querySelector('.images');
+
 const setImageIndex = (index) => {
   const imageUrls = fullscreenImagesOverride.getAttribute('data-image-urls').split(' ')
+  fullscreenImagesOverride.setAttribute('data-index', index)
   fullscreenImagesLeftBtn.style.display = index <= 0 ? 'none' : 'block';
   fullscreenImagesRightBtn.style.display = index >= imageUrls.length - 1 ? 'none' : 'block';
-  fullscreenImagesOverride.setAttribute('data-index', index)
 }
 
 const fullscreenImagesLeftBtn = fullscreenImagesOverride.querySelector('.left-btn')
@@ -40,7 +42,7 @@ const shiftImage = (shift) => {
   let index = Number(fullscreenImagesOverride.getAttribute('data-index'));
   const imageUrls = fullscreenImagesOverride.getAttribute('data-image-urls').split(' ')
   index = Math.min(imageUrls.length - 1, Math.max(0, index + shift));
-  setImageIndex(index)
+  // setImageIndex(index)
   fullscreenImagesOverride.querySelector('.images').scrollTo({
     left: index * window.innerWidth,
     behavior: 'smooth'

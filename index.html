@@ -51,12 +51,18 @@
     <canvas id="glcanvas" width="400" height="270"></canvas>
     <div id="fullscreen-images-override" data-index="0">
         <div class="buttons">
-            <div class="arrows">
-                <button class="left-btn"><i class="bi bi-chevron-compact-left"></i></button>
-                <button class="right-btn"><i class="bi bi-chevron-compact-right"></i></button>
+            <div class="buttons">
+                <button class="close-btn" title="Close">X</button>
+                <div class="direction-buttons">
+                    <button class="left-btn" title="Previous"><i class="bi bi-chevron-left"></i></button>
+                    <button class="right-btn" title="Next"><i class="bi bi-chevron-right"></i></button>
+                </div>
             </div>
         </div>
-        <div class="images"></div>
+        <div class="fixed-images">
+            <div class="images"></div>
+            <div class="bottom-images"></div>
+        </div>
     </div>
     <main>
         <header>
@@ -89,7 +95,9 @@
             </div>
             <button class="bottom-btn"><i class="bi bi-chevron-compact-down"></i></button>
         </header>
-        <div id="statuses"></div>
+        <div id="statuses-scroll">
+            <div id="statuses"></div>
+        </div>
         <div id="bottom">
             <img src="./images/bottom.png" alt="">
         </div>

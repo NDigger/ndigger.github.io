@@ -63,6 +63,72 @@ const getTimePassed = since => {
 }
 
 const fullscreenImagesOverride = document.getElementById('fullscreen-images-override');
+const fullscreenImages = fullscreenImagesOverride.querySelector('.images');
+const fullscreenBottomImages = fullscreenImagesOverride.querySelector('.bottom-images');
+const fullscreenImagesButtons = fullscreenImagesOverride.querySelector('.buttons')
+const fullscreenImagesDirectionButtons = fullscreenImagesOverride.querySelector('.buttons .direction-buttons')
+const closeButton = fullscreenImagesButtons.querySelector('.close-btn');
+closeButton.addEventListener('pointerup', e => {
+    fullscreenImagesOverride.classList.add('disappear')
+})
+
+const updateSelectedImage = (index) => {
+    Array.from(fullscreenBottomImages.childNodes).forEach((child, i) => {
+        child.classList.toggle('selected', i === index)
+    })
+    fullscreenImagesOverride.setAttribute('data-index', index)
+}
+
+const setImageIndex = (index) => {
+  const imageUrls = fullscreenImagesOverride.getAttribute('data-image-urls').split(' ')
+  fullscreenImagesOverride.querySelector('.images').scrollTo({
+    left: index * window.innerWidth,
+    behavior: 'instant'
+  });
+  updateSelectedImage(index);
+}
+
+const shiftImage = (shift) => {
+  let index = Number(fullscreenImagesOverride.getAttribute('data-index'));
+  const imgCount = fullscreenImages.childElementCount;
+
+  index += shift;
+
+  if (index > imgCount - 1) {
+    index = 0;
+  } else if (index < 0) {
+    index = imgCount - 1;
+  }
+
+  setImageIndex(index);
+};
+
+const fullscreenImagesLeftBtn = fullscreenImagesOverride.querySelector('.left-btn')
+const fullscreenImagesRightBtn = fullscreenImagesOverride.querySelector('.right-btn')
+fullscreenImagesLeftBtn.addEventListener('pointerup', () => shiftImage(-1))
+fullscreenImagesRightBtn.addEventListener('pointerup', () => shiftImage(1))
+document.addEventListener('keydown', e => {
+  if (fullscreenImagesOverride.style.display !== 'block') return
+  if (e.code === 'ArrowLeft' || e.code === 'KeyA') {
+    shiftImage(-1);
+  }
+  if (e.code === 'ArrowRight' || e.code === 'KeyD') {
+    shiftImage(1);
+  }
+})
+window.addEventListener('resize', () => {
+  let index = Number(fullscreenImagesOverride.getAttribute('data-index'));
+  fullscreenImagesOverride.querySelector('.images').scrollTo({
+    left: index * window.innerWidth,
+    behavior: 'instant'
+  });
+})
+
+fullscreenImagesOverride.querySelector('.images').addEventListener('scroll', e => { 
+    const index = Math.round(e.target.scrollLeft / window.innerWidth); 
+    updateSelectedImage(index) 
+})
+
 const lastStatusSeenId = config.lastStatusSeenId;
 let unreadStatuses = 0;
 const statusContainer = document.getElementById('statuses');
@@ -98,25 +164,39 @@ const pushStatus = status => {
         img.addEventListener('pointerup', () => {
             fullscreenImagesOverride.classList.remove('disappear')
             fullscreenImagesOverride.style.display = 'block'
-            fullscreenImagesOverride.setAttribute('data-index', 0);
             const imageUrls = img.getAttribute('data-image-urls').split(' ');
             const fullscreenImages = fullscreenImagesOverride.querySelector('.images');
+            const fullscreenBottomImages = fullscreenImagesOverride.querySelector('.bottom-images');
             const fullscreenButtons = fullscreenImagesOverride.querySelector('.buttons')
             const fullscreenImagesList = fullscreenImagesOverride.querySelector('.images-list');
-            const a = imageUrls.map(url => `
-                <div class="image-container">
-                    <img src="${url}" alt="${url}">
-                </div>
-                `).join('')
-            fullscreenImages.innerHTML = a;
-            fullscreenButtons.style.display = imageUrls.length > 1 ? 'block' : 'none';
-            fullscreenButtons.querySelector('.right-btn').style.display = imageUrls.length > 1 ? 'block' : 'none';
-            fullscreenButtons.querySelector('.left-btn').style.display = 'none';
-            fullscreenImagesOverride.setAttribute('data-image-urls', imageUrls.join(' '));
-            fullscreenImages.scrollTo({
-                left: 0,
-                behavior: 'instant'
+            const imageElements = imageUrls.map((url, i) => {
+                const img = document.createElement('img')
+                img.src = url;
+                img.alt = url;
+                return img
             })
+            fullscreenImages.innerHTML = ''
+            imageElements.forEach(imgElement => {
+                const imageContainerElement = document.createElement('div');
+                imageContainerElement.classList.add('image-container');
+                imageContainerElement.appendChild(imgElement.cloneNode());
+                fullscreenImages.appendChild(imageContainerElement);
+            });
+            imageElements[0]?.classList.add('selected')
+            fullscreenBottomImages.innerHTML = '';
+            fullscreenBottomImages.style.display = imageElements.length > 1 ? 'flex' : 'none';
+            if (imageElements.length > 1) {
+                imageElements.map((el, i) => {
+                    const newImg = el.cloneNode();
+                    newImg.addEventListener('pointerup', () => {
+                        setImageIndex(i)
+                    })
+                    fullscreenBottomImages.appendChild(newImg);
+                });
+            }
+            fullscreenImagesDirectionButtons.style.display = imageUrls.length > 1 ? 'block' : 'none';
+            fullscreenImagesOverride.setAttribute('data-image-urls', imageUrls.join(' '));
+            setImageIndex(0)
         })
     })
 } 
@@ -192,15 +272,15 @@ const replaceContentURLs = str => {
         str += `<img class="embed open-image" data-image-urls="${imageURLs.join(" ")}" src="${imageURLs[0]}" alt="${imageURLs[0]}">`;
     } else if (imageURLs.length > 0) {
         str = `
-        <p class="floating-right open-image" data-image-urls="${imageURLs.join(" ")}">
+        <div class="floating-right open-image" data-image-urls="${imageURLs.join(" ")}">
             ${imageURLs.length > 1 ? `<span>+${imageURLs.length - 1}</span>` : ''}
             <img class="embed" src="${imageURLs[0]}" alt="${imageURLs[0]}">
-        </p>
+        </div>
             ` + `<p>${str}</p>` +
-        `<p class="small-screen open-image" data-image-urls="${imageURLs.join(" ")}">
+        `<div class="small-screen open-image" data-image-urls="${imageURLs.join(" ")}">
             ${imageURLs.length > 1 ? `<span>+${imageURLs.length - 1}</span>` : ''}
             <img class="embed" src="${imageURLs[0]}" alt="${imageURLs[0]}">
-        </p>`
+        </div>`
     }
     return str
 }

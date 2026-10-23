@@ -620,7 +620,8 @@ main > * {
 .status .floating-right img {
     -webkit-user-drag: none;
     margin: 0 0 0 15px;
-    width: 200px;
+    max-width: 330px;
+    max-height: 330px;
 }
 
 .status .small-screen {
@@ -633,15 +634,14 @@ main > * {
 
 .status .floating-right span,
 .status .small-screen span {
-    background-color: rgba(0, 0, 0, .5);
-    backdrop-filter: blur(3px);
+    background-color: rgba(0, 0, 0, .8);
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 2rem;
     position: absolute;
     right: 0;
-    width: 40%;
+    width: 30%;
     height: 100%;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -720,6 +720,7 @@ body.screen .flex-links a:active {
 }
 .open-image:hover {
     cursor: pointer;
+    filter: brightness(1.05);
 }
 
 #fullscreen-images-override {

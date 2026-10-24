@@ -601,7 +601,7 @@ main > * {
 
 .open-image:hover {
     cursor: pointer;
-    filter: brightness(1.03);
+    /* filter: brightness(1.03); */
 }
 
 .flex-links {

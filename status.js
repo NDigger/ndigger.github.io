@@ -269,7 +269,12 @@ const replaceContentURLs = str => {
         }
     }
     if (imageURLs.length > 0 && str.trim().length === 0) {
-        str += `<img class="embed open-image" data-image-urls="${imageURLs.join(" ")}" src="${imageURLs[0]}" alt="${imageURLs[0]}">`;
+        str = `
+            <div class="open-image" data-image-urls="${imageURLs.join(" ")}">
+                <img class="embed open-image" data-image-urls="${imageURLs.join(" ")}" src="${imageURLs[0]}" alt="${imageURLs[0]}">
+                ${imageURLs.length > 1 ? `<span>+${imageURLs.length - 1}</span>` : ''}
+            </div>
+            `;
     } else if (imageURLs.length > 0) {
         str = `
         <div class="floating-right open-image" data-image-urls="${imageURLs.join(" ")}">

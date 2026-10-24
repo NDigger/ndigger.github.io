@@ -269,7 +269,7 @@ main > header h2 {
 
 main > header .background {
     position: absolute;
-    height: var(--svh100);
+    height: 100vh;
     border-bottom: 5px solid var(--font-color);
     opacity: .5;
     width: 100vw;
@@ -278,66 +278,6 @@ main > header .background {
 
 main > * {
     pointer-events: initial;
-}
-
-
-#music-btn, #sound-btn, #night-mode-btn {
-    transition: all .1s ease;
-    opacity: .9;
-}
-
-#music-btn, #sound-btn {
-    position: relative;
-}
-
-#music-btn.disabled::before, #sound-btn.disabled::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    height: calc(.5rem / 3);
-    transform: translateY(-50%) translateX(-50%) rotate(45deg);
-    border-radius: 10px;
-    background: var(--gray-color);
-    transition: all .2s ease-in-out;
-}
-
-.desktop #music-btn.disabled:hover::before,
-.screen #music-btn.disabled:active::before, 
-.desktop #sound-btn.disabled:hover::before,
-.screen #sound-btn.disabled:active::before {
-    transform: translateY(-50%) translateX(-50%) rotate(30deg);
-}
-
-#music-btn i, #sound-btn i, #night-mode-btn i {
-    color: var(--gray-color)
-}
-
-.desktop #night-mode-btn:hover,
-.screen #night-mode-btn:active, 
-.desktop #music-btn:hover,
-.screen #music-btn:active, 
-.desktop #sound-btn:hover,
-.screen #sound-btn:active {
-    opacity: 1;
-}
-
-.btn-animation {
-    display: inline-block;
-    animation: btn-anim 0.3s ease-out forwards;
-}
-
-@keyframes btn-anim {
-    0% {
-        rotate: 50deg;
-        scale: 0;
-    }
-    100% {
-        top: 0px;
-        scale: 1;
-        rotate: 0deg;
-    }
 }
 
 #cursor-glow {
@@ -349,7 +289,7 @@ main > * {
     z-index: 2;
     transform-origin: calc(-1 * var(--center-offset));
     transform: translateX(var(--center-offset), 50%) scaleX(.5) ;
-    background: radial-gradient(rgba(255, 255, 255, .008), transparent 50%);
+    background: radial-gradient(rgba(255, 185, 0, .015), transparent 50%);
     animation: cursor-glow-anim 10s linear infinite;
     pointer-events: none;
     user-select: none;
@@ -591,14 +531,14 @@ main > * {
     --m: 10px;
     margin-top: var(--m);
     margin-bottom: var(--m);
-    border-radius: var(--window-border-radius);
+    /* border-radius: var(--window-border-radius); */
 }
 
 .status .status-content img {
     height: auto;
     width: auto;
     -webkit-user-drag: none;
-    max-height: min(400px, calc(var(--svh100) - 100px));
+    max-height: min(400px, calc(100vh - 100px));
 }
 
 .status .floating-right,
@@ -649,38 +589,19 @@ main > * {
 
 .status .status-content iframe {
     width: min(100%, 1920px);
-    height: min(52vw, 1080px, calc(var(--svh100) - 100px));
+    height: min(52vw, 1080px, calc(100vh - 100px));
 }
 
-@media (max-width: 932px) {
-    #leaves-img {
-        display: none;
-    }
+.open-image {
+    max-height: 400px;
+    max-width: 100%;
+    width: fit-content;
+    border-radius: 10px;
+}
 
-    .floating-right {
-        display: none;
-    }
-    .status {
-        padding: 2px 13px;
-    }
-
-    .flex-links {
-        gap: 0px;
-    }
-
-    .flex-links a p {
-        display: none;
-    }
-
-    main > header .lamp {
-        max-width: 275px; 
-        top: -170px;
-    }
-
-    #statuses {
-        padding-bottom: 20px;
-        padding-top: 20px;
-    }
+.open-image:hover {
+    cursor: pointer;
+    filter: brightness(1.03);
 }
 
 .flex-links {
@@ -717,10 +638,6 @@ main > * {
 body.desktop .flex-links a:hover,
 body.screen .flex-links a:active {
     top: 0px;
-}
-.open-image:hover {
-    cursor: pointer;
-    filter: brightness(1.05);
 }
 
 #fullscreen-images-override {
@@ -792,13 +709,13 @@ body.screen .flex-links a:active {
 }
 
 #fullscreen-images-override .bottom-images :first-child {
-    border-bottom-left-radius: 10px;
-    border-top-left-radius: 10px;
+    /* border-bottom-left-radius: 10px; */
+    /* border-top-left-radius: 10px; */
 }
 
 #fullscreen-images-override .bottom-images :last-child {
-    border-bottom-right-radius: 10px;
-    border-top-right-radius: 10px;
+    /* border-bottom-right-radius: 10px; */
+    /* border-top-right-radius: 10px; */
 }
 
 #fullscreen-images-override .buttons {
@@ -833,7 +750,7 @@ body.screen .flex-links a:active {
 }
 
 #fullscreen-images-override .image-container img {
-    border-radius: 10px;
+    /* border-radius: 10px; */
     animation: image-animation .2s ease-out;
     max-width: 90%;
     max-height: 90%;
@@ -915,29 +832,51 @@ body.screen #fullscreen-images-override .buttons button:active {
     }
 }
 
-@media (max-width: 736px) {
-    .status .small-screen {
-        display: block;
-        max-height: 400px;
-        max-width: 100%;
-        width: fit-content;
+@media (max-width: 932px) {
+    #leaves-img {
+        display: none;
     }
 
-    .status .small-screen img {
+    .floating-right {
+        display: none;
+    }
+
+    .status .small-screen {
+        display: block;
+    }
+
+    .status .open-image img {
         max-width: 100%;
         max-height: calc(400px - 10px);
         width: auto;
     }
 
-    #links {
-        padding-bottom: 3rem;
+    .status {
+        padding: 2px 13px;
     }
 
-    .config-buttons {
-        bottom: 0px;
-        transform: translateX(-50%);
-        width: calc(100%);
-        border-radius: 0px;
+    .flex-links {
+        gap: 0px;
+    }
+
+    .flex-links a p {
+        display: none;
+    }
+
+    main > header .lamp {
+        max-width: 275px; 
+        top: -170px;
+    }
+
+    #statuses {
+        padding-bottom: 20px;
+        padding-top: 20px;
+    }
+}
+
+@media (max-width: 736px) {
+    #links {
+        padding-bottom: 3rem;
     }
 
     .config-buttons > * {
@@ -985,13 +924,12 @@ body.screen #fullscreen-images-override .buttons button:active {
     .top-right {
         flex-direction: row;
     }
+    main > header .lamp {
+        display: none;
+    }
 }
 
 @media (max-width: 500px) and (max-height: 450px) {
-    html {
-        font-size: 0.7rem;
-    }
-
     .ui-btn {
         width: 40px;
         height: 40px;
